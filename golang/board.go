@@ -39,23 +39,19 @@ func (b *Board) Play(from int, to int) (*Board, error) {
 		return b, errors.New("to or from out of range")
 	}
 
-	var err error
-	var fromStack *stack
-	fromStack, err = getFrom(b, from)
+	fromStack, err := getFrom(b, from)
 
 	if err != nil {
 		return b, err
 	}
 
-	var toStack *stack
-	toStack, err = getTo(b, to)
+	toStack, err := getTo(b, to)
 
 	if err != nil {
 		return b, err
 	}
 
-	var brick Brick
-	brick, err = fromStack.pop()
+	brick, err := fromStack.pop()
 
 	if err != nil {
 		return b, err
