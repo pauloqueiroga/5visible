@@ -1,4 +1,5 @@
 # 5-Visible
+![build-test](https://github.com/pauloqueiroga/5visible/actions/workflows/build-test.yml/badge.svg)
 
 ## Rules of the game
 * 2 players (`0` and `1`)
