@@ -1,6 +1,6 @@
 # Tikitala
 
-Tikitala is a simple and fun table game that require strategic thinking and good memory.
+Tikitala is a simple and fun table game that requires strategic thinking and good memory.
 
 ## The rules are simple
 * There are **2 players** (`0` and `1`) who take turns making one move per turn
