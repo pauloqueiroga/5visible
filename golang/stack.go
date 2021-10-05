@@ -20,6 +20,10 @@ type stack struct {
 	blocked bool
 }
 
+func (s *stack) Count() int {
+	return len(s.bricks)
+}
+
 // newStack allocates a new stack and initializes it with the correct
 // capacity
 func newStack(cap int) *stack {

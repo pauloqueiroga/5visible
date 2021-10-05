@@ -7,20 +7,20 @@ import (
 func TestNewBoardReturnsValidBoard(t *testing.T) {
 	target := NewBoard(Brick0)
 
-	if target.nextTurn != Brick0 {
-		t.Errorf("Expected Brick0, found %d instead", target.nextTurn)
+	if target.NextTurn != Brick0 {
+		t.Errorf("Expected Brick0, found %d instead", target.NextTurn)
 	}
 
-	if target.winner != NotABrick {
-		t.Errorf("Expected no winner, found %d instead", target.winner)
+	if target.Winner != NotABrick {
+		t.Errorf("Expected no winner, found %d instead", target.Winner)
 	}
 
-	if len(target.stash[Brick0].bricks) != 8 {
-		t.Errorf("Expected 8 bricks in the stack, found %d instead", len(target.stash[Brick0].bricks))
+	if len(target.Stash[Brick0].bricks) != 8 {
+		t.Errorf("Expected 8 bricks in the stack, found %d instead", len(target.Stash[Brick0].bricks))
 	}
 
-	if len(target.stash[Brick1].bricks) != 8 {
-		t.Errorf("Expected 8 bricks in the stack, found %d instead", len(target.stash[Brick1].bricks))
+	if len(target.Stash[Brick1].bricks) != 8 {
+		t.Errorf("Expected 8 bricks in the stack, found %d instead", len(target.Stash[Brick1].bricks))
 	}
 }
 
@@ -36,7 +36,7 @@ func TestValidSequenceOfPlays001(t *testing.T) {
 	target.Play(9, 7) // Brick1
 	target.Play(9, 8) // Brick0
 
-	if target.winner != Brick0 {
+	if target.Winner != Brick0 {
 		t.Error()
 	}
 }
@@ -53,7 +53,7 @@ func TestValidSequenceOfPlays002(t *testing.T) {
 	target.Play(9, 7) // Brick0
 	target.Play(9, 8) // Brick1
 
-	if target.winner != Brick1 {
+	if target.Winner != Brick1 {
 		t.Error()
 	}
 }
@@ -70,7 +70,7 @@ func TestValidSequenceOfPlays003(t *testing.T) {
 	target.Play(9, 7) // Brick0
 	target.Play(9, 8) // Brick1
 
-	if target.winner != Brick1 {
+	if target.Winner != Brick1 {
 		t.Error()
 	}
 }
@@ -134,7 +134,7 @@ func TestPlayShouldNotAllowToMoveWhenBoardHasWinner(t *testing.T) {
 	target.Play(9, 7) // Brick0
 	target.Play(9, 8) // Brick1
 
-	if target.winner != Brick1 {
+	if target.Winner != Brick1 {
 		t.Error()
 	}
 
