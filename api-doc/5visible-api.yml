@@ -1,0 +1,179 @@
+openapi: '3.0.2'
+info:
+  title: 5-visible API
+  version: '0.1'
+  description: API for the backend of 5-visible game. See website below for more information.
+  contact:
+    url: https://github.com/pauloqueiroga/5visible
+    name: 5-visible open source project in Github
+servers:
+  - url: https://5visible.com/api
+paths:
+  /games:
+    get:
+      tags:
+        - "Game"
+      description: Gets the visible state of the board for a new game.
+      parameters:
+        - in: query
+          name: first-turn
+          allowEmptyValue: false
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 1
+          description: 0 or 1 to indicate which player will play first.
+        - $ref: "#/components/parameters/api-version-param"
+      responses:
+        '200':
+          description: OK. Returns the visible state of the board.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/board-view"
+        '400':
+          $ref: "#/components/responses/400-bad-request"
+    patch:
+      tags:
+        - "Game"
+      description: Applies a move to a given board and returns the resulting visible state of the board.
+      parameters:
+        - in: query
+          name: from-stack
+          required: true
+          schema:
+            type: integer
+          description: The origin stack id as defined by the client, or the number 9 to represent the user's drawing stack.
+        - in: query
+          name: to-stack
+          required: true
+          schema:
+            type: integer
+          description: The destination stack id as defined by the client. Cannot be the reserved id 9.
+        - $ref: "#/components/parameters/api-version-param"
+      requestBody:
+        required: true
+        description: A board-view object containing hashcode, next-player as well as id and hashtag of populated stacks. Every other property will be ignored.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/board-view"
+      responses:
+        '200':
+          description: OK. Returns the visible state of the board.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/board-view"
+        '400':
+          $ref: "#/components/responses/400-bad-request"
+  /stats:
+    post:
+      tags:
+        - "Statistics"
+      description: Updates the eventual-winning statistics for each of the moves listed.
+      parameters:
+        - $ref: "#/components/parameters/api-version-param"
+      requestBody:
+        required: true
+        description: All of the hashcodes for board states and moves in this game, as well as the winning player.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/winning-stats"
+      responses:
+        '204':
+          description: No content.
+        '400':
+          $ref: "#/components/responses/400-bad-request"
+components:
+  responses:
+    400-bad-request:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error-response"
+  parameters:
+    api-version-param:
+      in: query
+      name: api-version
+      required: false
+      schema:
+        type: string
+  schemas:
+    board-view:
+      description: The visible state of the board.
+      properties:
+        hashcode:
+          type: integer
+        next-player:
+          $ref: "#/components/schemas/brick-view"
+          description: Represents which player has the next turn.
+        winner:
+          $ref: "#/components/schemas/brick-view"
+          description: Represents which player has won the game at this point.
+        bricks0:
+          $ref: "#/components/schemas/drawing-stack"
+        bricks1:
+          $ref: "#/components/schemas/drawing-stack"
+        last-move-hashcode:
+          type: integer
+        stacks:
+          type: array
+          items:
+            $ref: "#/components/schemas/stack-view"
+          description: Populated stacks in the board. Stacks with 0 bricks are not represented.
+      required:
+        - hashcode
+        - next-player
+        - stacks
+    stack-view:
+      properties:
+        id:
+          type: integer
+          description: The stack ID is typically defined by the client and cannot be 9, as 9 is a reserved ID that represents the drawing stack.
+        hashcode:
+          type: integer
+          description: The stack hashcode is defined by the service.
+        count:
+          type: integer
+          description: The number of bricks in this stack.
+        top:
+          $ref: "#/components/schemas/brick-view"
+        canProvide:
+          type: boolean
+          default: true
+          description: Determines if this stack can be used as an origin for a move.
+      required:
+        - id
+        - hashcode
+    brick-view:
+      type: integer
+      minimum: 0
+      maximum: 2
+      description: 0 or 1 for each player, or 2 to represent no one.
+    drawing-stack:
+      type: integer
+      minimum: 0
+      maximum: 8
+      description: The number of bricks available from the drawing stack.
+    winning-stats:
+      properties:
+        winner: 
+          $ref: "#/components/schemas/brick-view"
+        plays:
+          type: array
+          items:
+            properties:
+              board-hashcode: 
+                type: integer
+              move-hashcode:
+                type: integer
+    error-response:
+      properties:
+        error-code: 
+          type: integer
+        message:
+          type: string
