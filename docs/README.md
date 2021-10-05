@@ -6,6 +6,10 @@
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=pauloqueiroga_5visible&metric=code_smells)](https://sonarcloud.io/dashboard?id=pauloqueiroga_5visible)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=pauloqueiroga_5visible&metric=coverage)](https://sonarcloud.io/dashboard?id=pauloqueiroga_5visible)
 
+## Links
+- [API Doc](https://www.tikitala.com/api-doc/)  
+- [www.tikitala.com](https://www.tikitala.com)
+
 ## Rules of the game
 * 2 players (`0` and `1`)
 * 8 bricks per player
