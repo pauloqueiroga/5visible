@@ -4,7 +4,10 @@ game engine.
 */
 package fivevisible
 
-import "errors"
+import (
+	"errors"
+	"sort"
+)
 
 // Board represents the state of a 5-visible board.
 type Board struct {
@@ -78,9 +81,30 @@ func (b *Board) Play(from int, to int) (*Board, error) {
 	return b, nil
 }
 
+// Hashcode calculates and returns the hashcode for the given board.
 func (b *Board) Hashcode() int64 {
+	stackHashes := make([]int, 0)
+
+	for _, stack := range b.Stacks {
+		stackHashes = append(stackHashes, stack.hashcode())
+	}
+
+	sort.Ints(stackHashes)
+	var hash int64
+
+	for _, sHash := range stackHashes {
+		hash = hash << 8
+		hash += int64(sHash)
+	}
+
+	return hash
+}
+
+// BoardFromHashcode creates a Board instance that is represented by
+// the given hashcode.
+func BoardFromHashcode(hashcode int64) *Board {
 	// TODO: Missing implementation!!!
-	return 0
+	return nil
 }
 
 // getFrom gets the stack from the board based on its id. It

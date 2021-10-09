@@ -76,3 +76,9 @@ func (s *stack) pop() (Brick, error) {
 	s.bricks = s.bricks[:n]
 	return popped, nil
 }
+
+// hashcode calculates and returns the hashcode for a given stack.
+func (s *stack) hashcode() int {
+	// TODO: Not implemented!!!
+	return 0
+}

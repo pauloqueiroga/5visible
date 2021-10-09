@@ -144,3 +144,12 @@ func TestPlayShouldNotAllowToMoveWhenBoardHasWinner(t *testing.T) {
 		t.Fatal()
 	}
 }
+
+func TestBoardHashcodeWithNoStacks(t *testing.T) {
+	target := NewBoard(Brick0)
+	hash := target.Hashcode()
+
+	if hash != 0 {
+		t.Fatal()
+	}
+}
