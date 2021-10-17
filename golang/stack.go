@@ -32,7 +32,7 @@ func (s *stack) canPop() bool {
 	return !s.blocked && len(s.bricks) > 0
 }
 
-// canPush returns if the stack stil has capacity available for one more brick.
+// canPush returns if the stack still has capacity available for one more brick.
 func (s *stack) canPush() bool {
 	return s.cap > len(s.bricks)
 }
