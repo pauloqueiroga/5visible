@@ -7,11 +7,14 @@ import (
 	game "pauloq.com/fivevisible"
 )
 
+// errorResponse provides a standard error message body for all
+// REST responses.
 type errorResponse struct {
 	Code    int    `json:"error-code"`
 	Message string `json:"message"`
 }
 
+// boardSnapshot provides the "visible" state of the board.
 type boardSnapshot struct {
 	Hashcode         int64 `json:"hashcode" binding:"required"`
 	NextPlayer       int   `json:"next-player" binding:"required"`
