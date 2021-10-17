@@ -42,8 +42,9 @@ func NewBoard(firstTurn Brick) *Board {
 }
 
 // Play executes one move on the Board, from one stack or
-// stash to a destination stack. It returns the Board and
-// any errors encountered.
+// stash to a destination stack. "from" can be 0-9 with 9
+// representing the next player's stash. "to" can be 0-8.
+// It returns the Board and any errors encountered.
 func (b *Board) Play(from int, to int) (*Board, error) {
 	if b.Winner != NotABrick {
 		return b, errors.New("no more turns, board has a winner")

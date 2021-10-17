@@ -153,3 +153,41 @@ func TestBoardHashcodeWithNoStacks(t *testing.T) {
 		t.Fatal()
 	}
 }
+
+func TestBoardHashcodesFromSpecExamples(t *testing.T) {
+	target := NewBoard(Brick0)
+	target.Play(9, 3)
+	hash := target.Hashcode()
+
+	if hash != 1 {
+		t.Errorf("Expected 1, found %d", hash)
+	}
+
+	target.Play(9, 5)
+	hash = target.Hashcode()
+
+	if hash != 1313 {
+		t.Errorf("Expected 1313, found %d", hash)
+	}
+
+	target.Play(9, 1)
+	hash = target.Hashcode()
+
+	if hash != 74021 {
+		t.Errorf("Expected 74021, found %d", hash)
+	}
+
+	target.Play(9, 5)
+	hash = target.Hashcode()
+
+	if hash != 925985 {
+		t.Errorf("Expected 925985, found %d", hash)
+	}
+
+	target.Play(9, 5)
+	hash = target.Hashcode()
+
+	if hash != 1777953 {
+		t.Errorf("Expected 1777953, found %d", hash)
+	}
+}
