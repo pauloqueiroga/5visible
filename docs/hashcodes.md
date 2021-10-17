@@ -24,7 +24,7 @@ Although it would be possible to decode a hashcode to a state, this operation mi
 | 1 0x01 |`00`|`0`|`000`|`01`|
 | (`00000001`)| - | Stack cannot be drawn from | Top-to-bottom: [`0`, `_`, `_`] | `0b01` = 1 brick in this stack |
 | 27 0x1B)|`00`|`0`|`110`|`11`|
-|  (`00011011`| - | Stack cannot be drawn from | Top-to-bottom: [`0`, `1`, `1`] | `0b11` = 3 bricks in this stack |
+|  (`00011011`)| - | Stack cannot be drawn from | Top-to-bottom: [`0`, `1`, `1`] | `0b11` = 3 bricks in this stack |
 | 42 0x2A |`00`|`1`|`010`|`10`|
 | (`00101010`)| - | Stack can be drawn from | Top-to-bottom: [`0`, `1`, `_`] | `0b10` = 2 bricks in this stack |
 | 63 0x3F |`00`|`1`|`111`|`11`|
@@ -40,8 +40,11 @@ In order to make easier to identify equivalent states of the board, the hashcode
 
 | Hashcode | Stack 1| Stack 2 | Stack 3 | Stack 4 | Stack 5| Stack 6|Stack 7 |Stack 8 |
 |--:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|63 0x000000000000003F|0x3F | - | - | - | - | - | - | - |
-|319 0x000000000000013F|0x3F | 0x01 | - | - | - | - | - | - |
+|1 0x01|0x01|-|-|-|-|-|-|-|
+|1313 0x0521|0x21|0x05|-|-|-|-|-|-|
+|74021 0x012125|0x25|0x21|0x01|-|-|-|-|-|
+|925985 0x0E2121|0x21|0x21|0x0E|-|-|-|-|-|
+|1777953 0x1B2121|0x21|0x21|0x1B|-|-|-|-|-|
 |4531 0x0000000000011B3F|0x3F | 0x1B | 0x01 | - | - | - | - | - |
 |3038287259131848223 0x2A2A2A2A2626261F|0x1F|0x26|0x26|0x26|0x2A|0x2A|0x2A|0x2A|
 

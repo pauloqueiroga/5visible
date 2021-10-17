@@ -20,6 +20,39 @@ func TestNewStackCreatesStackFor9(t *testing.T) {
 	}
 }
 
+func TestCountOnEmptyStackReturnsZero(t *testing.T) {
+	target := newStack(3)
+	count := target.Count()
+
+	if count != 0 {
+		t.Errorf("Expected to find 0 bricks, instead found %d", count)
+	}
+}
+
+func TestCountOnPopulatedStacksReturnsCorrectAmounts(t *testing.T) {
+	target := newStack(3)
+	target.push(Brick0)
+	count := target.Count()
+
+	if count != 1 {
+		t.Errorf("Expected to find 1 brick, instead found %d", count)
+	}
+
+	target.push(Brick0)
+	count = target.Count()
+
+	if count != 2 {
+		t.Errorf("Expected to find 2 bricks, instead found %d", count)
+	}
+
+	target.push(Brick0)
+	count = target.Count()
+
+	if count != 3 {
+		t.Errorf("Expected to find 3 bricks, instead found %d", count)
+	}
+}
+
 func TestPushCantGoOverCapacity(t *testing.T) {
 	target := newStack(3)
 
@@ -162,5 +195,90 @@ func TestPushPeekPopSequence(t *testing.T) {
 
 	if top, e := target.pop(); e != nil || top != Brick0 {
 		t.Error("Second pop failed")
+	}
+}
+
+func TestStackXRayForEmptyStack(t *testing.T) {
+	target := newStack(3)
+	xRay := target.xRay()
+
+	if xRay != 0b000 {
+		t.Errorf("Expected to find 0, found %b instead", xRay)
+	}
+}
+
+func TestStackXRayForMultipleStacks(t *testing.T) {
+	target := newStack(3)
+	target.push(Brick1)
+	xRay := target.xRay()
+
+	if xRay != 0b001 {
+		t.Errorf("Expected to find 1, found %b instead", xRay)
+	}
+
+	target.push(Brick1)
+	xRay = target.xRay()
+
+	if xRay != 0b011 {
+		t.Errorf("Expected to find 11, found %b instead", xRay)
+	}
+
+	target.push(Brick0)
+	xRay = target.xRay()
+
+	if xRay != 0b110 {
+		t.Errorf("Expected to find 110, found %b instead", xRay)
+	}
+}
+
+func TestStachHashcodesFromSpecExamples(t *testing.T) {
+	// (00000000) - Stack cannot be drawn from Top-to-bottom: [_, _, _]	0b00 = 0 bricks in this stack
+	target := newStack(3)
+	hash := target.hashcode()
+
+	if hash != 0 {
+		t.Errorf("Expected to find hashcode 0, found %b instead", hash)
+	}
+
+	// (00000001)	-	Stack cannot be drawn from	Top-to-bottom: [0, _, _]	0b01 = 1 brick in this stack
+	target.push(Brick0)
+	hash = target.hashcode()
+
+	if hash != 1 {
+		t.Errorf("Expected to find hashcode 1, found %b instead", hash)
+	}
+
+	// (00011011)	-	Stack cannot be drawn from	Top-to-bottom: [0, 1, 1]	0b11 = 3 bricks in this stack
+	target = newStack(3)
+	target.push(Brick1)
+	target.push(Brick1)
+	target.push(Brick0)
+	hash = target.hashcode()
+
+	if hash != 0b11011 {
+		t.Errorf("Expected to find hashcode 11011, found %b instead", hash)
+	}
+
+	// (00101010)	-	Stack can be drawn from	Top-to-bottom: [0, 1, _]	0b10 = 2 bricks in this stack
+	target = newStack(3)
+	target.push(Brick1)
+	target.push(Brick0)
+	target.blocked = false
+	hash = target.hashcode()
+
+	if hash != 0b101010 {
+		t.Errorf("Expected to find hashcode 101010, found %b instead", hash)
+	}
+
+	// (00111111)	-	Stack can be drawn from	Top-to-bottom: [1, 1, 1]	0b11 = 3 bricks in this stack
+	target = newStack(3)
+	target.push(Brick1)
+	target.push(Brick1)
+	target.push(Brick1)
+	target.blocked = false
+	hash = target.hashcode()
+
+	if hash != 0b111111 {
+		t.Errorf("Expected to find hashcode 111111, found %b instead", hash)
 	}
 }
