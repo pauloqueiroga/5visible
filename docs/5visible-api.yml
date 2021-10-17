@@ -142,7 +142,7 @@ components:
           description: The number of bricks in this stack.
         top:
           $ref: "#/components/schemas/brick-view"
-        canProvide:
+        can-provide:
           type: boolean
           default: true
           description: Determines if this stack can be used as an origin for a move.
