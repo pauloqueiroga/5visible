@@ -92,7 +92,7 @@ func TestPeekReturnsCorrectBrickAfterPushing(t *testing.T) {
 		t.Error("Failed to push first brick")
 	}
 
-	if top, e := target.peek(); e != nil || top != Brick0 {
+	if top := target.Peek(); top != Brick0 {
 		t.Error("First peek failed")
 	}
 
@@ -102,22 +102,18 @@ func TestPeekReturnsCorrectBrickAfterPushing(t *testing.T) {
 		t.Error("Failed to push second brick")
 	}
 
-	if top, e := target.peek(); e != nil || top != Brick1 {
+	if top := target.Peek(); top != Brick1 {
 		t.Error("Second peek failed")
 	}
 
-	if top, e := target.peek(); e != nil || top != Brick1 {
+	if top := target.Peek(); top != Brick1 {
 		t.Error("Third peek failed")
 	}
 }
 
 func TestPeekReturnsErrorOnEmptyStack(t *testing.T) {
 	target := newStack(3)
-	top, err := target.peek()
-
-	if err == nil {
-		t.Error("Should have returned an error")
-	}
+	top := target.Peek()
 
 	if top != NotABrick {
 		t.Error("Should have returned NotABrick")
@@ -169,7 +165,7 @@ func TestPushPeekPopSequence(t *testing.T) {
 		t.Error("Failed to push first brick")
 	}
 
-	if top, e := target.peek(); e != nil || top != Brick0 {
+	if top := target.Peek(); top != Brick0 {
 		t.Error("First peek failed")
 	}
 
@@ -179,7 +175,7 @@ func TestPushPeekPopSequence(t *testing.T) {
 		t.Error("Failed to push second brick")
 	}
 
-	if top, e := target.peek(); e != nil || top != Brick1 {
+	if top := target.Peek(); top != Brick1 {
 		t.Error("Second peek failed")
 	}
 
@@ -234,7 +230,7 @@ func TestStackXRayForMultipleStacks(t *testing.T) {
 func TestStachHashcodesFromSpecExamples(t *testing.T) {
 	// (00000000) - Stack cannot be drawn from Top-to-bottom: [_, _, _]	0b00 = 0 bricks in this stack
 	target := newStack(3)
-	hash := target.hashcode()
+	hash := target.Hashcode()
 
 	if hash != 0 {
 		t.Errorf("Expected to find hashcode 0, found %b instead", hash)
@@ -242,7 +238,7 @@ func TestStachHashcodesFromSpecExamples(t *testing.T) {
 
 	// (00000001)	-	Stack cannot be drawn from	Top-to-bottom: [0, _, _]	0b01 = 1 brick in this stack
 	target.push(Brick0)
-	hash = target.hashcode()
+	hash = target.Hashcode()
 
 	if hash != 1 {
 		t.Errorf("Expected to find hashcode 1, found %b instead", hash)
@@ -253,7 +249,7 @@ func TestStachHashcodesFromSpecExamples(t *testing.T) {
 	target.push(Brick1)
 	target.push(Brick1)
 	target.push(Brick0)
-	hash = target.hashcode()
+	hash = target.Hashcode()
 
 	if hash != 0b11011 {
 		t.Errorf("Expected to find hashcode 11011, found %b instead", hash)
@@ -264,7 +260,7 @@ func TestStachHashcodesFromSpecExamples(t *testing.T) {
 	target.push(Brick1)
 	target.push(Brick0)
 	target.blocked = false
-	hash = target.hashcode()
+	hash = target.Hashcode()
 
 	if hash != 0b101010 {
 		t.Errorf("Expected to find hashcode 101010, found %b instead", hash)
@@ -276,7 +272,7 @@ func TestStachHashcodesFromSpecExamples(t *testing.T) {
 	target.push(Brick1)
 	target.push(Brick1)
 	target.blocked = false
-	hash = target.hashcode()
+	hash = target.Hashcode()
 
 	if hash != 0b111111 {
 		t.Errorf("Expected to find hashcode 111111, found %b instead", hash)

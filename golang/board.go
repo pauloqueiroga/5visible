@@ -11,8 +11,8 @@ import (
 
 // Board represents the state of a 5-visible board.
 type Board struct {
-	Stash    map[Brick]*stack
-	Stacks   map[int]*stack
+	Stash    map[Brick]*Stack
+	Stacks   map[int]*Stack
 	Winner   Brick
 	NextTurn Brick
 }
@@ -22,8 +22,8 @@ type Board struct {
 // to the newly allocated and initialized Board.
 func NewBoard(firstTurn Brick) *Board {
 	b := Board{
-		Stash:    make(map[Brick]*stack),
-		Stacks:   make(map[int]*stack),
+		Stash:    make(map[Brick]*Stack),
+		Stacks:   make(map[int]*Stack),
 		NextTurn: firstTurn,
 	}
 
@@ -45,41 +45,44 @@ func NewBoard(firstTurn Brick) *Board {
 // stash to a destination stack. "from" can be 0-9 with 9
 // representing the next player's stash. "to" can be 0-8.
 // It returns the Board and any errors encountered.
-func (b *Board) Play(from int, to int) (*Board, error) {
+func (b *Board) Play(from int, to int) (int16, error) {
 	if b.Winner != NotABrick {
-		return b, errors.New("no more turns, board has a winner")
+		return -1, errors.New("no more turns, board has a winner")
 	}
 
 	if from < 0 || from > 9 || to < 0 || to > 8 {
-		return b, errors.New("to or from out of range")
+		return -1, errors.New("to or from out of range")
 	}
 
 	fromStack, err := getFrom(b, from)
 
 	if err != nil {
-		return b, err
+		return -1, err
 	}
 
+	var moveHash int16
+	moveHash = int16(fromStack.Hashcode()) << 8
 	toStack, err := getTo(b, to)
 
 	if err != nil {
-		return b, err
+		return -1, err
 	}
 
+	moveHash += int16(toStack.Hashcode())
 	brick, err := fromStack.pop()
 
 	if err != nil {
-		return b, err
+		return -1, err
 	}
 
 	_, err = toStack.push(brick)
 
 	if err != nil {
-		return b, err
+		return -1, err
 	}
 
 	b.prepNextTurn(to)
-	return b, nil
+	return moveHash, nil
 }
 
 // Hashcode calculates and returns the hashcode for the given board.
@@ -87,7 +90,7 @@ func (b *Board) Hashcode() int64 {
 	stackHashes := make([]int, 0)
 
 	for _, stack := range b.Stacks {
-		stackHashes = append(stackHashes, stack.hashcode())
+		stackHashes = append(stackHashes, int(stack.Hashcode()))
 	}
 
 	sort.Ints(stackHashes)
@@ -111,8 +114,8 @@ func BoardFromHashcode(hashcode int64) *Board {
 // getFrom gets the stack from the board based on its id. It
 // returns a pointer to the stack and any error encountered
 // in the process of "translating" from id to stack.
-func getFrom(b *Board, from int) (*stack, error) {
-	var f *stack
+func getFrom(b *Board, from int) (*Stack, error) {
+	var f *Stack
 	var err error
 
 	if from == 9 {
@@ -135,8 +138,8 @@ func getFrom(b *Board, from int) (*stack, error) {
 // getTo gets the stack from the board based on its id. It
 // returns a pointer to the stack and any error encountered
 // in the process of looking for the stack with that id.
-func getTo(b *Board, to int) (*stack, error) {
-	var t *stack
+func getTo(b *Board, to int) (*Stack, error) {
+	var t *Stack
 	var ok bool
 
 	if t, ok = b.Stacks[to]; !ok {
@@ -167,7 +170,7 @@ func (b *Board) prepNextTurn(to int) {
 			s.blocked = false
 		}
 
-		top, _ := s.peek()
+		top := s.Peek()
 
 		switch top {
 		case Brick0:

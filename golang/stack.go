@@ -13,37 +13,37 @@ const (
 	Brick1
 )
 
-// stack represents the state of each stack on the board of 5-visible.
-type stack struct {
+// Stack represents the state of each Stack on the board of 5-visible.
+type Stack struct {
 	bricks  []Brick
 	cap     int
 	blocked bool
 }
 
 // Count returns the number of bricks currently in the stack.
-func (s *stack) Count() int {
+func (s *Stack) Count() int {
 	return len(s.bricks)
 }
 
 // newStack allocates a new stack and initializes it with the correct
 // capacity.
-func newStack(cap int) *stack {
-	s := stack{bricks: make([]Brick, 0), cap: cap}
+func newStack(cap int) *Stack {
+	s := Stack{bricks: make([]Brick, 0), cap: cap}
 	return &s
 }
 
 // canPop returns if the stack can be used as a "source" of bricks.
-func (s *stack) canPop() bool {
+func (s *Stack) canPop() bool {
 	return !s.blocked && len(s.bricks) > 0
 }
 
 // canPush returns if the stack still has capacity available for one more brick.
-func (s *stack) canPush() bool {
+func (s *Stack) canPush() bool {
 	return s.cap > len(s.bricks)
 }
 
 // push places a Brick at the top of the stack, and marks the stack as blocked.
-func (s *stack) push(b Brick) (*stack, error) {
+func (s *Stack) push(b Brick) (*Stack, error) {
 	if len(s.bricks) == s.cap {
 		return s, errors.New("can't push, stack is full")
 	}
@@ -57,17 +57,17 @@ func (s *stack) push(b Brick) (*stack, error) {
 	return s, nil
 }
 
-// peek returns the Brick at the top of the stack, without removing it.
-func (s *stack) peek() (Brick, error) {
+// Peek returns the Brick at the top of the stack, without removing it.
+func (s *Stack) Peek() Brick {
 	if len(s.bricks) == 0 {
-		return NotABrick, errors.New("stack is empty")
+		return NotABrick
 	}
 
-	return s.bricks[len(s.bricks)-1], nil
+	return s.bricks[len(s.bricks)-1]
 }
 
 // pop removes tha Brick at the top of the stack and returns it.
-func (s *stack) pop() (Brick, error) {
+func (s *Stack) pop() (Brick, error) {
 	if !s.canPop() {
 		return NotABrick, errors.New("stack is blocked or empty")
 	}
@@ -80,8 +80,8 @@ func (s *stack) pop() (Brick, error) {
 
 // xRay creates an binary-encoded integer that represents all the bricks
 // in a stack with the top of the stack being the least significant bit.
-func (s *stack) xRay() int {
-	encoded := 0
+func (s *Stack) xRay() int8 {
+	var encoded int8 = 0
 
 	for _, b := range s.bricks {
 		encoded <<= 1
@@ -94,18 +94,18 @@ func (s *stack) xRay() int {
 	return encoded
 }
 
-// hashcode calculates and returns the hashcode for a given stack.
-func (s *stack) hashcode() int {
-	const drawableBit = 0b100000
-	const xRayBits = 0b11100
-	const countBits = 0b11
-	hash := 0
+// Hashcode calculates and returns the Hashcode for a given stack.
+func (s *Stack) Hashcode() int8 {
+	const drawableBit int8 = 0b100000
+	const xRayBits int8 = 0b11100
+	const countBits int8 = 0b11
+	var hash int8 = 0
 
 	if s.canPop() {
 		hash += drawableBit
 	}
 
 	hash += (s.xRay() << 2) & xRayBits
-	hash += s.Count() & countBits
+	hash += int8(s.Count()) & countBits
 	return hash
 }

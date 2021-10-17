@@ -75,7 +75,7 @@ func TestValidSequenceOfPlays003(t *testing.T) {
 	}
 }
 
-func TestPlayDoesntAcceptOutOfRangeValues(t *testing.T) {
+func TestPlayDoesnotAcceptOutOfRangeValues(t *testing.T) {
 	target := NewBoard(Brick1)
 	_, err := target.Play(10, 0) // Brick1
 
@@ -156,38 +156,70 @@ func TestBoardHashcodeWithNoStacks(t *testing.T) {
 
 func TestBoardHashcodesFromSpecExamples(t *testing.T) {
 	target := NewBoard(Brick0)
-	target.Play(9, 3)
+	_, err := target.Play(9, 3)
+
+	if err != nil {
+		t.Fatal()
+	}
+
 	hash := target.Hashcode()
 
 	if hash != 1 {
 		t.Errorf("Expected 1, found %d", hash)
 	}
 
-	target.Play(9, 5)
+	_, err = target.Play(9, 5)
+
+	if err != nil {
+		t.Fatal()
+	}
+
 	hash = target.Hashcode()
 
 	if hash != 1313 {
 		t.Errorf("Expected 1313, found %d", hash)
 	}
 
-	target.Play(9, 1)
+	_, err = target.Play(9, 1)
+
+	if err != nil {
+		t.Fatal()
+	}
+
 	hash = target.Hashcode()
 
 	if hash != 74021 {
 		t.Errorf("Expected 74021, found %d", hash)
 	}
 
-	target.Play(9, 5)
+	_, err = target.Play(9, 5)
+
+	if err != nil {
+		t.Fatal()
+	}
+
 	hash = target.Hashcode()
 
 	if hash != 925985 {
 		t.Errorf("Expected 925985, found %d", hash)
 	}
 
-	target.Play(9, 5)
+	_, err = target.Play(9, 5)
+
+	if err != nil {
+		t.Fatal()
+	}
+
 	hash = target.Hashcode()
 
 	if hash != 1777953 {
 		t.Errorf("Expected 1777953, found %d", hash)
 	}
+}
+
+func TestBoardHashcodesThatShouldMatch(t *testing.T) {
+	target1 := NewBoard(Brick0)
+	target2 := NewBoard(Brick0)
+	target1.Play(9, 1)
+	target2.Play(9, 2)
 }
