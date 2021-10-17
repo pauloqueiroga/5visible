@@ -1,6 +1,8 @@
 # 5-Visible
 ![build-test](https://github.com/pauloqueiroga/5visible/actions/workflows/build-test.yml/badge.svg)  
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=pauloqueiroga_5visible&metric=alert_status)](https://sonarcloud.io/dashboard?id=pauloqueiroga_5visible)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=pauloqueiroga_5visible&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=pauloqueiroga_5visible)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=pauloqueiroga_5visible&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=pauloqueiroga_5visible)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=pauloqueiroga_5visible&metric=security_rating)](https://sonarcloud.io/dashboard?id=pauloqueiroga_5visible)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=pauloqueiroga_5visible&metric=alert_status)](https://sonarcloud.io/dashboard?id=pauloqueiroga_5visible)  
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=pauloqueiroga_5visible&metric=bugs)](https://sonarcloud.io/dashboard?id=pauloqueiroga_5visible)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=pauloqueiroga_5visible&metric=code_smells)](https://sonarcloud.io/dashboard?id=pauloqueiroga_5visible)
