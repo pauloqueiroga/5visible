@@ -1,0 +1,197 @@
+<html>
+
+<head>
+    <title>TIKITALA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        .center-responsive {
+            margin: auto;
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .special-text {
+            font-family: 'Bebas Neue';
+            font-weight: bold;
+        }
+
+        h1 {
+
+            padding-top: 20px;
+            padding-bottom: 20px;
+            text-align: center;
+            color: #191919;
+        }
+
+        h2 {
+            font-family: 'Bebas Neue';
+            color: #191919;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .column {
+            float: left;
+            width: 25%;
+            padding: 0 10px;
+            padding-bottom: 16px;
+        }
+
+        .row {
+            margin: 0 -5px;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        @media screen and (max-width: 1000px) {
+            .column {
+                width: 100%;
+                display: block;
+                margin-bottom: 20px;
+            }
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            padding: 16px;
+            text-align: center;
+            background-color: rgb(209, 203, 143);
+        }
+
+        .card-header {
+            min-height: 150px;
+        }
+
+        .card-footer {
+            min-height: 50px;
+        }
+    </style>
+</head>
+
+<body style="background-color: rgb(255, 220, 78);">
+    <div>
+        <img class="center-responsive" src="images/tikitala-logo-001.png" alt="TIKITALA" />
+    </div>
+    <div>
+        <h1 class="special-text">A simple and fun tabletop game that requires strategic thinking and sharp memory.</h1>
+    </div>
+    <h1 class="special-text">Ground Rules</h1>
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <div class="card-header">
+                    <img src="images/2-players-mini.png" alt="2 players" />
+                </div>
+                <div class="card-footer">
+                    <p class="special-text">2 players</p>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <div class="card-header">
+                    <img src="images/trophy-small.png" alt="trophy" />
+                </div>
+                <div class="card-footer">
+                    <p class="special-text">The winner is the first player who gets 5 of their chips showing on top!</p>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <div class="card-header">
+                    <img src="images/no-peeking-small.png" alt="no peeking!" />
+                </div>
+                <div class="card-footer">
+                    <p class="special-text">Players cannot peek or look under the topmost chips</p>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <div class="card-header">
+                    <img src="images/stack-options-small.png" alt="3 chips per stack" />
+                </div>
+                <div class="card-footer">
+                    <p class="special-text">Max 3 chips per stack</p>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <div class="card-header">
+                    <img src="images/no-touch-small.png" alt="initial setup" />
+                </div>
+                <div class="card-footer">
+                    <p class="special-text">Players cannot move the chip most recently moved by their opponent</p>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <div class="card-header">
+                    <img src="images/board-start-mini.png" alt="initial setup" />
+                </div>
+                <div class="card-footer">
+                    <p class="special-text">Start by placing 2 chips from each player on the table</p>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <div class="card-header">
+                    <img src="images/take-turns-small.png" alt="initial setup" />
+                </div>
+                <div class="card-footer">
+                    <p class="special-text">Each player takes turns playing one move at a time</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="special-text">Possible Moves (remember the ground rules!)</h1>
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <div class="card-header">
+                    <img src="images/add-chip-table-small.png" alt="initial setup" />
+                </div>
+                <div class="card-footer">
+                    <p class="special-text">Add a new chip to the table, starting a new stack</p>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <div class="card-header">
+                    <img src="images/add-chip-stack-small.png" alt="initial setup" />
+                </div>
+                <div class="card-footer">
+                    <p class="special-text">Add a new chip to an existing stack</p>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <div class="card-header">
+                    <img src="images/move-chip-small.png" alt="initial setup" />
+                </div>
+                <div class="card-footer">
+                    <p class="special-text">Move one chip from one stack to another</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
