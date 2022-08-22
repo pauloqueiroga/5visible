@@ -1,5 +1,4 @@
 body {
-    background-color: #fffc6d;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 100%;
 }
@@ -15,7 +14,7 @@ body {
 }
 
 .tabletop {
-    background-color: #aaaa55;
+    background-color: #466673;
 }
 
 .tabletop table {
@@ -25,7 +24,7 @@ body {
 }
 
 .tabletop table td {
-    background-color: #bbbb66;
+    background-color: #163643;
     position: relative;
     vertical-align: bottom;
     height: 120px;
@@ -46,17 +45,30 @@ body {
 }
 
 .top-chip-0, .top-chip-1 {
-    max-width: 30% 300px;
+    max-width: 30%;
     min-width: 100px;
+    height: 40px;
 }
 
 .stack {
     background-color: #222222;
     border: 0px;
-    border-bottom: 2px solid #999999;
-    max-width: 30% 300px;
+    border-bottom: 2px solid #bbbbbb;
+    max-width: 30%;
     min-width: 100px;
     height: 20px;
+}
+
+.float-left {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    left: 5px;
+    top: 5px;
+    background-color: #222222;
+    color: #bbbbbb;
+    border-radius: 5px;
+    text-align: center;
 }
 
 .center-responsive {
