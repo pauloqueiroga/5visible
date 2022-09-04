@@ -2,60 +2,58 @@ var game = {
     chipFaceNone : $('#chipface-none').clone(),
     chipFace0 : $('#chipface-0').clone(),
     chipFace1 : $('#chipface-1').clone(),
+    board : {},
     start : function () {
-        this.turn = 0;
-        this.winner = "none";
-        this.stash = [6, 6];
-        this.stackCount = [ 0, 1, 0, 1, 0, 1, 0, 1, 0];
-        this.stackTop =   ["none", 1,"none", 1,"none", 0,"none", 0,"none"];
-        this.stackCanPop = [false,true,false,true,false,true,false,true,false];
-        this.stackCanPush = [true,true,true,true,true,true,true,true,true];
+        this.board.turn = 0;
+        this.board.winner = "none";
+        this.board.stash = [6, 6];
+        this.board.stackCount = [ 0, 1, 0, 1, 0, 1, 0, 1, 0];
+        this.board.stackTop =   ["none", 1,"none", 1,"none", 0,"none", 0,"none"];
+        this.board.stackCanPop = [false,true,false,true,false,true,false,true,false];
+        this.board.stackCanPush = [true,true,true,true,true,true,true,true,true];
         this.updateViewModel();
         this.refreshView();
     },
     updateViewModel : function () {
         // if there's a winner, communicate and bail out
-        if (this.winner != "none") {
-            $('#message').html($('#msgWinner-'+ this.winner));
+        if (this.board.winner != "none") {
+            $('#message').html($('#msgWinner-'+ this.board.winner));
             return;
         }
 
         // update player turn
-        $('#message').html($('#msgTurn-'+ this.turn).clone());
+        $('#message').html($('#msgTurn-'+ this.board.turn).clone());
 
         // update stashes
-        $('#hidden-0-0').removeClass().addClass('tall-'+this.stash[0]);
-        $('#hidden-0-1').removeClass().addClass('tall-'+this.stash[1]);
+        singleClass('#hidden-0-0', 'tall-'+this.board.stash[0]);
+        singleClass('#hidden-0-1', 'tall-'+this.board.stash[1]);
 
-        if (this.stash[0] > 0) {
-            $('#visible-0-9').removeClass().addClass('top-chip-0');
+        if (this.board.stash[0] > 0 && this.board.turn == 0) {
+            makeDraggable('#visible-0-9', 'top-chip-0');
         } else {
-            $('#visible-0-9').removeClass().addClass('top-chip-none');
+            makeNotDraggable('#visible-0-9', 'top-chip-none');
         }
 
-        if (this.stash[1] > 0) {
-            $('#visible-1-9').removeClass().addClass('top-chip-1');
+        if (this.board.stash[1] > 0 && this.board.turn == 1) {
+            makeDraggable('#visible-1-9', 'top-chip-1');
         } else {
-            $('#visible-1-9').removeClass().addClass('top-chip-none');
+            makeNotDraggable('#visible-1-9', 'top-chip-none');
         }
 
         // update stacks
         for (let i = 0; i < 9; i++) {
-            $('#hidden-'+i).removeClass().addClass('tall-' + this.stackCount[i]);
-            $('#visible-'+i).removeClass().addClass('top-chip-' + this.stackTop[i]);
-            if (this.stackCanPop[i]) {
-                $('#visible-'+i).attr("draggable", "true");
-                $('#visible-'+i).attr("ondragstart", "drag(event)");
+            singleClass('#hidden-'+i, 'tall-' + this.board.stackCount[i]);
+
+            if (this.board.stackCanPop[i]) {
+                makeDraggable('#visible-'+i, 'top-chip-' + this.board.stackTop[i]);
             } else {
-                $('#visible-'+i).attr("draggable", "false");
-                $('#visible-'+i).attr("ondragstart", "");
+                makeNotDraggable('#visible-'+i, 'top-chip-' + this.board.stackTop[i]);
             }
-            if (this.stackCanPush[i]) {
-                $('#stack-'+i).attr("ondrop", "drop(event)");
-                $('#stack-'+i).attr("ondragover", "allowDrop(event)");
+
+            if (this.board.stackCanPush[i]) {
+                makeDroppable('#stack-'+i);
             } else {
-                $('#stack-'+i).attr("ondrop", "");
-                $('#stack-'+i).attr("ondragover", "");
+                makeNotDroppable('#stack-'+i);
             }
         }
     },
@@ -71,18 +69,44 @@ var game = {
     move : function (from, to) {
         var who = 0;
         if (from == 9) {
-            this.stash[this.turn]--;
-            who = this.turn;
+            this.board.stash[this.board.turn]--;
+            who = this.board.turn;
         } else {
-            this.stackCount[from]--;
-            who = this.stackTop[from]--;
+            this.board.stackCount[from]--;
+            who = this.board.stackTop[from]--;
         }
-        this.stackCount[to]++;
-        this.stackTop[to] = who;
-        this.stackCanPop[to] = false;
+        this.board.stackCount[to]++;
+        this.board.stackTop[to] = who;
+        this.board.stackCanPop[to] = false;
         this.updateViewModel();
         this.refreshView();
     }
+}
+
+function makeDraggable(elementId, topChipName) {
+    singleClass(elementId, topChipName);
+    $(elementId).attr("draggable", "true");
+    $(elementId).attr("ondragstart", "drag(event)");
+}
+
+function makeNotDraggable(elementId, topChipName) {
+    singleClass(elementId, topChipName);
+    $(elementId).attr("draggable", "false");
+    $(elementId).attr("ondragstart", "");
+}
+
+function makeDroppable(elementId) {
+    $(elementId).attr("ondrop", "drop(event)");
+    $(elementId).attr("ondragover", "allowDrop(event)");
+}
+
+function makeNotDroppable(elementId) {
+    $(elementId).attr("ondrop", "");
+    $(elementId).attr("ondragover", "");
+}
+
+function singleClass(elementId, className) {
+    $(elementId).removeClass().addClass(className);
 }
 
 function pileUp(quantity) {
