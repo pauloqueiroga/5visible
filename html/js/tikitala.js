@@ -1,4 +1,4 @@
-var board = {
+var game = {
     chipFaceNone : $('#chipface-none').clone(),
     chipFace0 : $('#chipface-0').clone(),
     chipFace1 : $('#chipface-1').clone(),
@@ -28,15 +28,15 @@ var board = {
         $('#hidden-0-1').removeClass().addClass('tall-'+this.stash[1]);
 
         if (this.stash[0] > 0) {
-            $('#visible-0-0').removeClass().addClass('top-chip-0');
+            $('#visible-0-9').removeClass().addClass('top-chip-0');
         } else {
-            $('#visible-0-0').removeClass().addClass('top-chip-none');
+            $('#visible-0-9').removeClass().addClass('top-chip-none');
         }
 
         if (this.stash[1] > 0) {
-            $('#visible-0-1').removeClass().addClass('top-chip-1');
+            $('#visible-1-9').removeClass().addClass('top-chip-1');
         } else {
-            $('#visible-0-1').removeClass().addClass('top-chip-none');
+            $('#visible-1-9').removeClass().addClass('top-chip-none');
         }
 
         // update stacks
@@ -44,14 +44,18 @@ var board = {
             $('#hidden-'+i).removeClass().addClass('tall-' + this.stackCount[i]);
             $('#visible-'+i).removeClass().addClass('top-chip-' + this.stackTop[i]);
             if (this.stackCanPop[i]) {
-                $('#remove-'+i).show();
+                $('#visible-'+i).attr("draggable", "true");
+                $('#visible-'+i).attr("ondragstart", "drag(event)");
             } else {
-                $('#remove-'+i).hide();
+                $('#visible-'+i).attr("draggable", "false");
+                $('#visible-'+i).attr("ondragstart", "");
             }
             if (this.stackCanPush[i]) {
-                $('#add-'+i).show();
+                $('#stack-'+i).attr("ondrop", "drop(event)");
+                $('#stack-'+i).attr("ondragover", "allowDrop(event)");
             } else {
-                $('#add-'+i).hide();
+                $('#stack-'+i).attr("ondrop", "");
+                $('#stack-'+i).attr("ondragover", "");
             }
         }
     },
@@ -64,7 +68,20 @@ var board = {
             $(".tall-" + i).html(pileUp(i))
         }
     },
-    clear : function () {
+    move : function (from, to) {
+        var who = 0;
+        if (from == 9) {
+            this.stash[this.turn]--;
+            who = this.turn;
+        } else {
+            this.stackCount[from]--;
+            who = this.stackTop[from]--;
+        }
+        this.stackCount[to]++;
+        this.stackTop[to] = who;
+        this.stackCanPop[to] = false;
+        this.updateViewModel();
+        this.refreshView();
     }
 }
 
@@ -77,5 +94,26 @@ function pileUp(quantity) {
 }
     
 function startGame() {
-    board.start();
+    game.start();
+    $('.stack-add-button').click(function () {
+        var toIndex = $(this).attr('id').slice(-1);
+        game.move(0,toIndex);
+    });
+}
+
+$( startGame() )
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("from", ev.target.id.slice(-1));
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var from = ev.dataTransfer.getData("from");
+    var to = ev.target.id.slice(-1);
+    game.move(from, to);
 }
