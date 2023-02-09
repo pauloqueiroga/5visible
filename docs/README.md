@@ -9,18 +9,21 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=pauloqueiroga_5visible&metric=coverage)](https://sonarcloud.io/dashboard?id=pauloqueiroga_5visible)
 
 ## Links
+
 - [API Doc](https://www.tikitala.com/api-doc/)  
 - [www.tikitala.com](https://www.tikitala.com)
+- [Drag and Drop Mechanics](mechanics.md)
 
 ## Rules of the game
-* 2 players (`0` and `1`)
-* 8 bricks per player
-* Board has 9 positions for stacks of bricks to be formed
-* Each stack can have up to 3 bricks
-* Players cannot peek/see under the topmost brick on each stack
-* Initial board setup contains 4 stacks of 1 brick, 2 for each player
-* On each round, a player has to make one and only one move:
-    * Add one of their own bricks to the board, on any stack
-    * Move one brick (their own or opponent's) from one stack to another, except:
-        * Players cannot move the brick most recently moved by their opponent
-* Wins the player with 5 of their bricks showing on the board
+
+- 2 players (`0` and `1`)
+- 8 bricks per player
+- Board has 9 positions for stacks of bricks to be formed
+- Each stack can have up to 3 bricks
+- Players cannot peek/see under the topmost brick on each stack
+- Initial board setup contains 4 stacks of 1 brick, 2 for each player
+- On each round, a player has to make one and only one move:
+  - Add one of their own bricks to the board, on any stack
+  - Move one brick (their own or opponent's) from one stack to another, except:
+    - Players cannot move the brick most recently moved by their opponent
+- Wins the player with 5 of their bricks showing on the board
