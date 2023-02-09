@@ -27,3 +27,19 @@
   - Move one brick (their own or opponent's) from one stack to another, except:
     - Players cannot move the brick most recently moved by their opponent
 - Wins the player with 5 of their bricks showing on the board
+
+## Typescript
+
+To play with the Typescript package in this repository, you'll need Typescript. One way to install typescript and other dependencies is via [Noje.JS / NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+
+At the root of your local copy of this repository, run this:
+
+```npm
+npm install
+```
+
+You'll need to "compile" the typescript for it to be usable from the HTML file, like this:
+
+```bash
+npx tsc
+```
