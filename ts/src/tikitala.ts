@@ -255,6 +255,7 @@ function makeDraggable(elementId: string, topChipName: string) {
     singleClass(elementId, topChipName);
     $(elementId).attr("draggable", "true");
     $(elementId).attr("ondragstart", "drag(event)");
+    $(elementId).attr("ondragend", "dragend(event)");
 }
 
 function makeNotDraggable(elementId: string, topChipName: string) {
@@ -303,6 +304,12 @@ function drag(ev: any) {
     var from = ev.target.id.slice(-1)
     ev.dataTransfer.setData("from", from);
     game.chipInTheAir(from);
+}
+
+function dragend(ev: DragEvent) {
+    if (ev.dataTransfer?.dropEffect === 'none') {
+        game.waitingForPlayer(game.board.turn);
+    }
 }
 
 function drop(ev: any) {
