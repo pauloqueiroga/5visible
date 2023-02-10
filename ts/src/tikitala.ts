@@ -1,3 +1,5 @@
+const oneSecond = 1000;
+
 enum Player {
     Zero,
     One,
@@ -59,7 +61,14 @@ class Board {
         var stackFrom = this.getFrom(from);
         var stackTo = this.getTo(to);
         var chip = stackFrom.pop();
-        stackTo.push(chip);
+        try {
+            stackTo.push(chip);
+        } catch (e) {
+            if (e instanceof TypeError) {
+                stackFrom.push(chip);
+            }
+            throw e;
+        }
         this.prepNextTurn(to);
     }
 
@@ -245,8 +254,10 @@ var game = {
             this.board.play(from, to);
             this.waitingForPlayer(this.board.turn);
         } catch (e: any) {
-            $('#message').html(e);
-            this.communicatingError();
+            treatErrors(e);
+            setTimeout(() => {
+                this.waitingForPlayer(this.board.turn);
+            }, 5 * oneSecond);
         }
     }
 }
@@ -317,4 +328,9 @@ function drop(ev: any) {
     var from = ev.dataTransfer.getData("from");
     var to = ev.target.id.slice(-1);
     game.move(from, to);
+}
+
+function treatErrors(error: any) {
+    $('#message').html(error);
+    game.communicatingError();
 }
