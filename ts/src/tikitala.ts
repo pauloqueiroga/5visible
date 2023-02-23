@@ -32,6 +32,10 @@ class Board {
     }
 
     stashHeight(player: Player) {
+        if (player == Player.None) {
+            return 0;
+        }
+
         return this.stash[player].height();
     }
 
@@ -152,6 +156,10 @@ var game = {
         this.waitingForPlayer(this.board.turn);
     },
     waitingForPlayer: function (player: Player) {
+        if (player == Player.None) {
+            this.gameOver();
+        }
+
         // update player turn
         $('#message').html($('#msgTurn-' + player).text());
 
@@ -308,6 +316,6 @@ function drag(ev: any) {
 function drop(ev: any) {
     ev.preventDefault();
     var from = ev.dataTransfer.getData("from");
-    var to = ev.target.id.slice(-1);
+    var to = ev.target.closest("[id^='stack']").id.slice(-1);
     game.move(from, to);
 }
