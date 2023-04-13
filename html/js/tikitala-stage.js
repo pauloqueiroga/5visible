@@ -73,9 +73,9 @@ function Game(ui) {
 
     // each player adds 2 pieces to the game board
     stacks[3].add(stacks[0].remove());
-    stacks[5].add(stacks[0].remove());
-    stacks[7].add(stacks[1].remove());
-    stacks[9].add(stacks[1].remove());
+    stacks[9].add(stacks[0].remove());
+    stacks[4].add(stacks[1].remove());
+    stacks[8].add(stacks[1].remove());
     
     // player 0 starts
     turn = 0;
@@ -108,7 +108,7 @@ function Game(ui) {
     var winner = checkState();
     if (winner) {
       turn = -1;
-      ui.win(winner);
+      ui.win(winner, stacks);
     } 
   };
 
@@ -133,18 +133,22 @@ function Game(ui) {
 }
 
 // Set visual coordinates for each stack
-stackX = [-20, 20, 
-          -10, 0, 10, 
+stackX = [-16, 16, 
+          0, 
+          -5, 5, 
           -10, 0, 10,
-          -10, 0, 10];
-stackY = [10, 10,
-          -10, -10, -10,
+          -5, 5, 
+          0];
+stackY = [8, -8,
+          -8, 
+          -4, -4,
           0, 0, 0,
-          10, 10, 10];
+          4, 4, 
+          8];
 
 // Stage.js stuff
 Stage(function(stage) {
-  stage.viewbox(75, 50).pin('handle', -0.5);
+  stage.viewbox(50, 50).pin('handle', -0.5);
 
   Stage.image('bg').pin('handle', 0.5).appendTo(stage);
 
@@ -180,20 +184,18 @@ Stage(function(stage) {
         }
       };
     },
-    win : function(winner) {
+    win : function(winner, stacks) {
       console.log('ui update winner');
-      for (var i = 0; i < stacks.length; i++) {
-        if (stacks[i].peek() == winner) {
-          stacks[i].ui.win();
+      stacks.forEach(s => {
+        if (s.peek() == winner) {
+          s.ui.win();
         }
-      }
+      });
     }
   });
 
   game.start();
 });
-
-// Textures
 
 Stage({
   image : {
@@ -218,25 +220,27 @@ Stage({
     '1-8' : { x : 2695, y : 284, width : 385, height : 283 },
     'bg' : Stage.canvas(function(ctx) {
       var ratio = 20;
-      this.size(30, 30, ratio);
+      this.size(24, 24, ratio);
       ctx.scale(ratio, ratio);
-      ctx.moveTo(10, 1);
-      ctx.lineTo(10, 29);
-      ctx.moveTo(20, 1);
-      ctx.lineTo(20, 29);
-      ctx.moveTo(1, 10);
-      ctx.lineTo(29, 10);
-      ctx.moveTo(1, 20);
-      ctx.lineTo(29, 20);
+      ctx.moveTo(1, 12);
+      ctx.lineTo(12, 1);
+      ctx.lineTo(23, 12);
+      ctx.lineTo(12, 23);
+      ctx.lineTo(1,12);
       ctx.lineWidth = 0.3;
       ctx.lineCap = 'round';
-      ctx.strokeStyle = '#999';
-      ctx.stroke();
+      ctx.strokeStyle = '#777';
+      ctx.stroke();    
     }),
     '-' : Stage.canvas(function(ctx) {
       var ratio = 20;
-      this.size(10, 10, ratio);
+      this.size(100, 100, ratio);
       ctx.scale(ratio, ratio);
+      ctx.arc(50, 50, 24, 0, 2 * Math.PI);
+      ctx.lineWidth = 10;
+      ctx.setLineDash([5, 5]);
+      ctx.strokeStyle = '#f00';
+      ctx.stroke();
     }),
     '-0' : '-'
   }
