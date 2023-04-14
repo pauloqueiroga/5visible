@@ -112,6 +112,7 @@ function Game(ui) {
     var winner = checkState();
     if (winner) {
       turn = -1;
+      turnStepLabel.update(turn, step);
       ui.win(winner, stacks);
     } 
   };
