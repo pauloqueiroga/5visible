@@ -3,6 +3,7 @@ function Game(ui) {
   var turn = -1;
   var from = -1;
   var step = 'pick';
+  var turnStepLabel = null;
 
   this.ready = function() {
     return turn >= 0 && turn <= 1;
@@ -11,22 +12,23 @@ function Game(ui) {
   this.init = function() {
     console.log('initializing board');
     stacks = [];
+    turnStepLabel = ui.turnStepLabel();
 
     // create 11 stacks (0 is player 0's stash, 1 is player 1's stash, 2-10 are the game board)
     for (var i = 0; i < 11; i++) {
       var stack = stacks[i] = {
         i : i,
         chips : [],
-        canDo : function(step) {
+        canDo : function(turn, step) {
           if (step == 'pick') {
-            return this.canGive();
+            return this.canGive(turn);
           }
           if (step = 'place') {
             return this.canTake();
           }
         },
-        canGive : function() {
-          return this.chips.length > 0;
+        canGive : function(turn) {
+          return this.chips.length > 0 && (this.i == turn || this.i >= 2) ;
         },
         canTake : function() {
           return this.chips.length < 3 && this.i != 0 && this.i != 1;
@@ -83,18 +85,20 @@ function Game(ui) {
 
     // update the UI
     for (var i = 0; i < 11; i++) {
-      stacks[i].ui.update(step);
+      stacks[i].ui.update(turn, step);
     }
+
+    turnStepLabel.update(turn, step);
   };
 
   this.click = function(stack) {
     console.log('player clicked');
     
-    if (turn < 0 || turn > 1 || !stack.canDo(step)) {
+    if (turn < 0 || turn > 1 || !stack.canDo(turn, step)) {
       return;
     }
 
-    if (step == 'pick' && stack.canGive()) {
+    if (step == 'pick' && stack.canGive(turn)) {
       from = stack.i;
       step = 'place';
     } else if (step == 'place' && stack.canTake()) {
@@ -119,8 +123,9 @@ function Game(ui) {
       var top = s.peek();
       if (top == '0' && s.i != 0) { count0++; }
       if (top == '1' && s.i != 1) { count1++; }
-      s.ui.update(step);
+      s.ui.update(turn, step);
     });
+    turnStepLabel.update(turn, step);
 
     if (count0 >= 5) {
       return '0';
@@ -133,26 +138,46 @@ function Game(ui) {
 }
 
 // Set visual coordinates for each stack
-stackX = [-16, 16, 
+stackX = [-8, 8, 
           0, 
           -5, 5, 
           -10, 0, 10,
           -5, 5, 
           0];
-stackY = [8, -8,
-          -8, 
-          -4, -4,
-          0, 0, 0,
-          4, 4, 
-          8];
+stackY = [8, 8,
+          -15, 
+          -11, -11,
+          -7, -7, -7,
+          -3, -3, 
+          1];
 
 // Stage.js stuff
 Stage(function(stage) {
-  stage.viewbox(50, 50).pin('handle', -0.5);
+  stage.viewbox(40, 40).pin('handle', -0.5);
 
-  Stage.image('bg').pin('handle', 0.5).appendTo(stage);
+  Stage.image('bg').pin({
+    offsetX : 0,
+    offsetY : -7,
+    handle : 0.5
+  }).appendTo(stage);
 
   var game = new Game({
+    turnStepLabel : function() {
+      console.log('ui new turn step label');
+      var label = Stage.image('0-pick').appendTo(stage).pin({
+        offsetX : 0,
+        offsetY : 8,
+        handle : 0.5
+      });
+      return {
+        update : function(turn, step) {
+          console.log('ui update turn step label');
+          label.image(turn + '-' + step).tween(250).pin({
+            scale : 0.0125
+          });
+        }
+      }
+    },
     newStack : function(obj) {
       console.log('ui new stack');
       var top = Stage.image('-').appendTo(stage).pin({
@@ -167,20 +192,30 @@ Stage(function(stage) {
         }
       });
       return {
-        update : function(step) {
+        update : function(turn, step) {
           console.log('ui update stack');
           var img = obj.peek() + '-' + obj.chips.length;
-          var a = obj.canDo(step) ? 1 : 0.3;
-          top.image(img).pin({
+          var a = obj.canDo(turn, step) ? 1 : 0.3;
+          top.image(img).tween(250).pin({
             alpha : a,
             scale : 0.0225
           });
         },
         win : function() {
-          top.tween(200).pin({
+          top.tween(1000).pin({
             alpha : 1,
-            scale : 0.03,
-          });
+            scale : 0.023,
+          }).ease('elastic-out');
+          top.tween(1000).pin({
+            alpha : 1,
+            scale : 0.025,
+          }).ease('bounce');
+        },
+        lose : function() {
+          top.tween(1000).pin({
+            alpha : 0.3,
+            scale : 0.02
+          }).ease('bounce');
         }
       };
     },
@@ -189,12 +224,26 @@ Stage(function(stage) {
       stacks.forEach(s => {
         if (s.peek() == winner) {
           s.ui.win();
+        } else {
+          s.ui.lose();
         }
       });
     }
   });
 
   game.start();
+});
+
+Stage({
+  image : {
+    src : 'tikitala-turn-step-sprites.png',
+  },
+  textures : {
+    '0-pick' : { x : 396, y : 0, width : 395, height : 376 },
+    '0-place' : { x : 0, y : 0, width : 395, height : 376 },
+    '1-pick' : { x : 396, y : 376, width : 395, height : 376 },
+    '1-place' : { x : 0, y : 376, width : 395, height : 376 }
+  }
 });
 
 Stage({
@@ -220,26 +269,28 @@ Stage({
     '1-8' : { x : 2695, y : 284, width : 385, height : 283 },
     'bg' : Stage.canvas(function(ctx) {
       var ratio = 20;
-      this.size(24, 24, ratio);
+      this.size(30, 30, ratio);
       ctx.scale(ratio, ratio);
-      ctx.moveTo(1, 12);
-      ctx.lineTo(12, 1);
-      ctx.lineTo(23, 12);
-      ctx.lineTo(12, 23);
-      ctx.lineTo(1,12);
+      var g = ctx.createRadialGradient(15, 15, 2, 15, 15, 10);
+      g.addColorStop(0, '#999');
+      g.addColorStop(1, '#fff');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, 30, 30);
+      ctx.moveTo(2, 27);
+      ctx.lineTo(28, 27);
+      ctx.strokeStyle = "#999";
+      ctx.lineCap = "round";
       ctx.lineWidth = 0.3;
-      ctx.lineCap = 'round';
-      ctx.strokeStyle = '#777';
-      ctx.stroke();    
+      ctx.stroke();
     }),
     '-' : Stage.canvas(function(ctx) {
       var ratio = 20;
-      this.size(100, 100, ratio);
+      this.size(100, 115, ratio);
       ctx.scale(ratio, ratio);
-      ctx.arc(50, 50, 24, 0, 2 * Math.PI);
+      ctx.arc(50, 85, 24, 0, 2 * Math.PI);
       ctx.lineWidth = 10;
       ctx.setLineDash([5, 5]);
-      ctx.strokeStyle = '#f00';
+      ctx.strokeStyle = '#0a0';
       ctx.stroke();
     }),
     '-0' : '-'
