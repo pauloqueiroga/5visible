@@ -74,10 +74,10 @@ function Game(ui) {
     }
 
     // each player adds 2 pieces to the game board
-    stacks[3].add(stacks[0].remove());
-    stacks[9].add(stacks[0].remove());
-    stacks[4].add(stacks[1].remove());
-    stacks[8].add(stacks[1].remove());
+    stacks[4].add(stacks[0].remove());
+    stacks[5].add(stacks[0].remove());
+    stacks[6].add(stacks[1].remove());
+    stacks[7].add(stacks[1].remove());
     
     // player 0 starts
     turn = 0;
@@ -140,21 +140,26 @@ function Game(ui) {
 
 // Set visual coordinates for each stack
 stackX = [-8, 8, 
+          -8, 8, 
           0, 
-          -5, 5, 
-          -10, 0, 10,
-          -5, 5, 
+          -8, 8, 
+          0,
+          -8, 8, 
           0];
 stackY = [8, 8,
+          -19, -19,
           -15, 
           -11, -11,
-          -7, -7, -7,
+          -7,
           -3, -3, 
           1];
 
 // Stage.js stuff
 Stage(function(stage) {
-  stage.viewbox(40, 40).pin('handle', -0.5);
+  stage.viewbox(30, 35).pin({
+    handleX : -0.5,
+    handleY : -0.6
+  });
 
   Stage.image('bg').pin({
     offsetX : 0,
@@ -199,7 +204,7 @@ Stage(function(stage) {
           var a = obj.canDo(turn, step) ? 1 : 0.3;
           top.image(img).tween(250).pin({
             alpha : a,
-            scale : 0.0225
+            scale : 0.025
           });
         },
         win : function() {
@@ -209,7 +214,7 @@ Stage(function(stage) {
           }).ease('elastic-out');
           top.tween(1000).pin({
             alpha : 1,
-            scale : 0.025,
+            scale : 0.03,
           }).ease('bounce');
         },
         lose : function() {
@@ -270,15 +275,15 @@ Stage({
     '1-8' : { x : 2695, y : 284, width : 385, height : 283 },
     'bg' : Stage.canvas(function(ctx) {
       var ratio = 20;
-      this.size(30, 30, ratio);
+      this.size(30, 40, ratio);
       ctx.scale(ratio, ratio);
-      var g = ctx.createRadialGradient(15, 15, 2, 15, 15, 10);
+      var g = ctx.createRadialGradient(15, 20, 2, 15, 20, 10);
       g.addColorStop(0, '#999');
       g.addColorStop(1, '#fff');
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, 30, 30);
-      ctx.moveTo(2, 27);
-      ctx.lineTo(28, 27);
+      ctx.moveTo(2, 32);
+      ctx.lineTo(28, 32);
       ctx.strokeStyle = "#999";
       ctx.lineCap = "round";
       ctx.lineWidth = 0.3;

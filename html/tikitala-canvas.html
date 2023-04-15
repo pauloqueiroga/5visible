@@ -2,10 +2,114 @@
     <head>
         <title>TIKITALA Online</title>
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+        <style>
+            body {
+                background-color: #ffffff;
+                color: #333333;
+                font-family: 'Bebas Neue', Helvetica, Arial, sans-serif;
+            }
+
+            h1 {
+                font-size: 2em;
+                padding-top: 20px;
+                text-align: center;
+                color: #191919;
+            }
+
+            h2 {
+                font-size: 1em;
+                padding-bottom: 10px;
+                text-align: center;
+                color: #191919;
+            }
+
+            .card {
+                font-size: 1em;
+                margin-top: 10px;
+                margin-bottom: 30px;
+                text-align: center;
+                border:#a9a9a9 3px solid;
+                border-radius: 10px;
+            }
+
+            #help-overlay {
+                position: fixed;
+                display: none;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ffffff;
+                z-index: 2;
+                cursor: pointer;
+                overflow-y: scroll;
+            }
+        </style>
     </head>
     <body>
-        <div style="position: absolute; width: 20%;" ><a href="https://tikitala.com"><img src="tikitala-dot-com.svg" width="100%"></a></div>
-        <script src="js/stage.web.min.js"></script>
-        <script src="js/tikitala-stage.js"></script>
+        <div style="position: absolute;" >
+            <a style="font-size: 2em;" onclick="showHelp()">[ ? ]</a>
+        </div>
+        <div id="help-overlay" onclick="hideHelp()">
+            <h1>How to play TIKITALA Online</h1>
+            <h2>(Tap/Click anywhere to go back to the game)</h2>
+            <div class="card">
+                <div class="card-header">
+                    <img src="board-start-mini.png" alt="initial setup" />
+                </div>
+                <div class="card-footer">
+                    <p>2 players, each having 8 chips</p>
+                    <p>The game starts with 2 chips from each player on the table</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <img src="board-winner-1.png" alt="player 1 wins" />
+                </div>
+                <div class="card-footer">
+                    <p>The first player to get 5 of their chips showing is the winner!</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <img src="board-turn-step-icon.png" alt="initial setup" />
+                </div>
+                <div class="card-footer">
+                    <p>Each player takes turns playing one move at a time</p>
+                    <p>The icon at the center changes to show whose turn it is, and if they should tap/click to pick up or to drop a chip</p>
+                    <p>One tap/click selects which chip to pick up</p>
+                    <p>Another tap/click selects where to drop the chip</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <img src="board-disabled-drop.png" alt="initial setup" />
+                </div>
+                <div class="card-footer">
+                    <p>Stacks that cannot be used to pick up or drop off are "grayed out", for example:</p>
+                    <p>Stacks cannot have more then 3 chips</p>
+                    <p>Players cannot move the chip most recently moved by their opponent</p>
+                </div>
+            </div>
+            <div class="card">
+                <p><a href="https://tikitala.com"><img src="tikitala-dot-com.svg" width="250px"></a></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showHelp() {
+        document.getElementById("help-overlay").style.display = "block";
+        }
+        
+        function hideHelp() {
+        document.getElementById("help-overlay").style.display = "none";
+        }
+    </script>        
+    <script src="js/stage.web.min.js"></script>
+    <script src="js/tikitala-stage.js"></script>
     </body>
 </html>
