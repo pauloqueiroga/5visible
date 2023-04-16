@@ -2,8 +2,9 @@ function Game(ui) {
   var stacks = [];
   var turn = -1;
   var from = -1;
+  var blocked = -1;
   var step = 'pick';
-  var turnStepLabel = null;
+    var turnStepLabel = null;
 
   this.ready = function() {
     return turn >= 0 && turn <= 1;
@@ -19,16 +20,16 @@ function Game(ui) {
       var stack = stacks[i] = {
         i : i,
         chips : [],
-        canDo : function(turn, step) {
+        canDo : function(turn, step, blocked) {
           if (step == 'pick') {
-            return this.canGive(turn);
+            return this.canGive(turn, blocked);
           }
           if (step = 'place') {
             return this.canTake();
           }
         },
-        canGive : function(turn) {
-          return this.chips.length > 0 && (this.i == turn || this.i >= 2) ;
+        canGive : function(turn, blocked) {
+          return this.chips.length > 0 && this.i != blocked && (this.i == turn || this.i >= 2) ;
         },
         canTake : function() {
           return this.chips.length < 3 && this.i != 0 && this.i != 1;
@@ -85,7 +86,7 @@ function Game(ui) {
 
     // update the UI
     for (var i = 0; i < 11; i++) {
-      stacks[i].ui.update(turn, step);
+      stacks[i].ui.update(turn, step, blocked);
     }
 
     turnStepLabel.update(turn, step);
@@ -94,16 +95,17 @@ function Game(ui) {
   this.click = function(stack) {
     console.log('player clicked');
     
-    if (turn < 0 || turn > 1 || !stack.canDo(turn, step)) {
+    if (turn < 0 || turn > 1 || !stack.canDo(turn, step, blocked)) {
       return;
     }
 
-    if (step == 'pick' && stack.canGive(turn)) {
+    if (step == 'pick' && stack.canGive(turn, blocked)) {
       from = stack.i;
       step = 'place';
     } else if (step == 'place' && stack.canTake()) {
       var to = stack.i;
       stacks[to].add(stacks[from].remove());
+      blocked = to;
       from = -1;
       step = 'pick';
       turn = (turn == 0) ? 1 : 0;
@@ -124,7 +126,7 @@ function Game(ui) {
       var top = s.peek();
       if (top == '0' && s.i != 0) { count0++; }
       if (top == '1' && s.i != 1) { count1++; }
-      s.ui.update(turn, step);
+      s.ui.update(turn, step, blocked);
     });
     turnStepLabel.update(turn, step);
 
@@ -198,10 +200,10 @@ Stage(function(stage) {
         }
       });
       return {
-        update : function(turn, step) {
+        update : function(turn, step, blocked) {
           console.log('ui update stack');
           var img = obj.peek() + '-' + obj.chips.length;
-          var a = obj.canDo(turn, step) ? 1 : 0.3;
+          var a = obj.canDo(turn, step, blocked) ? 1 : 0.3;
           top.image(img).tween(250).pin({
             alpha : a,
             scale : 0.025
