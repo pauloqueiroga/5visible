@@ -3,7 +3,7 @@ name: Release TIKITALA Online
 on:
   push:
     branches:
-      - actions-cleanup
+      - main
     tags:
       - v*
     paths:
