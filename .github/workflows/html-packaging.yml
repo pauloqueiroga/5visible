@@ -1,12 +1,8 @@
 name: Release TIKITALA Online
 
 on:
-  push:
-    branches: [ main ]
-    tags:
-      - "v*"
-    paths:
-      - "html/**"
+  label:
+    types: [ created ]
 
 jobs:
   build:
@@ -26,7 +22,7 @@ jobs:
       run: mkdir release
 
     - name: Create bundle
-      run: tar -zcvf "release/tikitala-online-${{ github.ref }}.tar.gz" html/*
+      run: tar -zcvf "release/tikitala-online-${{ github.ref_name }}.tar.gz" html/*
 
     - name: Create release
       id: release
@@ -34,8 +30,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        tag_name: ${{ github.ref_name }}
+        release_name: Release ${{ github.ref_name }}
         draft: false
         prerelease: false
     
