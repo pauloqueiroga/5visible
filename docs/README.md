@@ -28,6 +28,15 @@
     - Players cannot move the brick most recently moved by their opponent
 - Wins the player with 5 of their bricks showing on the board
 
+## HTML / Javascript
+
+The `html` folder contains a simple implementation of the game, using HTML and Javascript with [stage.js](https://piqnt.com/stage.js/). To make it run, you have to install the dependencies and copy the `stage.web.min.js` file from `node_modules/stage-js/dist` into the `html/js` folder.
+
+```bash
+npm install
+cp node_modules/stage-js/dist/stage.web.min.js html/js
+```
+
 ## Typescript
 
 To play with the Typescript package in this repository, you'll need Typescript. One way to install typescript and other dependencies is via [Noje.JS / NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
