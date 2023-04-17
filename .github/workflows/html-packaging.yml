@@ -2,7 +2,7 @@ name: Release TIKITALA Online
 
 on:
   push:
-    branches: [ stage-js-playground ]
+    branches: [ main ]
     tags:
       - "v*"
     paths:
