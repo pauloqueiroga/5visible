@@ -1,8 +1,13 @@
 name: Release TIKITALA Online
 
 on:
-  label:
-    types: [ created ]
+  push:
+    branches:
+      - main
+    tags:
+      - v*
+    paths:
+      - html/**
 
 jobs:
   build:
