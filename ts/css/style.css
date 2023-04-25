@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100%;
+    color: #121d1c;
+    background-color: #c9f0ff;
+}
+
+.middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.tabletop {
+    background-color: #437C90;
+}
+
+.tabletop table {
+    width: 100%;
+    margin: 0 auto;
+    border-spacing: 10px;
+}
+
+.tabletop table td {
+    border-style: dotted;
+    border-width: 2px;
+    border-color: #171d1c;
+    position: relative;
+    vertical-align: bottom;
+    height: 130px;
+}
+
+.room {
+    border-spacing: 10px;
+}
+
+.room td {
+    position: relative;
+    vertical-align: bottom;
+}
+
+.top-chip-0, .top-chip-1 {
+    max-width: 30%;
+    min-width: 100px;
+    height: 40px;
+}
+
+.stack {
+    background-color: #171d1c;
+    border: 0px;
+    border-bottom: 2px solid #979d9c;
+    max-width: 30%;
+    min-width: 100px;
+    height: 20px;
+}
+
+.game-message {
+    color: #171d1c;
+    text-align: center;
+    font-size: 2.5em;
+    font-family: 'Bebas Neue';
+}
+
+.center-responsive {
+    margin: auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.special-text {
+    color: #191919;
+    font-family: 'Bebas Neue';
+    font-weight: bold;
+    font-size: 2em;
+}
+
+h1 {
+    font-size: 3em;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    color: #191919;
+}
+
+h2 {
+    font-family: 'Bebas Neue';
+    color: #191919;
+}
+
+p {
+    font-size: 1.5em;
+}
+
+* {
+    box-sizing: border-box;
+}
