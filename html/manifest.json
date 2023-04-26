@@ -1,0 +1,9 @@
+{
+    "name": "TIKITALA Online",
+    "short_name": "TIKITALA",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#333333",
+    "orientation": "portrait-primary"
+}
