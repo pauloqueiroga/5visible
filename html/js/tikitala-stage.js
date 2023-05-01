@@ -1,4 +1,5 @@
 function Game(ui) {
+  var myName = makeUpName();
   var stacks = [];
   var turn = -1;
   var from = -1;
@@ -12,6 +13,7 @@ function Game(ui) {
 
   this.init = function() {
     console.log('initializing board');
+    console.log(myName);
     stacks = [];
     turnStepLabel = ui.turnStepLabel();
 
@@ -304,3 +306,13 @@ Stage({
     '-0' : '-'
   }
 });
+
+// Fake Name Maker Upper
+var mumble = [ "day","man","end","lot","war","car","law","job","act","age","air","tax","art","bed","top","sea","cup","sun","set","oil","eye","arm","box","tea","dog","bar","gas","bus","bag","leg","aim","key","sky","row" ];
+var jumble = [ "scrumtrulescent","cromulent","goofy","zany","wacky","whimsical","droll","flippant","witty","jocular","hilarious","silly","ludicrous","facetious","quirky","kooky","cheeky","snarky","giddy","funky" ];
+
+function makeUpName() {
+  i = Math.floor(Math.random() * mumble.length);
+  j = Math.floor(Math.random() * jumble.length);
+  return jumble[j] + ' ' + mumble[i];
+} 
