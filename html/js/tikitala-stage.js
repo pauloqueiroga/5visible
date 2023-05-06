@@ -308,8 +308,8 @@ Stage({
 });
 
 // Fake Name Maker Upper
-var mumble = [ "day","man","end","lot","war","car","law","job","act","age","air","tax","art","bed","top","sea","cup","sun","set","oil","eye","arm","box","tea","dog","bar","gas","bus","bag","leg","aim","key","sky","row" ];
-var jumble = [ "scrumtrulescent","cromulent","goofy","zany","wacky","whimsical","droll","flippant","witty","jocular","hilarious","silly","ludicrous","facetious","quirky","kooky","cheeky","snarky","giddy","funky" ];
+var mumble = [ "day","end","lot","car","book","pod","canvas","job","act","age","air","tax","art","bed","top","sea","cup","sun","set","oil","eye","arm","box","tea","dog","bar","gas","bus","bag","leg","aim","key","sky","row" ];
+var jumble = [ "skydiving","parachuting","airborne","flying","travelling","marvelous","cromulent","goofy","zany","wacky","whimsical","droll","flippant","witty","jocular","hilarious","silly","ludicrous","facetious","quirky","kooky","cheeky","snarky","giddy" ];
 
 function makeUpName() {
   i = Math.floor(Math.random() * mumble.length);
