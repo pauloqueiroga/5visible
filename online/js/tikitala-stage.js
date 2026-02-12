@@ -24,7 +24,7 @@ function Game(ui) {
           if (step == 'pick') {
             return this.canGive(turn, blocked);
           }
-          if (step = 'place') {
+          if (step == 'place') {
             return this.canTake();
           }
         },
