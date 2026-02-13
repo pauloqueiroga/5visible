@@ -8,29 +8,43 @@
                 background-color: #ffffff;
                 color: #333333;
                 font-family: 'Bebas Neue', Helvetica, Arial, sans-serif;
+                margin: 0;
+                padding: 0;
             }
 
-            h1 {
-                font-size: 2em;
-                padding-top: 20px;
-                text-align: center;
-                color: #191919;
+            #help-button {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 2.5em;
+                background: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                cursor: pointer;
+                z-index: 1;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                transition: transform 0.2s, background 0.2s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
             }
 
-            h2 {
-                font-size: 1em;
-                padding-bottom: 10px;
-                text-align: center;
-                color: #191919;
+            #help-button:hover {
+                transform: scale(1.1);
+                background: #45a049;
             }
 
-            .card {
-                font-size: 1em;
-                margin-top: 10px;
-                margin-bottom: 30px;
-                text-align: center;
-                border:#a9a9a9 3px solid;
-                border-radius: 10px;
+            #help-button.pulse {
+                animation: pulse 2s infinite;
+            }
+
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+                50% { transform: scale(1.15); box-shadow: 0 6px 12px rgba(76,175,80,0.4); }
             }
 
             #help-overlay {
@@ -40,74 +54,476 @@
                 height: 100%;
                 top: 0;
                 left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: #ffffff;
-                z-index: 2;
+                background-color: rgba(0, 0, 0, 0.9);
+                z-index: 1000;
+                overflow: hidden;
+            }
+
+            #help-overlay.show {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .tutorial-container {
+                background: white;
+                border-radius: 15px;
+                max-width: 600px;
+                width: 90%;
+                max-height: 90vh;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+                overflow: hidden;
+            }
+
+            .tutorial-header {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .tutorial-header h1 {
+                margin: 0;
+                font-size: 2em;
+                color: white;
+            }
+
+            .progress-container {
+                background: rgba(255,255,255,0.2);
+                height: 8px;
+                border-radius: 4px;
+                margin-top: 15px;
+                overflow: hidden;
+            }
+
+            .progress-bar {
+                height: 100%;
+                background: white;
+                border-radius: 4px;
+                transition: width 0.3s ease;
+            }
+
+            .tutorial-content {
+                flex: 1;
+                overflow-y: auto;
+                padding: 30px;
+            }
+
+            .tutorial-step {
+                display: none;
+                animation: fadeIn 0.3s ease;
+            }
+
+            .tutorial-step.active {
+                display: block;
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            .tutorial-step h2 {
+                color: #667eea;
+                font-size: 1.8em;
+                margin-top: 0;
+                text-align: center;
+            }
+
+            .tutorial-step p {
+                font-size: 1.1em;
+                line-height: 1.6;
+                margin: 15px 0;
+                text-align: center;
+            }
+
+            .tutorial-step img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 20px auto;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+
+            .step-indicator {
+                text-align: center;
+                color: #666;
+                font-size: 0.9em;
+                margin-top: 20px;
+            }
+
+            .tutorial-footer {
+                padding: 20px;
+                border-top: 1px solid #eee;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .tutorial-button {
+                padding: 12px 24px;
+                font-size: 1.1em;
+                font-family: 'Bebas Neue', Helvetica, Arial, sans-serif;
+                border: none;
+                border-radius: 8px;
                 cursor: pointer;
-                overflow-y: scroll;
+                transition: all 0.2s;
+                font-weight: bold;
+            }
+
+            .tutorial-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            }
+
+            .tutorial-button.primary {
+                background: #4CAF50;
+                color: white;
+                flex: 1;
+            }
+
+            .tutorial-button.primary:hover {
+                background: #45a049;
+            }
+
+            .tutorial-button.secondary {
+                background: #f5f5f5;
+                color: #333;
+            }
+
+            .tutorial-button.secondary:hover {
+                background: #e0e0e0;
+            }
+
+            .tutorial-button:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+            .tutorial-button:disabled:hover {
+                transform: none;
+                box-shadow: none;
+            }
+
+            .highlight-box {
+                background: #f0f7ff;
+                border-left: 4px solid #667eea;
+                padding: 15px;
+                margin: 20px 0;
+                border-radius: 4px;
+            }
+
+            .welcome-step {
+                text-align: center;
+            }
+
+            @media (max-width: 600px) {
+                .tutorial-container {
+                    width: 95%;
+                    max-height: 95vh;
+                }
+
+                .tutorial-content {
+                    padding: 20px;
+                }
+
+                .tutorial-header h1 {
+                    font-size: 1.5em;
+                }
+
+                .tutorial-step h2 {
+                    font-size: 1.4em;
+                }
+
+                .tutorial-footer {
+                    flex-wrap: wrap;
+                }
+
+                .tutorial-button {
+                    font-size: 1em;
+                    padding: 10px 16px;
+                }
             }
         </style>
     </head>
     <body>
-        <div style="position: absolute;" >
-            <a style="font-size: 2em;" onclick="showHelp()">[ ? ]</a>
+        <button id="help-button" onclick="tutorial.show()" title="How to Play">?</button>
+
+        <div id="help-overlay">
+            <div class="tutorial-container">
+                <div class="tutorial-header">
+                    <h1>How to Play TIKITALA</h1>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progress-bar"></div>
+                    </div>
+                </div>
+
+                <div class="tutorial-content">
+                    <!-- Step 0: Welcome -->
+                    <div class="tutorial-step active" data-step="0">
+                        <div class="welcome-step">
+                            <h2>Welcome to TIKITALA!</h2>
+                            <p>Let's learn how to play this strategic 2-player board game.</p>
+                            <p>This quick tutorial will guide you through the rules and gameplay.</p>
+                            <div class="highlight-box">
+                                <p><strong>Tip:</strong> You can restart this tutorial anytime by clicking the <strong>?</strong> button in the top-right corner.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 1: Setup -->
+                    <div class="tutorial-step" data-step="1">
+                        <h2>Game Setup</h2>
+                        <img src="board-start-mini.png" alt="Initial game setup" />
+                        <p><strong>2 players</strong>, each starting with <strong>8 chips</strong></p>
+                        <p>The game begins with 2 chips from each player already placed on the board</p>
+                        <div class="highlight-box">
+                            <p>Your chips are in your stash on the sides of the board, ready to be played!</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Goal -->
+                    <div class="tutorial-step" data-step="2">
+                        <h2>How to Win</h2>
+                        <img src="board-winner-1.png" alt="Winning condition" />
+                        <p><strong>First player to get 5 of their chips showing on top wins!</strong></p>
+                        <p>Only the top chip of each stack counts toward your total</p>
+                        <div class="highlight-box">
+                            <p>Strategy matters: You can cover your opponent's chips by placing yours on top!</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Taking Turns -->
+                    <div class="tutorial-step" data-step="3">
+                        <h2>Taking Your Turn</h2>
+                        <img src="board-turn-step-icon.png" alt="Turn indicator" />
+                        <p>Players alternate turns, one move at a time</p>
+                        <p><strong>The center icon</strong> shows:</p>
+                        <p>• <strong>Whose turn</strong> it is (Player 0 or Player 1)</p>
+                        <p>• Whether to <strong>PICK</strong> up a chip or <strong>PLACE</strong> it</p>
+                        <div class="highlight-box">
+                            <p><strong>Each move has 2 clicks:</strong><br>
+                            1️⃣ Click to pick up a chip<br>
+                            2️⃣ Click to place it on a stack</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Rules -->
+                    <div class="tutorial-step" data-step="4">
+                        <h2>Important Rules</h2>
+                        <img src="board-disabled-drop.png" alt="Grayed out stacks" />
+                        <p>Grayed-out stacks cannot be used. This happens when:</p>
+                        <p>• A stack already has <strong>3 chips</strong> (maximum limit)</p>
+                        <p>• The chip was just moved by your opponent (you can't immediately move it back)</p>
+                        <div class="highlight-box">
+                            <p><strong>Quick tip:</strong> Plan ahead! Think about which stacks your opponent can access on their next turn.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Ready -->
+                    <div class="tutorial-step" data-step="5">
+                        <div class="welcome-step">
+                            <h2>Ready to Play!</h2>
+                            <p>You now know everything you need to start playing TIKITALA.</p>
+                            <p><strong>Click "Start Playing" to begin your game!</strong></p>
+                            <div class="highlight-box">
+                                <p>Remember: Get 5 of your chips showing on top to win!</p>
+                            </div>
+                            <p style="margin-top: 30px;">
+                                <a href="https://tikitala.com" target="_blank">
+                                    <img src="tikitala-dot-com.svg" width="200px" alt="Visit tikitala.com">
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="step-indicator">
+                        <span id="step-counter">Step 1 of 6</span>
+                    </div>
+                </div>
+
+                <div class="tutorial-footer">
+                    <button class="tutorial-button secondary" id="prev-btn" onclick="tutorial.prev()">Previous</button>
+                    <button class="tutorial-button secondary" id="skip-btn" onclick="tutorial.hide()">Skip</button>
+                    <button class="tutorial-button primary" id="next-btn" onclick="tutorial.next()">Next</button>
+                </div>
+            </div>
         </div>
-        <div id="help-overlay" onclick="hideHelp()">
-            <h1>How to play TIKITALA Online</h1>
-            <h2>(Tap/Click anywhere to go back to the game)</h2>
-            <div class="card">
-                <div class="card-header">
-                    <img src="board-start-mini.png" alt="initial setup" />
-                </div>
-                <div class="card-footer">
-                    <p>2 players, each having 8 chips</p>
-                    <p>The game starts with 2 chips from each player on the table</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <img src="board-winner-1.png" alt="player 1 wins" />
-                </div>
-                <div class="card-footer">
-                    <p>The first player to get 5 of their chips showing is the winner!</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <img src="board-turn-step-icon.png" alt="initial setup" />
-                </div>
-                <div class="card-footer">
-                    <p>Each player takes turns playing one move at a time</p>
-                    <p>The icon at the center changes to show whose turn it is, and if they should tap/click to pick up or to drop a chip</p>
-                    <p>One tap/click selects which chip to pick up</p>
-                    <p>Another tap/click selects where to drop the chip</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <img src="board-disabled-drop.png" alt="initial setup" />
-                </div>
-                <div class="card-footer">
-                    <p>Stacks that cannot be used to pick up or drop off are "grayed out", for example:</p>
-                    <p>Stacks cannot have more then 3 chips</p>
-                    <p>Players cannot move the chip most recently moved by their opponent</p>
-                </div>
-            </div>
-            <div class="card">
-                <p><a href="https://tikitala.com"><img src="tikitala-dot-com.svg" width="250px"></a></p>
-            </div>
-        </div>
-    </div>
     
     <script>
-        function showHelp() {
-        document.getElementById("help-overlay").style.display = "block";
-        }
-        
-        function hideHelp() {
-        document.getElementById("help-overlay").style.display = "none";
-        }
+        // Interactive Tutorial System
+        var tutorial = (function() {
+            var currentStep = 0;
+            var totalSteps = 6;
+            var overlay = null;
+            var steps = null;
+            var progressBar = null;
+            var stepCounter = null;
+            var prevBtn = null;
+            var nextBtn = null;
+            var skipBtn = null;
+            var helpButton = null;
+
+            function init() {
+                // Get DOM elements
+                overlay = document.getElementById('help-overlay');
+                steps = document.querySelectorAll('.tutorial-step');
+                progressBar = document.getElementById('progress-bar');
+                stepCounter = document.getElementById('step-counter');
+                prevBtn = document.getElementById('prev-btn');
+                nextBtn = document.getElementById('next-btn');
+                skipBtn = document.getElementById('skip-btn');
+                helpButton = document.getElementById('help-button');
+
+                totalSteps = steps.length;
+
+                // Check if this is the first visit
+                checkFirstVisit();
+
+                // Prevent clicks inside tutorial from closing it
+                var container = document.querySelector('.tutorial-container');
+                if (container) {
+                    container.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                    });
+                }
+
+                // Click outside to close
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) {
+                        hide();
+                    }
+                });
+
+                // Keyboard navigation
+                document.addEventListener('keydown', function(e) {
+                    if (overlay.classList.contains('show')) {
+                        if (e.key === 'ArrowRight' || e.key === 'Enter') {
+                            next();
+                        } else if (e.key === 'ArrowLeft') {
+                            prev();
+                        } else if (e.key === 'Escape') {
+                            hide();
+                        }
+                    }
+                });
+            }
+
+            function checkFirstVisit() {
+                var hasVisited = localStorage.getItem('tikitala-tutorial-seen');
+                if (!hasVisited) {
+                    // First visit - show tutorial automatically after a short delay
+                    setTimeout(function() {
+                        show();
+                        // Add pulse animation to help button
+                        if (helpButton) {
+                            helpButton.classList.add('pulse');
+                        }
+                    }, 1000);
+                    localStorage.setItem('tikitala-tutorial-seen', 'true');
+                } else {
+                    // Add subtle pulse for returning users
+                    if (helpButton) {
+                        helpButton.classList.add('pulse');
+                        setTimeout(function() {
+                            helpButton.classList.remove('pulse');
+                        }, 4000);
+                    }
+                }
+            }
+
+            function show() {
+                currentStep = 0;
+                overlay.classList.add('show');
+                updateStep();
+                // Remove pulse when tutorial is opened
+                if (helpButton) {
+                    helpButton.classList.remove('pulse');
+                }
+            }
+
+            function hide() {
+                overlay.classList.remove('show');
+            }
+
+            function next() {
+                if (currentStep < totalSteps - 1) {
+                    currentStep++;
+                    updateStep();
+                } else {
+                    // Last step - close tutorial
+                    hide();
+                }
+            }
+
+            function prev() {
+                if (currentStep > 0) {
+                    currentStep--;
+                    updateStep();
+                }
+            }
+
+            function updateStep() {
+                // Update step visibility
+                steps.forEach(function(step, index) {
+                    if (index === currentStep) {
+                        step.classList.add('active');
+                    } else {
+                        step.classList.remove('active');
+                    }
+                });
+
+                // Update progress bar
+                var progress = ((currentStep + 1) / totalSteps) * 100;
+                progressBar.style.width = progress + '%';
+
+                // Update step counter
+                stepCounter.textContent = 'Step ' + (currentStep + 1) + ' of ' + totalSteps;
+
+                // Update button states
+                prevBtn.disabled = currentStep === 0;
+
+                // Change "Next" to "Start Playing" on last step
+                if (currentStep === totalSteps - 1) {
+                    nextBtn.textContent = 'Start Playing';
+                    skipBtn.style.display = 'none';
+                } else {
+                    nextBtn.textContent = 'Next';
+                    skipBtn.style.display = 'block';
+                }
+
+                // Scroll to top of content
+                var content = document.querySelector('.tutorial-content');
+                if (content) {
+                    content.scrollTop = 0;
+                }
+            }
+
+            function restart() {
+                currentStep = 0;
+                show();
+            }
+
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+            // Public API
+            return {
+                show: show,
+                hide: hide,
+                next: next,
+                prev: prev,
+                restart: restart
+            };
+        })();
     </script>        
     <script src="js/stage.web.min.js"></script>
     <script src="js/tikitala-stage.js"></script>
