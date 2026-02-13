@@ -211,15 +211,46 @@ Stage(function(stage) {
           game.start();
         }
       });
+      var pulsating = false;
       return {
         update : function(turn, step, blocked, from) {
           console.log('ui update stack');
           var img = obj.peek() + '-' + obj.chips.length;
           var a = obj.canDo(turn, step, blocked, from) ? 1 : 0.3;
-          top.image(img).tween(250).pin({
-            alpha : a,
-            scale : 0.025
-          });
+
+          // Check if this should be pulsating
+          var shouldPulsate = (step === 'place' && from === obj.i);
+
+          if (shouldPulsate) {
+            if (!pulsating) {
+              // Start continuous pulsation loop
+              pulsating = true;
+              function pulse() {
+                if (!pulsating) return;
+                var currentImg = obj.peek() + '-' + obj.chips.length;
+                top.image(currentImg).tween(400).pin({
+                  alpha : 1,
+                  scale : 0.029
+                }).tween(400).pin({
+                  alpha : 0.9,
+                  scale : 0.026
+                });
+                setTimeout(pulse, 800);
+              }
+              pulse();
+            }
+            // If already pulsating, let the loop continue
+          } else {
+            // Should not be pulsating
+            if (pulsating) {
+              pulsating = false;
+            }
+            // Apply normal styling
+            top.image(img).tween(250).pin({
+              alpha : a,
+              scale : 0.025
+            });
+          }
         },
         win : function() {
           top.tween(1000).pin({
