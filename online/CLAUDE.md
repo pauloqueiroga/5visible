@@ -27,6 +27,13 @@ Make changes to `index.html` or `js/tikitala-stage.js`, then refresh the browser
 
 ## Architecture
 
+### Keep It Lean ant Simple
+
+All code (HTML, CSS, JS, etc.) must adhere to these constraints:
+
+- Minimize or fully avoid utilization of dependencies, frameworks and packages, keep the code straight-forward and simple
+- User Interface should be designed such as to be accessible to users in any platform, with any screen aspect ratio
+
 ### Game Logic vs UI Separation
 
 The codebase separates game logic from rendering:
@@ -44,11 +51,13 @@ The codebase separates game logic from rendering:
 ### Stack System
 
 The game uses 11 stacks indexed 0-10:
+
 - Stack 0: Player 0's stash (off-board chips)
 - Stack 1: Player 1's stash (off-board chips)
 - Stacks 2-10: The 9 positions on the game board
 
 Each stack tracks:
+
 - `chips[]`: Array of chip objects (`{player: '0' or '1'}`)
 - `canGive(turn, blocked)`: Can a chip be picked from this stack?
 - `canTake()`: Can a chip be placed on this stack?
@@ -64,6 +73,7 @@ Each stack tracks:
 ### Stage.js Integration
 
 Stage.js is a 2D canvas game engine (minified at `js/stage.web.min.js`):
+
 - `Stage(callback)` initializes the game stage
 - `Stage.image(texture)` creates sprite objects from texture atlas
 - Textures defined via sprite sheets at bottom of `js/tikitala-stage.js:245-306`
@@ -87,6 +97,7 @@ Two sprite sheets provide all visual assets:
 This repository uses GitHub Pages with the `gh-pages` branch. Changes pushed to `gh-pages` are automatically deployed. The main development branch is `main`.
 
 To deploy:
+
 ```bash
 git checkout gh-pages
 git merge main  # or cherry-pick specific commits
