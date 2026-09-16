@@ -59,16 +59,12 @@ This board covers the **website and the online game** (the `gh-pages` line): `in
 
 ### Page fundamentals
 
-- Add `<!DOCTYPE html>` and `<html lang="en">` to `index.html` and `online/index.html`. Both currently open with a bare `<html>`, which puts browsers in quirks mode
-- Add `<meta name="description">`, `<link rel="canonical">` and a favicon set to both pages
-- Add `og:title` / `og:description` / `og:url` and `twitter:card` tags. The root page has only `og:image*`, and `online/index.html` has no social tags at all
 - Remove `user-scalable=no, maximum-scale=1.0` from `online/index.html`'s viewport. It blocks pinch-zoom and fails WCAG 1.4.4
 - Add the existing `gtag` snippet (`G-1MG5GMQFNP`, already in `index.html`) to `online/index.html` so online play is actually measured
 - Fix heading hierarchy on `index.html`. It uses `<h1>` five times as a style, not as structure
 
 ### SEO
 
-- Add `/robots.txt` and `/sitemap.xml`. Neither exists; the site is `www.tikitala.com` per `CNAME`
 - Add `VideoGame` JSON-LD structured data to `index.html`: name, description, `playMode`, `numberOfPlayers`, `gameLocation` pointing at `/online/`
 - Write real indexable rules text. The rules on `index.html` are image cards whose alt text is mostly the placeholder `"initial setup"`, and there is no crawlable prose version of the rules
 - Give `online/index.html` its own `<h1>` and a short intro paragraph above the canvas. The page currently offers a crawler zero text
