@@ -60,12 +60,10 @@ This board covers the **website and the online game** (the `gh-pages` line): `in
 ### Page fundamentals
 
 - Remove `user-scalable=no, maximum-scale=1.0` from `online/index.html`'s viewport. It blocks pinch-zoom and fails WCAG 1.4.4
-- Add the existing `gtag` snippet (`G-1MG5GMQFNP`, already in `index.html`) to `online/index.html` so online play is actually measured
 - Fix heading hierarchy on `index.html`. It uses `<h1>` five times as a style, not as structure
 
 ### SEO
 
-- Add `VideoGame` JSON-LD structured data to `index.html`: name, description, `playMode`, `numberOfPlayers`, `gameLocation` pointing at `/online/`
 - Write real indexable rules text. The rules on `index.html` are image cards whose alt text is mostly the placeholder `"initial setup"`, and there is no crawlable prose version of the rules
 - Give `online/index.html` its own `<h1>` and a short intro paragraph above the canvas. The page currently offers a crawler zero text
 
@@ -73,7 +71,6 @@ This board covers the **website and the online game** (the `gh-pages` line): `in
 
 All of these gate approval.
 
-- Add `/privacy.html` covering Google Analytics and AdSense cookies, and `/terms.html`
 - Add an About/contact page or section. AdSense reviews reject thin, contactless sites
 - Add a consent solution for EEA/UK traffic (Google's CMP requirement) before any ad code goes live
 - Add `/ads.txt` once the publisher ID exists
