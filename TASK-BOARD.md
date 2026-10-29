@@ -21,13 +21,14 @@ A lightweight Kanban-style board, version-controlled alongside the code.
 
 ## To Do
 
-(nothing for now)
+- Online redesign: playable prototype of the game screen
+- Online redesign: landscape and desktop layouts
 
 ---
 
 ## In Progress
 
-(empty)
+- Online game redesign: design guide in [`docs/online/`](docs/online/README.md) and phone mockups
 
 ---
 

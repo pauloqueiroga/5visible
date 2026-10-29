@@ -1,0 +1,62 @@
+# Copy
+
+[Back to the design guide](README.md)
+
+## Voice
+
+- **Short and direct.** Tell the player what to do: "Place it", "Tap a ringed spot."
+- **Friendly, never cute.** The game is the fun part; the words stay out of its way.
+- **Talk like players at a table.** "Bury", "uncover", "on top", "your move".
+- **No strategy hints during a game.** Players work it out and remember for themselves.
+- **Shouts in Bebas Neue, sentences in Barlow.** Headlines and button labels are set in Bebas Neue
+  (which has capitals only); body text is in sentence case.
+- **Digits, not words**, for chip counts and scores: "3 left", "4 / 5 ON TOP".
+
+## Terminology
+
+| Use | Meaning | Avoid |
+| --- | --- | --- |
+| chip | One playing piece | brick (fine in engine code), piece, token, coin |
+| `0` and `1` | The two players, and their chips | player 1 and player 2, red and blue |
+| stack | One or more chips on a spot | pile (except for the stash) |
+| spot | One of the 9 places on the table | cell, slot, square |
+| stash | A player's chips that are not on the table yet | hand, reserve |
+| on top | A chip that counts: the top chip of a stack | visible, showing |
+| pick up | Take a chip to move it | grab, select |
+| place, drop | Put the chip down | move to, play |
+| in your hand | The chip you have picked up | selected, active |
+| put it back | Cancel a pick-up that revealed nothing | undo |
+| bury | Cover a chip with another | hide, block |
+| uncover | Reveal a chip by moving the one above it | expose |
+| locked | The stack the opponent just dropped onto | blocked, frozen |
+| full | A stack of 3 | maxed |
+
+## Approved strings
+
+| Where | Text |
+| --- | --- |
+| Pick-up headline | Your move |
+| Pick-up instruction | Pick up a chip: any top chip on the table or a new one from your stash. |
+| Stash label | Stash · n left · tap for a new chip |
+| Place headline | Place it |
+| Place instruction (from stash) | Tap a ringed spot. A stack holds 3 chips at most. |
+| Place instruction (lone chip) | Tap a ringed spot. A stack holds 3 chips at most. |
+| Place instruction (off a stack) | You lifted it off a stack and saw what was under it, so it can't go back. Tap a ringed spot. |
+| Hand tray | In your hand · A new 0 from your stash / Your 0 from the table / Your 0 from a stack |
+| Put back | Put it back |
+| No put back | No take-backs |
+| Tags on the board | FULL · UNCOVERED |
+| Score | n / 5 ON TOP |
+| After their move | Your move · Whoever reaches five first wins. |
+| Win | You win · 5 on top. The computer had 3. |
+| Reveal | The big reveal · Top chip in front · You buried n of their chips. They buried n of yours. Did you remember them all? |
+| Shop card | Play it on a real table · Get TIKITALA → |
+| Ko-fi | Enjoying it? Support TIKITALA on Ko-fi |
+| Home choices | Play the computer · Offline. No connection needed. / Play a friend online · Send a link. No sign-up. / Pass & play · Two players on this device |
+| Home footer | Better on a real table. · Get the chips at tikitala.com |
+| Invite | Play a friend · You go first · Waiting · Send invite link · Copy link · Show QR · Got a code from a friend? · Join · Play someone new · No accounts, no downloads. The link opens the game in any browser. |
+
+## Still to write
+
+- Lesson titles and copy for lessons 1, 3 and 4 (lesson 2 is "Bury their chip").
+- The losing screen line and the pass & play panel labels.
