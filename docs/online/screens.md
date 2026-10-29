@@ -9,10 +9,12 @@ The phone flow, in the order a new player meets it. Sizes are for the 390×844 r
 **Purpose:** say what TIKITALA is in one look, then get the player into a game.
 
 - Lime ground. The TIKI TALA logo, centered, 216px wide.
-- Tagline in Bebas Neue 38px (still to be written), then the line "A 2-player game of strategy and
+- Tagline "Five on top wins" in Bebas Neue 42px, then the line "A 2-player game of strategy and
   sharp memory."
 - Three decorative chips, as if dropped on the table.
-- Three choices, 64px tall:
+- Release 1 has one choice: **Pass & play** (primary, ink with lime text), "Two players on this
+  device". When a game is in progress it reads **Continue your game**, "Player 1's move · 3–2", with a
+  "Start a new game" link under it. Later releases add the other choices, 64px tall:
   - **Play the computer** (primary, ink with lime text): "Offline. No connection needed."
   - **Play a friend online** (secondary, pale lime with an ink border): "Send a link. No sign-up."
   - **Pass & play** (secondary): "Two players on this device"
@@ -70,7 +72,7 @@ where it came from. The tray has a neutral border, never lime. "Put it back" ret
   burying summary and "Did you remember them all?"
 - **Rematch** (primary) and **Share** (secondary).
 - An ink card with a photo of the real chips: "Play it on a real table" and "Get TIKITALA →".
-- A Ko-fi link: "Enjoying it? Support TIKITALA on Ko-fi".
+- A Ko-fi link on a chalk button: "Buy me a coffee".
 
 A losing screen follows the same layout, with "They win" and the same reveal.
 

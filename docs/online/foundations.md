@@ -126,13 +126,15 @@ With `prefers-reduced-motion`, the pulse becomes a still ring and the trail beco
 - **Scrolling.** The home, setup, win and invite screens scroll vertically whenever their content is
   taller than the screen, so nothing is ever cut off. The game screen is designed not to scroll, but
   as a safeguard it scrolls rather than clipping when the screen is too short for even the smallest
-  board (for example a phone held sideways, until the landscape layout exists).
+  board (for example the lessons on a 320×568 phone).
 - **Long words.** Headlines that can get long (such as "Computer wins") use a smaller size so they
   stay on one line; body text always wraps.
 - **Safe areas:** pad the header and the bottom panel with `env(safe-area-inset-*)`. Never draw a fake
   status bar.
-- **Landscape and desktop** (to be designed): opponent panel on the left, table in the middle, your
-  panel on the right.
+- **Two columns on wide screens.** When the screen is at least 560px wide and wider than 5:4, the game
+  uses two columns: the header, the other player's panel (or the lesson card) and your panel stacked
+  on the left (300 to 420px wide), and the table filling the right. The home screen puts the logo
+  on the left and the buttons on the right; the game-over screen puts the reveal on the right.
 
 ## Accessibility
 

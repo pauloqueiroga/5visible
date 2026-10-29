@@ -29,8 +29,4 @@ The engine documents call the pieces *bricks*. The product, the physical game an
 
 Things the design leaves open, to be settled by the project owner:
 
-- Home screen tagline (currently a placeholder)
-- Ko-fi page URL for the win screen
 - Names and number of computer levels (screens show "Clever" as an example)
-- Labels for pass & play, where neither player is "you"
-- Landscape and desktop layouts (not yet drawn)

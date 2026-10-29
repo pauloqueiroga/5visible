@@ -51,12 +51,25 @@
 | Win | You win · 5 on top. The computer had 3. |
 | Reveal | The big reveal · Top chip in front · You buried n of their chips. They buried n of yours. Did you remember them all? |
 | Shop card | Play it on a real table · Get TIKITALA → |
-| Ko-fi | Enjoying it? Support TIKITALA on Ko-fi |
+| Ko-fi | Buy me a coffee |
 | Home choices | Play the computer · Offline. No connection needed. / Play a friend online · Send a link. No sign-up. / Pass & play · Two players on this device |
 | Home footer | Better on a real table. · Get the chips at tikitala.com |
 | Invite | Play a friend · You go first · Waiting · Send invite link · Copy link · Show QR · Got a code from a friend? · Join · Play someone new · No accounts, no downloads. The link opens the game in any browser. |
 
-## Still to write
+## Pass & play strings
 
-- Lesson titles and copy for lessons 1, 3 and 4 (lesson 2 is "Bury their chip").
-- The losing screen line and the pass & play panel labels.
+| Where | Text |
+| --- | --- |
+| Panels | Player 0 · Player 1 |
+| Pick-up headline | Player 0's move |
+| Game over | Player 0 wins · 5 on top. Player 1 had 3. · n of Player 0's chips and n of Player 1's ended up buried. Did you remember them all? |
+| Home, game in progress | Continue your game · Player 1's move · 3–2 · Start a new game |
+
+## Lessons
+
+The lesson copy lives in `js/lessons.js` in the online folder, next to each lesson's table setup:
+
+1. **Five on top wins.** Add a chip from your stash to make five on top.
+2. **Bury their chip.** Drop your 0 on their 1.
+3. **Three high, no peeking.** Lift their 1 off your buried 0; a lifted chip can't go back.
+4. **Hands off their last move.** Their last move is locked; make any other move.

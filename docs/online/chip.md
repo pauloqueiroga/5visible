@@ -111,7 +111,7 @@ What that gives on common screens, in portrait (panels per [foundations.md](foun
 | 430×932 | regular | 101px |
 | 768×1024 tablet | regular, 560px column | 126px (the maximum) |
 | 1440×900 desktop window | regular, 560px column | 103px |
-| Phone in landscape | none fits yet | The screen scrolls until the landscape layout exists |
+| 844×390 phone in landscape | compact, two columns | 72px |
 
 The order matches the stack indices in the current code (`tikitala-stage.js`):
 
