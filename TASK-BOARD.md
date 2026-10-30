@@ -13,14 +13,17 @@ A lightweight Kanban-style board, version-controlled alongside the code.
 
 ## Wish List
 
-- Online: play a friend online (invite link and game code), see [`docs/online/screens.md`](docs/online/screens.md)
 - Online: play someone new (matchmaking)
 - Online: offline play as a PWA (local fonts, service worker)
 - Online: drag and drop, alongside tap to pick and tap to place
 
 ## To Do
 
-- Online: remove the Stage.js game files from the gh-pages `online` folder (`js/stage.web.min.js`, `js/tikitala-stage.js`, `tikitala-sprites.png`, `tikitala-turn-step-sprites.png`, `board-*.png`)
+- Online: Localize to Portuguese
+- Online: Localize to Spanish
+- Online: Localize to French
+- Online: play a friend online (invite link and game code), see [`docs/online/screens.md`](docs/online/screens.md)
+- Online: PWA icon should be a TIKITALA chip, no background
 
 ## In Progress
 
