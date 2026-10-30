@@ -89,15 +89,15 @@ export default {
   'spot.theirs': 'o {p} deles',
   'spot.empty': 'Casa vazia',
   'spot.emptyTarget': 'Casa vazia. Coloque sua peça aqui',
-  'spot.stack': 'Pilha de {n}, {owner} por cima',
+  'spot.stack': 'Pilha de {n}, {owner} no topo',
   'spot.target': '{spot}. Coloque sua peça aqui',
   'spot.locked': 'Travada: a última jogada deles. {spot}',
   'spot.origin': 'De onde veio a peça na sua mão',
-  'spot.originTop': 'De onde veio a peça na sua mão, agora com {owner} por cima',
+  'spot.originTop': 'De onde veio a peça na sua mão, agora com {owner} no topo',
   'spot.tapPutBack': '{spot}. Toque para devolver',
 
   // the end of a game, before the reveal opens
-  'end.five': 'Cinco por cima!',
+  'end.five': 'Cinco no topo!',
   'end.computerFive': 'O computador fez cinco',
   'end.flip': 'Todas as pilhas vão ser reveladas.',
   'end.youWin': 'Você venceu. Todas as pilhas vão ser reveladas.',
@@ -111,9 +111,9 @@ export default {
   'live.uncovered.you': 'Você moveu uma peça e descobriu outra.',
   'live.uncovered.computer': 'O computador moveu uma peça e descobriu outra.',
   'live.uncovered.player': 'O Jogador {p} moveu uma peça e descobriu outra.',
-  'live.win.you': 'Você fez cinco por cima e venceu.',
-  'live.win.computer': 'O computador fez cinco por cima e venceu.',
-  'live.win.player': 'O Jogador {p} fez cinco por cima e venceu.',
+  'live.win.you': 'Você fez cinco no topo e venceu.',
+  'live.win.computer': 'O computador fez cinco no topo e venceu.',
+  'live.win.player': 'O Jogador {p} fez cinco no topo e venceu.',
   'live.next.you': 'Sua vez.',
   'live.next.computer': 'Vez do computador.',
   'live.next.player': 'Vez do Jogador {p}.',
@@ -127,12 +127,12 @@ export default {
   'lesson.next': 'Próxima lição',
   'lesson.toComputer': 'Jogar contra o computador',
 
-  'lesson.win.title': 'Cinco por cima ganha',
-  'lesson.win.body': 'Só a peça de cima de cada pilha conta. Você tem 4 por cima. Pegue um 0 novo da sua reserva e comece uma pilha numa casa vazia.',
+  'lesson.win.title': 'Cinco no topo ganha',
+  'lesson.win.body': 'Só a peça de cima de cada pilha conta. Você tem 4 no topo. Pegue um 0 novo da sua reserva e comece uma pilha numa casa vazia.',
   'lesson.win.pick': 'Toque na sua reserva para pegar um 0 novo.',
   'lesson.win.place': 'Toque numa casa vazia marcada.',
-  'lesson.win.doneTitle': 'Cinco por cima!',
-  'lesson.win.doneText': 'É vitória. Quem chega primeiro a cinco peças por cima ganha a partida.',
+  'lesson.win.doneTitle': 'Cinco no topo!',
+  'lesson.win.doneText': 'É vitória. Quem chega primeiro a cinco peças no topo ganha a partida.',
 
   'lesson.bury.title': 'Enterre a peça deles',
   'lesson.bury.body': 'Peça coberta não conta. Pegue o seu 0 e solte em cima do 1 deles.',
@@ -148,12 +148,12 @@ export default {
   'lesson.stack.tag': 'SEU 0 EMBAIXO',
   'lesson.stack.pick': 'Toque no 1 deles para levantá-lo.',
   'lesson.stack.doneTitle': 'Peça descoberta',
-  'lesson.stack.doneText': 'Seu 0 está por cima de novo. Levantar uma peça mostra o que tem embaixo, por isso peça levantada não pode voltar.',
+  'lesson.stack.doneText': 'Seu 0 está no topo de novo. Levantar uma peça mostra o que tem embaixo, por isso peça levantada não pode voltar.',
 
   'lesson.lock.title': 'Não mexa na última jogada',
   'lesson.lock.body': 'Eles acabaram de pôr um 1 no seu 0. A última peça que eles moveram está travada: não dá para mexer nela agora. Faça outra jogada.',
   'lesson.lock.doneTitle': 'O jogo é isso',
-  'lesson.lock.doneText': 'Uma peça por vez, da reserva ou de qualquer pilha. Enterre as deles, lembre das suas e faça cinco por cima.',
+  'lesson.lock.doneText': 'Uma peça por vez, da reserva ou de qualquer pilha. Enterre as deles, lembre das suas e faça cinco no topo.',
 
   // game over, and the big reveal
   'over.tag': { one: 'FIM DE JOGO · {n} JOGADA', other: 'FIM DE JOGO · {n} JOGADAS' },
@@ -173,9 +173,9 @@ export default {
   'kofi': 'Me pague um café',
 
   // sharing a result
-  'share.youWon': 'Ganhei de {a} a {b} do computador {level} no TIKITALA. Cinco por cima ganha!',
-  'share.computerWon': 'Perdi de {a} a {b} para o computador {level} no TIKITALA. Cinco por cima ganha!',
-  'share.playerWon': 'O Jogador {p} ganhou de {a} a {b} no TIKITALA, em {n} jogadas. Cinco por cima ganha!',
+  'share.youWon': 'Ganhei de {a} a {b} do computador {level} no TIKITALA. Cinco no topo ganha!',
+  'share.computerWon': 'Perdi de {a} a {b} para o computador {level} no TIKITALA. Cinco no topo ganha!',
+  'share.playerWon': 'O Jogador {p} ganhou de {a} a {b} no TIKITALA, em {n} jogadas. Cinco no topo ganha!',
   'share.copied': 'Copiado. Cole onde quiser.',
   'share.link': 'Compartilhe este link: {url}'
 };
