@@ -190,6 +190,7 @@ Follows the terminology in [copy.md](copy.md#terminology).
 | Levels | LAST PLAYED | DA ÚLTIMA VEZ | "From last time" |
 | Turn | Place it | Reposicione | Chosen in review |
 | Score | 4 / 5 ON TOP | 4 / 5 PONTOS | Chosen in review |
+| Game over, pass & play | Player 1 wins · 5 on top. Player 0 had 2. | Vitória do 1 · 5 no topo, contra 2 do 0. | In Bebas Neue the letter O and the digit 0 look alike, so *O 1 venceu* read as "0 1 venceu"; *vitória do* is common sports phrasing |
 | Game over | The computer got 5 on top. You had 2. | 5 no topo. Você tinha 2. | Chosen in review; the other two game-over lines follow the same pattern (*5 no topo. O computador tinha 1.*) |
 | Share | I beat the Clever computer at TIKITALA, 5 to 3. Five on top wins. | Ganhei de 5 a 3 do computador Esperto no TIKITALA. Cinco no topo ganha! | *Ganhar de 5 a 3* is how Brazilians report a score; the exclamation turns the catchphrase into the boast |
 | Share | The Clever computer beat me at TIKITALA, 5 to 3. | Perdi de 5 a 3 para o computador Esperto no TIKITALA. | Said from the player's side, winner's score first, as in *perdemos de 3 a 1* |
