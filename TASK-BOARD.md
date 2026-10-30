@@ -11,31 +11,24 @@ A lightweight Kanban-style board, version-controlled alongside the code.
 | **In Progress** | Actively being worked on |
 | **Won't Do** | Considered and consciously declined |
 
----
-
 ## Wish List
 
-(nothing for now)
-
----
+- Online: play a friend online (invite link and game code), see [`docs/online/screens.md`](docs/online/screens.md)
+- Online: play someone new (matchmaking)
+- Online: offline play as a PWA (local fonts, service worker)
+- Online: drag and drop, alongside tap to pick and tap to place
 
 ## To Do
 
-(nothing for now)
-
----
+- Online: remove the Stage.js game files from the gh-pages `online` folder (`js/stage.web.min.js`, `js/tikitala-stage.js`, `tikitala-sprites.png`, `tikitala-turn-step-sprites.png`, `board-*.png`)
 
 ## In Progress
 
-(empty)
-
----
+(nothing for now)
 
 ## Won't Do
 
 (nothing for now)
-
----
 
 ## Usage Notes
 
