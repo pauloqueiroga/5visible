@@ -82,7 +82,7 @@ export function legalMoves(game) {
 export function play(game, from, to) {
   if (!canPick(game, from) || !canDrop(game, from, to)) throw new Error('Illegal move ' + from + ' to ' + to);
   const g = clone(game);
-  const chip = g.stacks[from].pop();
+  const chip = { ...g.stacks[from].pop(), b: game.turn };   // b: the player who moved it last
   g.stacks[to].push(chip);
   g.last = { from, to, by: game.turn, chip: chip.id, uncovered: from >= 2 && g.stacks[from].length > 0 };
   g.blocked = to;
@@ -107,6 +107,22 @@ export function play(game, from, to) {
 export function buried(game) {
   const out = { 0: 0, 1: 0 };
   for (const i of SPOTS) game.stacks[i].slice(0, -1).forEach((c) => { out[c.p]++; });
+  return out;
+}
+
+// who buried whom: for every buried chip, the player who last moved the chip right on top of it
+// buriedBy(game)[0] counts player 1's chips covered by player 0, and the other way round
+export function buriedBy(game) {
+  const out = { 0: 0, 1: 0 };
+  for (const i of SPOTS) {
+    const s = game.stacks[i];
+    for (let j = 0; j < s.length - 1; j++) {
+      const cover = s[j + 1];
+      if (cover.b === 0 || cover.b === 1) {
+        if (String(cover.b) !== s[j].p) out[cover.b]++;
+      }
+    }
+  }
   return out;
 }
 

@@ -58,7 +58,7 @@ button, a { touch-action: manipulation; }
 .btn-icon { width: 28px; height: 28px; flex: none; }
 .btn-chevron { width: 22px; height: 22px; flex: none; }
 .btn-text { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
-.btn-label { font-family: var(--display); font-size: 27px; line-height: 1; letter-spacing: 0.03em; }
+.btn-label { font-family: var(--display); font-size: clamp(22px, 7.2vw, 27px); line-height: 1; letter-spacing: 0.03em; }
 .btn-sub { font-size: 13px; font-weight: 500; }
 
 .icon-btn {
@@ -106,6 +106,32 @@ button, a { touch-action: manipulation; }
   font-size: 14px; font-weight: 500;
 }
 .home-footer a { display: flex; align-items: center; min-height: 44px; font-weight: 700; }
+.btn-secondary-big { background: var(--lime-pale); color: var(--ink); border: 2px solid var(--ink); }
+.btn-secondary-big .btn-sub { color: var(--muted-on-lime); }
+.home-actions .btn-plain { margin-top: -6px; }
+
+/* ---------- choosing a computer level ---------- */
+
+.levels {
+  box-sizing: border-box; min-height: 100%; max-width: 520px; margin: 0 auto;
+  padding: max(6px, env(safe-area-inset-top)) 18px max(22px, env(safe-area-inset-bottom));
+  display: flex; flex-direction: column;
+}
+.levels-head { display: flex; align-items: center; gap: 4px; margin-left: -10px; }
+.levels-head h1 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 32px; line-height: 1; letter-spacing: 0.03em; outline: none; }
+.levels-sub { margin: 10px 0 0; font-size: 16px; line-height: 1.4; font-weight: 500; text-wrap: pretty; }
+.level-list { margin-top: 18px; display: flex; flex-direction: column; gap: 12px; }
+.level {
+  display: flex; align-items: center; gap: 14px; width: 100%; min-height: 88px; box-sizing: border-box;
+  padding: 14px 16px 14px 18px; border-radius: 18px; border: 2px solid var(--ink);
+  background: var(--lime-pale); color: var(--ink); text-align: left; cursor: pointer;
+}
+.level.is-last { background: var(--ink); color: var(--lime); }
+.level.is-last .level-about { color: #D3CDBF; }
+.level-text { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+.level-name { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-size: 30px; line-height: 1; letter-spacing: 0.03em; }
+.level-last { font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; padding: 3px 8px; border-radius: 8px; background: var(--lime); color: var(--ink); }
+.level-about { font-size: 14px; line-height: 1.35; font-weight: 500; color: var(--muted-on-lime); text-wrap: pretty; }
 
 /* ---------- the game ---------- */
 
@@ -312,6 +338,10 @@ button, a { touch-action: manipulation; }
   .home-chips { height: 120px; margin: 8px 0 4px; }
 }
 
+@media (max-height: 640px) and (max-aspect-ratio: 5/4) {
+  .home-chips { display: none; }
+}
+
 /* ---------- wide screens: two columns, the table on the right ---------- */
 
 @media (min-aspect-ratio: 5/4) and (min-width: 560px) {
@@ -331,6 +361,11 @@ button, a { touch-action: manipulation; }
     padding-left: max(24px, env(safe-area-inset-left)); padding-right: max(24px, env(safe-area-inset-right));
   }
   .home-actions { flex: none; margin-top: 0; }
+
+  .levels { max-width: 980px; padding-left: max(18px, env(safe-area-inset-left)); padding-right: max(18px, env(safe-area-inset-right)); }
+  .level-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .level { flex-direction: column; align-items: flex-start; justify-content: flex-start; min-height: 150px; }
+  .level .btn-chevron { display: none; }
   .home-footer { margin-top: 10px; }
 
   .over {
