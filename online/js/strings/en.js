@@ -13,7 +13,6 @@ export default {
   'meta.description': 'Play TIKITALA online free, a 2-player strategy and memory game. No download or signup required, just click and play in your browser.',
 
   // home
-  'home.tagline': 'Five on top wins',                               // [display] the game's catchphrase
   'home.sub': 'A 2-player game of strategy and sharp memory.',
   'home.computer': 'Play the computer',                             // [display]
   'home.computer.sub': 'Offline. No connection needed.',
@@ -25,7 +24,7 @@ export default {
   'home.pass.new': 'New pass & play game',
   'home.learn': 'New here? Learn in four moves',
   'home.better': 'Better on a real table.',
-  'home.getChips': 'Get the chips at tikitala.com',
+  'home.getGame': 'Get the game at tikitala.com',
   'language': 'Language',
 
   // moving around
@@ -171,13 +170,8 @@ export default {
   'over.computerWinsSub': 'The computer got {a} on top. You had {b}.',
   'over.playerWinsSub': '{a} on top. Player {p} had {b}.',
   'reveal.title': 'The big reveal',                                 // [display]
-  'reveal.topInFront': 'Top chip in front',
   'reveal.stack': 'Stack, top to bottom: {chips}',
-  'reveal.youBuried': 'You buried {n} of their chips.',
-  'reveal.theyBuried': 'They buried {n} of yours.',
-  'reveal.passBuried': '{a} of Player 0’s chips and {b} of Player 1’s ended up buried.',
-  'reveal.remember': 'Did you remember them all?',
-  'over.rematch': 'Rematch',                                        // [display] shares a row with Share
+  'over.rematch': 'Rematch',                                        // [display]
   'over.share': 'Share',                                            // [display]
   'promo.alt': 'TIKITALA chips on a wooden table',
   'promo.title': 'Play it on a real table',                         // [display]

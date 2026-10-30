@@ -553,13 +553,6 @@ function renderOver() {
     cell.appendChild(stair);
     grid.appendChild(cell);
   }
-  if (cpu) {
-    const by = R.buriedBy(g);
-    $('reveal-text').textContent = [t('reveal.youBuried', { n: by[0] }), t('reveal.theyBuried', { n: by[1] }), t('reveal.remember')].join(' ');
-  } else {
-    const b = R.buried(g);
-    $('reveal-text').textContent = t('reveal.passBuried', { a: b[0], b: b[1] }) + ' ' + t('reveal.remember');
-  }
 }
 
 async function share() {
