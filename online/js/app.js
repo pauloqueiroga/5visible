@@ -1,11 +1,13 @@
 // TIKITALA Online: screens, playing the computer, pass & play, the lessons and the end-of-game reveal.
 // Rules live in rules.js, the computer in computer.js, chips in chip.js and the table in board.js.
+// Every word comes from the string tables through i18n.js.
 
 import * as R from './rules.js';
 import * as AI from './computer.js';
 import { chipStack } from './chip.js';
 import { Board, boardScale } from './board.js';
 import { LESSONS, lessonGame } from './lessons.js';
+import { t, has, LANGUAGES, language, chosenLanguage, chooseLanguage, setLanguage, translatePage } from './i18n.js';
 
 const PASS_KEY = 'tikitala.online.passplay.v1';
 const CPU_KEY = 'tikitala.online.computer.v1';
@@ -97,11 +99,44 @@ function announce(text) {
 
 let toastTimer = 0;
 function toast(text) {
-  const t = $('toast');
-  t.textContent = text;
-  t.hidden = false;
+  const el = $('toast');
+  el.textContent = text;
+  el.hidden = false;
   window.clearTimeout(toastTimer);
-  toastTimer = window.setTimeout(() => { t.hidden = true; }, 2400);
+  toastTimer = window.setTimeout(() => { el.hidden = true; }, 2400);
+}
+
+// ---------- words ----------
+
+function levelName(level) {
+  return t('level.' + level + '.name');
+}
+
+// who a sentence is about: 'you' or 'computer' against the computer, 'player' in pass & play
+function who(p) {
+  if (ui.mode === 'cpu') return p === 0 ? 'you' : 'computer';
+  return 'player';
+}
+
+// a lesson's own words for one moment, or '' if that lesson has none
+function lessonText(L, part) {
+  const key = 'lesson.' + L.id + '.' + part;
+  return has(key) ? t(key) : '';
+}
+
+// one-line display text (data-fit) shrinks until it fits its box, but not below data-fit px;
+// if even that is too wide, it wraps
+function fitText() {
+  document.querySelectorAll('[data-fit]').forEach((el) => {
+    el.style.fontSize = '';
+    el.style.whiteSpace = '';
+    if (!el.clientWidth || el.scrollWidth <= el.clientWidth) return;
+    const min = Number(el.dataset.fit);
+    let size = Math.floor(parseFloat(getComputedStyle(el).fontSize) * el.clientWidth / el.scrollWidth);
+    el.style.fontSize = Math.max(min, size) + 'px';
+    while (el.scrollWidth > el.clientWidth && size > min) el.style.fontSize = --size + 'px';
+    if (el.scrollWidth > el.clientWidth) el.style.whiteSpace = 'normal';
+  });
 }
 
 // ---------- routing: #computer, #computer/play, #play, #learn, #learn/2, or home ----------
@@ -142,6 +177,7 @@ function show(screen) {
   if (screen === 'levels') renderLevels();
   if (screen === 'game') renderGame();
   if (screen === 'over') renderOver();
+  fitText();
   if (changed) {
     const focus = { home: 'home-title', levels: 'levels-title', over: 'over-title' }[screen] || (ui.mode === 'lesson' ? 'lesson-title' : null);
     if (focus) $(focus).focus({ preventScroll: true });
@@ -154,18 +190,18 @@ function show(screen) {
 function renderHome() {
   const cpu = ui.cpu && ui.cpu.game.winner === null ? ui.cpu : loadCpu();
   if (cpu) {
-    $('computer-sub').textContent = 'Continue your ' + AI.LEVELS[cpu.level].name + ' game · ' + R.onTop(cpu.game, 0) + '–' + R.onTop(cpu.game, 1);
+    $('computer-sub').textContent = t('home.computer.continue', { level: levelName(cpu.level), a: R.onTop(cpu.game, 0), b: R.onTop(cpu.game, 1) });
     $('btn-computer-new').hidden = false;
   } else {
-    $('computer-sub').textContent = 'Offline. No connection needed.';
+    $('computer-sub').textContent = t('home.computer.sub');
     $('btn-computer-new').hidden = true;
   }
   const pass = ui.pass && ui.pass.winner === null ? ui.pass : loadPass();
   if (pass) {
-    $('play-sub').textContent = 'Continue: Player ' + pass.turn + '’s move · ' + R.onTop(pass, 0) + '–' + R.onTop(pass, 1);
+    $('play-sub').textContent = t('home.pass.continue', { p: pass.turn, a: R.onTop(pass, 0), b: R.onTop(pass, 1) });
     $('btn-new').hidden = false;
   } else {
-    $('play-sub').textContent = 'Two players on this device';
+    $('play-sub').textContent = t('home.pass.sub');
     $('btn-new').hidden = true;
   }
   const chips = document.querySelector('.home-chips');
@@ -239,12 +275,7 @@ function putBack() {
   if (ui.hand < 0 || !R.canPutBack(current(), ui.hand)) return;
   ui.hand = -1;
   renderGame();
-  announce('Chip put back. ' + $('headline').textContent + '.');
-}
-
-function moverName(p) {
-  if (ui.mode === 'cpu') return p === 0 ? 'You' : 'The computer';
-  return 'Player ' + p;
+  announce(t('live.putBack', { turn: $('headline').textContent }));
 }
 
 // plays a move for whoever's turn it is, then hands over to the next player
@@ -256,29 +287,30 @@ function commit(from, to) {
   setCurrent(after);
 
   if (ui.mode === 'lesson') {
+    const L = LESSONS[ui.lessonIndex];
     ui.lesson.done = true;
     track('lesson_complete', { lesson: ui.lessonIndex + 1 });
     if (ui.lessonIndex === LESSONS.length - 1) { store.set(LEARNED_KEY, true); track('tutorial_complete'); }
     renderGame();
-    announce(LESSONS[ui.lessonIndex].doneTitle + '. ' + LESSONS[ui.lessonIndex].doneText);
+    announce(lessonText(L, 'doneTitle') + '. ' + lessonText(L, 'doneText'));
     return;
   }
 
   if (ui.mode === 'cpu') ui.cpu.mem = AI.afterMove(after, ui.cpu.mem, ui.cpu.level);
   save();
 
-  const what = moverName(before.turn) + ' moved a chip' + (after.last.uncovered ? ' and uncovered one' : '') + '. ';
+  const what = t((after.last.uncovered ? 'live.uncovered.' : 'live.moved.') + who(before.turn), { p: before.turn });
   if (after.winner !== null) {
     ui.ending = true;
     renderGame();
-    announce(what + (ui.mode === 'cpu' && after.winner === 0 ? 'You have five on top and win.' : moverName(after.winner) + ' has five on top and wins.'));
+    announce(what + ' ' + t('live.win.' + who(after.winner), { p: after.winner }));
     track('game_end', { mode: ui.mode === 'cpu' ? 'computer' : 'pass_and_play', level: ui.mode === 'cpu' ? ui.cpu.level : undefined, moves: after.moves, winner: after.winner });
     ui.timer = window.setTimeout(() => { ui.ending = false; show('over'); }, END_PAUSE);
     return;
   }
   renderGame();
-  const passed = after.passed ? moverName(1 - after.turn) + ' had no legal move. ' : '';
-  announce(what + passed + (ui.mode === 'cpu' ? (after.turn === 0 ? 'Your move.' : 'The computer’s move.') : 'Player ' + after.turn + '’s move.'));
+  const passed = after.passed ? t('passed.' + who(1 - after.turn), { p: 1 - after.turn }) + ' ' : '';
+  announce(what + ' ' + passed + t('live.next.' + who(after.turn), { p: after.turn }));
   if (ui.mode === 'cpu' && after.turn === 1) computerTurn();
 }
 
@@ -313,30 +345,30 @@ function renderGame() {
   const g = current();
   const me = lesson || cpu ? 0 : g.turn;          // in pass & play, the bottom panel is whoever's turn it is
   const other = 1 - me;
-  const nameOf = (p) => lesson ? (p === 0 ? 'You · 0' : 'Them · 1') : cpu ? (p === 0 ? 'You · 0' : 'Computer · 1') : 'Player ' + p;
-  const owner = (p) => (String(p) === String(me) ? 'your ' : 'their ') + p;
+  const nameOf = (p) => t(lesson ? (p === 0 ? 'name.you' : 'name.them') : cpu ? (p === 0 ? 'name.you' : 'name.computer') : 'name.player', { p });
+  const owner = (p) => t(String(p) === String(me) ? 'spot.yours' : 'spot.theirs', { p });
   const holding = ui.hand >= 0;
   const live = interactive();
   const tileChip = compact() ? 44 : 56;
 
   $('screen-game').classList.toggle('is-lesson', lesson);
-  $('mode-label').textContent = cpu ? 'vs Computer · ' + AI.LEVELS[ui.cpu.level].name : 'Pass & play';
+  $('mode-label').textContent = cpu ? t('head.computer', { level: levelName(ui.cpu.level) }) : t('head.pass');
 
   // header and the panel above the table
   if (lesson) {
-    $('lesson-count').textContent = 'LESSON ' + (ui.lessonIndex + 1) + ' OF ' + LESSONS.length;
+    $('lesson-count').textContent = t('lesson.count', { n: ui.lessonIndex + 1, total: LESSONS.length });
     [...$('lesson-bars').children].forEach((b, k) => b.classList.toggle('is-done', k <= ui.lessonIndex));
-    $('lesson-title').textContent = L.title;
-    $('lesson-body').textContent = L.body;
+    $('lesson-title').textContent = lessonText(L, 'title');
+    $('lesson-body').textContent = lessonText(L, 'body');
     pips($('lesson-pips-0'), R.onTop(g, 0), 0);
     pips($('lesson-pips-1'), R.onTop(g, 1), 1);
   } else {
     const n = g.stacks[other].length;
     $('other-tile').replaceChildren(chipStack({ player: String(other), count: Math.min(n, 3), size: 40, rot: 8, colors: COLORS }));
     $('other-name').textContent = nameOf(other);
-    $('other-stash').textContent = n ? n + (n === 1 ? ' chip' : ' chips') + ' left in stash' : 'No chips left in stash';
+    $('other-stash').textContent = t('panel.otherStash', { n });
     pips($('other-pips'), R.onTop(g, other), other);
-    $('other-score').textContent = R.onTop(g, other) + ' / 5 ON TOP';
+    $('other-score').textContent = t('score', { n: R.onTop(g, other) });
   }
 
   // the nine spots
@@ -354,32 +386,41 @@ function renderGame() {
         count = stack.length - 1;
         topChip = count ? stack[count - 1] : null;
         state = 'origin';
-        if (count) tag = 'UNCOVERED';
+        if (count) tag = t('tag.uncovered');
         enabled = R.canPutBack(g, i);
       } else if (R.canDrop(g, ui.hand, i) && lessonAllows(L && L.allowTo, i)) {
         state = 'target';
         enabled = true;
       } else {
         state = 'dim';
-        if (stack.length >= R.MAX_STACK) { tag = 'FULL'; tagKind = 'full'; }
+        if (stack.length >= R.MAX_STACK) { tag = t('tag.full'); tagKind = 'full'; }
       }
     } else {
       if (i === g.blocked && count) state = 'locked';
       if (live && lesson && L.allowFrom && !L.allowFrom.includes(i)) state = state === 'locked' ? 'locked' : 'dim';
       enabled = live && R.canPick(g, i) && lessonAllows(L && L.allowFrom, i);
-      if (showLast && g.last.uncovered && g.last.from === i) tag = 'UNCOVERED';
-      if (lesson && !done && L.tags && L.tags[i]) tag = L.tags[i];
+      if (showLast && g.last.uncovered && g.last.from === i) tag = t('tag.uncovered');
+      if (lesson && !done && L.tag && L.tag.spot === i) tag = lessonText(L, 'tag');
       if (ui.ending && topChip && Number(topChip.p) === g.winner) state = 'target';
     }
-    const label = state === 'origin'
-      ? 'Where the chip in your hand came from' + (count ? ', ' + owner(topChip.p) + ' now on top' : '') + (enabled ? '. Tap to put it back' : '')
-      : count === 0
-        ? (state === 'target' ? 'Empty spot. Place your chip here' : 'Empty spot')
-        : (state === 'locked' ? 'Locked: their last move. ' : '') + 'Stack of ' + count + ', ' + owner(topChip.p) + ' on top' + (state === 'target' ? '. Place your chip here' : '');
+    let label;
+    if (state === 'origin') {
+      label = count ? t('spot.originTop', { owner: owner(topChip.p) }) : t('spot.origin');
+      if (enabled) label = t('spot.tapPutBack', { spot: label });
+    } else if (count === 0) {
+      label = t(state === 'target' ? 'spot.emptyTarget' : 'spot.empty');
+    } else {
+      label = t('spot.stack', { n: count, owner: owner(topChip.p) });
+      if (state === 'locked') label = t('spot.locked', { spot: label });
+      if (state === 'target') label = t('spot.target', { spot: label });
+    }
     spots[i] = { player: topChip ? topChip.p : '0', count, state, rot: topChip ? topChip.r : 0, landed: i === ui.landed, label, tag, tagKind, enabled };
   }
   let bubble = null;
-  if (lesson && !done) bubble = holding ? (L.placeBubble || null) : (L.pickBubble || null);
+  if (lesson && !done) {
+    const b = holding ? 'placeBubble' : 'pickBubble';
+    if (L[b]) bubble = { spot: L[b].spot, text: lessonText(L, b) };
+  }
   board.update({ spots, trail: showLast ? { from: g.last.from, to: g.last.to } : null, bubble, colors: COLORS });
 
   // the words in your panel
@@ -388,31 +429,27 @@ function renderGame() {
   headline.classList.remove('is-waiting');
   const myStash = g.stacks[me].length;
   if (done) {
-    headline.textContent = L.doneTitle;
-    instruction.textContent = L.doneText;
+    headline.textContent = lessonText(L, 'doneTitle');
+    instruction.textContent = lessonText(L, 'doneText');
   } else if (ui.ending) {
     if (cpu && g.winner === 1) {
-      headline.textContent = 'The computer has five';
-      instruction.textContent = 'Every stack is about to flip open.';
+      headline.textContent = t('end.computerFive');
+      instruction.textContent = t('end.flip');
     } else {
-      headline.textContent = 'Five on top!';
-      instruction.textContent = (cpu ? 'You win.' : 'Player ' + g.winner + ' wins.') + ' Every stack is about to flip open.';
+      headline.textContent = t('end.five');
+      instruction.textContent = cpu ? t('end.youWin') : t('end.playerWins', { p: g.winner });
     }
   } else if (cpu && g.turn === 1) {
-    headline.textContent = 'Computer’s move';
+    headline.textContent = t('turn.computer');
     headline.classList.add('is-waiting');
-    instruction.textContent = 'Thinking…';
+    instruction.textContent = t('turn.thinking');
   } else if (holding) {
-    headline.textContent = 'Place it';
-    instruction.textContent = (L && L.placeText) || (ui.hand >= 2 && !R.canPutBack(g, ui.hand)
-      ? 'You lifted it off a stack and saw what was under it, so it can’t go back. Tap a ringed spot.'
-      : 'Tap a ringed spot. A stack holds 3 chips at most.');
+    headline.textContent = t('turn.place');
+    instruction.textContent = (L && lessonText(L, 'place')) || t(ui.hand >= 2 && !R.canPutBack(g, ui.hand) ? 'turn.placeLifted' : 'turn.placeAny');
   } else {
-    headline.textContent = lesson || cpu ? 'Your move' : 'Player ' + me + '’s move';
-    const passed = !lesson && g.passed ? (cpu ? 'The computer' : 'Player ' + other) + ' had no legal move. ' : '';
-    instruction.textContent = (L && L.pickText) || (passed + (myStash
-      ? 'Pick up a chip: any top chip on the table or a new one from your stash.'
-      : 'Pick up any top chip on the table. Your stash is empty.'));
+    headline.textContent = lesson || cpu ? t('turn.you') : t('turn.player', { p: me });
+    const passed = !lesson && g.passed ? t('passed.' + who(other), { p: other }) + ' ' : '';
+    instruction.textContent = (L && lessonText(L, 'pick')) || (passed + t(myStash ? 'turn.pick' : 'turn.pickNoStash'));
   }
 
   // the stash, or the chip in your hand, or the lesson's next button
@@ -421,29 +458,32 @@ function renderGame() {
   $('row-place').hidden = done || !holding;
   if (done) {
     const last = ui.lessonIndex === LESSONS.length - 1;
-    $('next-label').textContent = last ? 'Play the computer' : 'Next lesson';
+    $('next-label').textContent = t(last ? 'lesson.toComputer' : 'lesson.next');
   } else if (holding) {
     const chip = R.top(g.stacks[ui.hand]);
     $('hand-tile').replaceChildren(chipStack({ player: chip.p, count: 1, size: tileChip, state: 'lifted', rot: chip.r, colors: COLORS }));
-    const whose = String(chip.p) === String(me) ? 'Your ' : 'Their ';
-    $('hand-sub').textContent = ui.hand < 2 ? 'A new ' + chip.p + ' from your stash'
-      : whose + chip.p + (g.stacks[ui.hand].length === 1 ? ' from the table' : ' from a stack');
+    const whose = String(chip.p) === String(me) ? 'yours' : 'theirs';
+    const from = g.stacks[ui.hand].length === 1 ? 'FromTable' : 'FromStack';
+    const what = t(ui.hand < 2 ? 'hand.fromStash' : 'hand.' + whose + from, { p: chip.p });
+    $('hand-sub').textContent = what;
     const back = R.canPutBack(g, ui.hand);
-    $('btn-tray').setAttribute('aria-label', 'In your hand: ' + $('hand-sub').textContent + (back ? '. Tap to put it back' : ''));
+    const trayLabel = t('hand.label', { chip: what });
+    $('btn-tray').setAttribute('aria-label', back ? t('spot.tapPutBack', { spot: trayLabel }) : trayLabel);
     $('btn-putback').hidden = !back;
     $('no-takebacks').hidden = back;
   } else {
     const canStash = live && R.canPick(g, me) && lessonAllows(L && L.allowFrom, me);
     $('stash-tile').replaceChildren(chipStack({ player: String(me), count: myStash, size: tileChip, rot: -8, colors: COLORS }));
-    $('stash-sub').textContent = myStash ? myStash + ' left' + (canStash ? ' · tap for a new chip' : '') : 'None left';
+    $('stash-sub').textContent = myStash ? t(canStash ? 'stash.leftTap' : 'stash.left', { n: myStash }) : t('stash.none');
     const stashBtn = $('btn-stash');
     stashBtn.classList.toggle('is-active', canStash);
     stashBtn.setAttribute('aria-disabled', canStash ? 'false' : 'true');
-    stashBtn.setAttribute('aria-label', myStash ? 'Stash, ' + myStash + ' left' + (canStash ? '. Tap to pick up a new chip' : '') : 'Stash, none left');
+    stashBtn.setAttribute('aria-label', myStash ? t(canStash ? 'stash.labelTap' : 'stash.label', { n: myStash }) : t('stash.labelNone'));
     $('me-name').textContent = nameOf(me);
     pips($('me-pips'), R.onTop(g, me), me);
-    $('me-score').textContent = R.onTop(g, me) + ' / 5 ON TOP';
+    $('me-score').textContent = t('score', { n: R.onTop(g, me) });
   }
+  fitText();
 }
 
 // ---------- lessons ----------
@@ -472,13 +512,15 @@ function renderOver() {
   const g = current();
   const w = g.winner;
   const l = 1 - w;
-  const title = $('over-title');
-  title.textContent = cpu ? (w === 0 ? 'You win' : 'Computer wins') : 'Player ' + w + ' wins';
-  title.classList.toggle('is-long', title.textContent.length > 8);
-  $('over-sub').textContent = cpu
-    ? (w === 0 ? R.onTop(g, 0) + ' on top. The computer had ' + R.onTop(g, 1) + '.' : 'The computer got ' + R.onTop(g, 1) + ' on top. You had ' + R.onTop(g, 0) + '.')
-    : R.onTop(g, w) + ' on top. Player ' + l + ' had ' + R.onTop(g, l) + '.';
-  $('over-tag').textContent = 'GAME OVER · ' + g.moves + ' MOVES';
+  const score = { a: R.onTop(g, w), b: R.onTop(g, l) };
+  if (cpu) {
+    $('over-title').textContent = t(w === 0 ? 'over.youWin' : 'over.computerWins');
+    $('over-sub').textContent = t(w === 0 ? 'over.youWinSub' : 'over.computerWinsSub', score);
+  } else {
+    $('over-title').textContent = t('over.playerWins', { p: w });
+    $('over-sub').textContent = t('over.playerWinsSub', { ...score, p: l });
+  }
+  $('over-tag').textContent = t('over.tag', { n: g.moves });
   $('over-chip').replaceChildren(chipStack({ player: String(w), count: 3, size: 64, rot: -14, colors: COLORS }));
 
   // every stack, flipped open: the top chip at the top left and in front, the rest stepping down to the right
@@ -496,7 +538,7 @@ function renderOver() {
       e.style.left = '22px';
       e.style.top = '12px';
       stair.appendChild(e);
-      cell.setAttribute('aria-label', 'Empty spot');
+      cell.setAttribute('aria-label', t('spot.empty'));
     } else {
       chips.forEach((c, d) => {
         const e = chipStack({ player: c.p, count: 1, size: 40, rot: c.r, colors: COLORS });
@@ -505,7 +547,7 @@ function renderOver() {
         e.style.zIndex = String(10 - d);
         stair.appendChild(e);
       });
-      cell.setAttribute('aria-label', 'Stack, top to bottom: ' + chips.map((c) => c.p).join(', '));
+      cell.setAttribute('aria-label', t('reveal.stack', { chips: chips.map((c) => c.p).join(', ') }));
     }
     cell.setAttribute('role', 'img');
     cell.appendChild(stair);
@@ -513,10 +555,10 @@ function renderOver() {
   }
   if (cpu) {
     const by = R.buriedBy(g);
-    $('reveal-text').textContent = 'You buried ' + by[0] + ' of their chips. They buried ' + by[1] + ' of yours. Did you remember them all?';
+    $('reveal-text').textContent = [t('reveal.youBuried', { n: by[0] }), t('reveal.theyBuried', { n: by[1] }), t('reveal.remember')].join(' ');
   } else {
     const b = R.buried(g);
-    $('reveal-text').textContent = b[0] + ' of Player 0’s chips and ' + b[1] + ' of Player 1’s ended up buried. Did you remember them all?';
+    $('reveal-text').textContent = t('reveal.passBuried', { a: b[0], b: b[1] }) + ' ' + t('reveal.remember');
   }
 }
 
@@ -524,10 +566,10 @@ async function share() {
   const cpu = ui.mode === 'cpu';
   const g = current();
   const w = g.winner;
-  const score = R.onTop(g, w) + ' to ' + R.onTop(g, 1 - w);
+  const score = { a: R.onTop(g, w), b: R.onTop(g, 1 - w) };
   const text = cpu
-    ? (w === 0 ? 'I beat the ' + AI.LEVELS[ui.cpu.level].name + ' computer at TIKITALA, ' + score + '.' : 'The ' + AI.LEVELS[ui.cpu.level].name + ' computer beat me at TIKITALA, ' + score + '.') + ' Five on top wins.'
-    : 'Player ' + w + ' won TIKITALA ' + score + ' in ' + g.moves + ' moves. Five on top wins.';
+    ? t(w === 0 ? 'share.youWon' : 'share.computerWon', { ...score, level: levelName(ui.cpu.level) })
+    : t('share.playerWon', { ...score, p: w, n: g.moves });
   const url = 'https://www.tikitala.com/online/';
   try {
     if (navigator.share) { await navigator.share({ title: 'TIKITALA', text, url }); return; }
@@ -536,9 +578,9 @@ async function share() {
   }
   try {
     await navigator.clipboard.writeText(text + ' ' + url);
-    toast('Copied. Paste it anywhere.');
+    toast(t('share.copied'));
   } catch (e) {
-    toast('Share this link: ' + url);
+    toast(t('share.link', { url }));
   }
 }
 
@@ -552,6 +594,21 @@ function rematch() {
   else ui.pass = newPassGame();
   save();
   show('game');
+}
+
+// ---------- language ----------
+
+function renderLanguages() {
+  const select = $('lang');
+  select.replaceChildren(...LANGUAGES.map((l) => new Option(l.name, l.code, false, l.code === language())));
+  $('lang-name').textContent = LANGUAGES.find((l) => l.code === language()).name;
+}
+
+async function changeLanguage(code) {
+  await chooseLanguage(code);
+  translatePage();
+  renderLanguages();
+  show(ui.screen);
 }
 
 // ---------- fitting the board to the screen ----------
@@ -576,7 +633,10 @@ function fitBoard() {
 
 // ---------- start ----------
 
-function init() {
+async function init() {
+  await setLanguage(chosenLanguage());
+  translatePage();
+  renderLanguages();
   board = new Board($('board'), tap);
 
   $('btn-computer').addEventListener('click', () => {
@@ -604,10 +664,13 @@ function init() {
   $('lesson-skip').addEventListener('click', () => store.set(LEARNED_KEY, true));
   $('btn-rematch').addEventListener('click', rematch);
   $('btn-share').addEventListener('click', share);
+  $('lang').addEventListener('change', (e) => changeLanguage(e.target.value));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && ui.screen === 'game') putBack(); });
 
   if (typeof ResizeObserver !== 'undefined') new ResizeObserver(fitBoard).observe($('table'));
   else window.addEventListener('resize', fitBoard);
+  window.addEventListener('resize', fitText);
+  if (document.fonts) document.fonts.addEventListener('loadingdone', fitText);   // the display font changes every width
   window.matchMedia('(max-height: 759px)').addEventListener('change', () => { if (ui.screen === 'game') renderGame(); });
   window.addEventListener('hashchange', route);
 

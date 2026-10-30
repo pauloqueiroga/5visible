@@ -9,13 +9,11 @@
 
 import { SPOTS, legalMoves, top, onTop, TO_WIN } from './rules.js';
 
+// how each level plays; their names and descriptions are under level.<id>.* in the string tables (js/strings)
 export const LEVELS = {
-  friendly: { name: 'Friendly', forget: 0.30, random: 0.40, lookahead: 'none', worlds: 6,
-    about: 'Forgets buried chips often and plays casually. Good for a first game.' },
-  clever: { name: 'Clever', forget: 0.12, random: 0, lookahead: 'safety', worlds: 6,
-    about: 'Plays well, but loses track of buried chips now and then, like most people.' },
-  ruthless: { name: 'Ruthless', forget: 0.03, random: 0, lookahead: 'full', worlds: 8,
-    about: 'Remembers almost every chip and thinks a move ahead.' }
+  friendly: { forget: 0.30, random: 0.40, lookahead: 'none', worlds: 6 },
+  clever: { forget: 0.12, random: 0, lookahead: 'safety', worlds: 6 },
+  ruthless: { forget: 0.03, random: 0, lookahead: 'full', worlds: 8 }
 };
 
 export const LEVEL_IDS = ['friendly', 'clever', 'ruthless'];

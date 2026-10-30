@@ -1,0 +1,187 @@
+// Português do Brasil. The glossary and the reasons behind each adapted string are in
+// docs/online/translation.md in 5visible.
+
+export default {
+  // page
+  'meta.title': 'TIKITALA Online',
+  'meta.description': 'Jogue TIKITALA online de graça, um jogo de estratégia e memória para 2 jogadores. Sem download e sem cadastro: é só clicar e jogar no navegador.',
+
+  // home
+  'home.tagline': 'Cinco por cima ganha',
+  'home.sub': 'Um jogo de estratégia e memória afiada para 2 jogadores.',
+  'home.computer': 'Contra o computador',
+  'home.computer.sub': 'Offline. Não precisa de internet.',
+  'home.computer.continue': 'Continuar contra o {level} · {a}–{b}',
+  'home.computer.new': 'Nova partida contra o computador',
+  'home.pass': 'Passe e jogue',
+  'home.pass.sub': 'Dois jogadores neste aparelho',
+  'home.pass.continue': 'Continuar: vez do Jogador {p} · {a}–{b}',
+  'home.pass.new': 'Nova partida neste aparelho',
+  'home.learn': 'Primeira vez? Aprenda em 4 jogadas',
+  'home.better': 'Melhor ainda numa mesa de verdade.',
+  'home.getChips': 'Compre as fichas em tikitala.com',
+  'language': 'Idioma',
+
+  // moving around
+  'nav.back': 'Voltar ao início',
+  'nav.menu': 'Menu: voltar ao início. Sua partida fica salva',
+  'nav.help': 'Como jogar',
+
+  // choosing a computer level
+  'levels.title': 'Contra o computador',
+  'levels.sub': 'Você fica com o 0 e começa. O computador vê o que você vê e se lembra das fichas enterradas como as pessoas: uns melhor, outros pior.',
+  'levels.last': 'DA ÚLTIMA VEZ',
+  'level.friendly.name': 'Amigável',
+  'level.friendly.about': 'Esquece muitas fichas enterradas e joga sem compromisso. Bom para a primeira partida.',
+  'level.clever.name': 'Esperto',
+  'level.clever.about': 'Joga bem, mas às vezes esquece uma ficha enterrada, como quase todo mundo.',
+  'level.ruthless.name': 'Implacável',
+  'level.ruthless.about': 'Lembra de quase todas as fichas e pensa uma jogada à frente.',
+
+  // the game screen: header and panels
+  'game': 'Partida',
+  'head.computer': 'Contra o computador · {level}',
+  'head.pass': 'Passe e jogue',
+  'panel.other': 'Adversário',
+  'panel.me': 'Sua vez',
+  'panel.otherStash': { zero: 'Nenhuma ficha na reserva', one: '{n} ficha na reserva', other: '{n} fichas na reserva' },
+  'name.you': 'Você · {p}',
+  'name.them': 'Eles · {p}',
+  'name.computer': 'Computador · {p}',
+  'name.player': 'Jogador {p}',
+  'score': '{n} / 5 POR CIMA',
+
+  // whose turn it is, and what to do
+  'turn.you': 'Sua vez',
+  'turn.player': 'Vez do Jogador {p}',
+  'turn.computer': 'Vez do computador',
+  'turn.thinking': 'Pensando…',
+  'turn.place': 'Coloque a ficha',
+  'turn.pick': 'Pegue uma ficha: qualquer ficha de cima na mesa ou uma nova da sua reserva.',
+  'turn.pickNoStash': 'Pegue qualquer ficha de cima na mesa. Sua reserva acabou.',
+  'turn.placeAny': 'Toque numa casa marcada. Cada pilha tem no máximo 3 fichas.',
+  'turn.placeLifted': 'Você viu o que tinha embaixo dela, então ela não pode voltar. Toque numa casa marcada.',
+  'passed.you': 'Você não tinha nenhuma jogada possível.',
+  'passed.computer': 'O computador não tinha nenhuma jogada possível.',
+  'passed.player': 'O Jogador {p} não tinha nenhuma jogada possível.',
+
+  // your stash, and the chip in your hand
+  'stash': 'Reserva',
+  'stash.left': { one: 'Resta {n}', other: 'Restam {n}' },
+  'stash.leftTap': { one: 'Resta {n} · toque para pegar', other: 'Restam {n} · toque para pegar' },
+  'stash.none': 'Vazia',
+  'stash.label': { one: 'Reserva, resta {n}', other: 'Reserva, restam {n}' },
+  'stash.labelTap': { one: 'Reserva, resta {n}. Toque para pegar uma ficha nova', other: 'Reserva, restam {n}. Toque para pegar uma ficha nova' },
+  'stash.labelNone': 'Reserva vazia',
+  'hand': 'Na sua mão',
+  'hand.label': 'Na sua mão: {chip}',
+  'hand.fromStash': 'Um {p} novo da sua reserva',
+  'hand.yoursFromTable': 'Seu {p}, da mesa',
+  'hand.yoursFromStack': 'Seu {p}, de uma pilha',
+  'hand.theirsFromTable': 'O {p} deles, da mesa',
+  'hand.theirsFromStack': 'O {p} deles, de uma pilha',
+  'hand.putBack': 'Devolver',
+  'hand.noTakebacks': 'Não tem volta',
+
+  // the table: tags on stacks, and what screen readers say about each spot
+  'tag.uncovered': 'DESCOBERTA',
+  'tag.full': 'CHEIA',
+  'spot.yours': 'seu {p}',
+  'spot.theirs': 'o {p} deles',
+  'spot.empty': 'Casa vazia',
+  'spot.emptyTarget': 'Casa vazia. Coloque sua ficha aqui',
+  'spot.stack': 'Pilha de {n}, {owner} por cima',
+  'spot.target': '{spot}. Coloque sua ficha aqui',
+  'spot.locked': 'Travada: a última jogada deles. {spot}',
+  'spot.origin': 'De onde veio a ficha na sua mão',
+  'spot.originTop': 'De onde veio a ficha na sua mão, agora com {owner} por cima',
+  'spot.tapPutBack': '{spot}. Toque para devolver',
+
+  // the end of a game, before the reveal opens
+  'end.five': 'Cinco por cima!',
+  'end.computerFive': 'O computador fez cinco',
+  'end.flip': 'Todas as pilhas vão ser reveladas.',
+  'end.youWin': 'Você venceu. Todas as pilhas vão ser reveladas.',
+  'end.playerWins': 'O Jogador {p} venceu. Todas as pilhas vão ser reveladas.',
+
+  // announced to screen readers after every move
+  'live.putBack': 'Ficha devolvida. {turn}.',
+  'live.moved.you': 'Você moveu uma ficha.',
+  'live.moved.computer': 'O computador moveu uma ficha.',
+  'live.moved.player': 'O Jogador {p} moveu uma ficha.',
+  'live.uncovered.you': 'Você moveu uma ficha e descobriu outra.',
+  'live.uncovered.computer': 'O computador moveu uma ficha e descobriu outra.',
+  'live.uncovered.player': 'O Jogador {p} moveu uma ficha e descobriu outra.',
+  'live.win.you': 'Você fez cinco por cima e venceu.',
+  'live.win.computer': 'O computador fez cinco por cima e venceu.',
+  'live.win.player': 'O Jogador {p} fez cinco por cima e venceu.',
+  'live.next.you': 'Sua vez.',
+  'live.next.computer': 'Vez do computador.',
+  'live.next.player': 'Vez do Jogador {p}.',
+
+  // lessons
+  'lesson.count': 'LIÇÃO {n} DE {total}',
+  'lesson.skip': 'Pular',
+  'lesson.onTop': 'POR CIMA',
+  'lesson.you': 'Você',
+  'lesson.them': 'Eles',
+  'lesson.next': 'Próxima lição',
+  'lesson.toComputer': 'Jogar contra o computador',
+
+  'lesson.win.title': 'Cinco por cima ganha',
+  'lesson.win.body': 'Só a ficha de cima de cada pilha conta. Você tem 4 por cima. Pegue um 0 novo da sua reserva e comece uma pilha numa casa vazia.',
+  'lesson.win.pick': 'Toque na sua reserva para pegar um 0 novo.',
+  'lesson.win.place': 'Toque numa casa vazia marcada.',
+  'lesson.win.doneTitle': 'Cinco por cima!',
+  'lesson.win.doneText': 'É vitória. Quem chega primeiro a cinco fichas por cima ganha a partida.',
+
+  'lesson.bury.title': 'Enterre a ficha deles',
+  'lesson.bury.body': 'Ficha coberta não conta. Pegue o seu 0 e solte em cima do 1 deles.',
+  'lesson.bury.pickBubble': 'Pegue este 0',
+  'lesson.bury.placeBubble': 'Solte aqui',
+  'lesson.bury.pick': 'Toque no seu 0 para pegá-lo.',
+  'lesson.bury.place': 'Toque no 1 marcado deles para enterrá-lo.',
+  'lesson.bury.doneTitle': 'Enterrada',
+  'lesson.bury.doneText': 'O 1 deles não conta mais. Ele continua ali, embaixo do seu 0, então lembre onde ele está.',
+
+  'lesson.stack.title': 'Até três, sem espiar',
+  'lesson.stack.body': 'Uma pilha tem até 3 fichas, e só a de cima aparece. Aqui, seu 0 está enterrado embaixo do 1 deles. Levante o 1 para descobri-lo.',
+  'lesson.stack.tag': 'SEU 0 EMBAIXO',
+  'lesson.stack.pick': 'Toque no 1 deles para levantá-lo.',
+  'lesson.stack.doneTitle': 'Ficha descoberta',
+  'lesson.stack.doneText': 'Seu 0 está por cima de novo. Levantar uma ficha mostra o que tem embaixo, por isso ficha levantada não pode voltar.',
+
+  'lesson.lock.title': 'Não mexa na última jogada',
+  'lesson.lock.body': 'Eles acabaram de pôr um 1 no seu 0. A última ficha que eles moveram está travada: não dá para mexer nela agora. Faça outra jogada.',
+  'lesson.lock.doneTitle': 'O jogo é isso',
+  'lesson.lock.doneText': 'Uma ficha por vez, da reserva ou de qualquer pilha. Enterre as deles, lembre das suas e faça cinco por cima.',
+
+  // game over, and the big reveal
+  'over.tag': { one: 'FIM DE JOGO · {n} JOGADA', other: 'FIM DE JOGO · {n} JOGADAS' },
+  'over.youWin': 'Você venceu',
+  'over.computerWins': 'Computador venceu',
+  'over.playerWins': 'Jogador {p} venceu',
+  'over.youWinSub': '{a} por cima. O computador tinha {b}.',
+  'over.computerWinsSub': 'O computador fez {a} por cima. Você tinha {b}.',
+  'over.playerWinsSub': '{a} por cima. O Jogador {p} tinha {b}.',
+  'reveal.title': 'A grande revelação',
+  'reveal.topInFront': 'A de cima na frente',
+  'reveal.stack': 'Pilha, de cima para baixo: {chips}',
+  'reveal.youBuried': { zero: 'Você não enterrou nenhuma ficha deles.', one: 'Você enterrou 1 ficha deles.', other: 'Você enterrou {n} fichas deles.' },
+  'reveal.theyBuried': { zero: 'O computador não enterrou nenhuma das suas.', one: 'O computador enterrou 1 das suas.', other: 'O computador enterrou {n} das suas.' },
+  'reveal.passBuried': 'Fichas enterradas: {a} do Jogador\u00a00 e {b} do Jogador\u00a01.',   // no-break spaces keep "Jogador 1" together
+  'reveal.remember': 'Você lembrou de todas?',
+  'over.rematch': 'Revanche',
+  'over.share': 'Compartilhar',
+  'promo.alt': 'Fichas de TIKITALA numa mesa de madeira',
+  'promo.title': 'Jogue numa mesa de verdade',
+  'promo.link': 'Compre o TIKITALA →',
+  'kofi': 'Me pague um café',
+
+  // sharing a result
+  'share.youWon': 'Ganhei de {a} a {b} do computador {level} no TIKITALA. Cinco por cima ganha!',
+  'share.computerWon': 'Perdi de {a} a {b} para o computador {level} no TIKITALA. Cinco por cima ganha!',
+  'share.playerWon': 'O Jogador {p} ganhou de {a} a {b} no TIKITALA, em {n} jogadas. Cinco por cima ganha!',
+  'share.copied': 'Copiado. Cole onde quiser.',
+  'share.link': 'Compartilhe este link: {url}'
+};
