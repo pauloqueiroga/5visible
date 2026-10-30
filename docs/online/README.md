@@ -21,7 +21,7 @@ The engine documents call the pieces *bricks*. The product, the physical game an
 
 6. Point to the table. Links to the physical game and to Ko-fi appear when the player is at rest (the home screen, the end of a game), never during a turn.
 
-7. First online release is Pass and Play only. Computer, online match and play someone new are released one by one in future releases.
+7. Release 1 was Pass and Play only; release 2 adds playing the computer. Online match and play someone new follow one by one in future releases.
 
 8. "Put it back" returns the player to "Your move" to pick again; dropping a chip back on its own stack (skipping the turn) is not allowed.
 
@@ -29,4 +29,3 @@ The engine documents call the pieces *bricks*. The product, the physical game an
 
 Things the design leaves open, to be settled by the project owner:
 
-- Names and number of computer levels (screens show "Clever" as an example)

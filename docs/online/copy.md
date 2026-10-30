@@ -56,6 +56,19 @@
 | Home footer | Better on a real table. · Get the chips at tikitala.com |
 | Invite | Play a friend · You go first · Waiting · Send invite link · Copy link · Show QR · Got a code from a friend? · Join · Play someone new · No accounts, no downloads. The link opens the game in any browser. |
 
+## Playing the computer
+
+| Where | Text |
+| --- | --- |
+| Header | vs Computer · Clever |
+| Panels | Computer · 1 · You · 0 |
+| The computer's turn | Computer's move · Thinking… |
+| Level picker | Play the computer · You play 0 and go first. The computer sees what you see, and remembers buried chips the way people do: some better than others. |
+| Levels | Friendly · Forgets buried chips often and plays casually. Good for a first game. / Clever · Plays well, but loses track of buried chips now and then, like most people. / Ruthless · Remembers almost every chip and thinks a move ahead. |
+| Game over | You win · 5 on top. The computer had 3. / Computer wins · The computer got 5 on top. You had 3. |
+| Reveal | You buried n of their chips. They buried n of yours. Did you remember them all? (a chip counts as buried by whoever dropped the chip right on top of it) |
+| Share | I beat the Clever computer at TIKITALA, 5 to 3. Five on top wins. |
+
 ## Pass & play strings
 
 | Where | Text |

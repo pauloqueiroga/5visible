@@ -12,14 +12,24 @@ The phone flow, in the order a new player meets it. Sizes are for the 390×844 r
 - Tagline "Five on top wins" in Bebas Neue 42px, then the line "A 2-player game of strategy and
   sharp memory."
 - Three decorative chips, as if dropped on the table.
-- Release 1 has one choice: **Pass & play** (primary, ink with lime text), "Two players on this
-  device". When a game is in progress it reads **Continue your game**, "Player 1's move · 3–2", with a
-  "Start a new game" link under it. Later releases add the other choices, 64px tall:
-  - **Play the computer** (primary, ink with lime text): "Offline. No connection needed."
-  - **Play a friend online** (secondary, pale lime with an ink border): "Send a link. No sign-up."
-  - **Pass & play** (secondary): "Two players on this device"
+- Release 2 has two choices, 64px tall:
+  - **Play the computer** (primary, ink with lime text): "Offline. No connection needed." With a game
+    in progress: "Continue your Clever game · 3–2", and a "New game against the computer" link under it.
+  - **Pass & play** (secondary, pale lime with an ink border): "Two players on this device". With a
+    game in progress: "Continue: Player 1's move · 3–2", and a "New pass & play game" link under it.
+  - Later: **Play a friend online** (secondary): "Send a link. No sign-up."
 - Text link: "New here? Learn in four moves", which opens the lessons.
 - Footer: "Better on a real table." and a link to the chips at tikitala.com.
+
+## 1b. Play the computer: choose a level
+
+- Lime ground. Back button and "Play the computer".
+- "You play 0 and go first. The computer sees what you see, and remembers buried chips the way people
+  do: some better than others."
+- Three level buttons, each with its name in Bebas Neue 30px and one line about it (see
+  [interaction.md](interaction.md#the-computer-opponent)). Tapping one starts the game. The level played
+  last is drawn in ink with a "LAST PLAYED" tag.
+- On wide screens the three levels sit side by side.
 
 ## 2. Learn by playing
 
@@ -32,7 +42,7 @@ The phone flow, in the order a new player meets it. Sizes are for the 390×844 r
 - Footer: both players' score pips (a pip that is about to be lost is dashed), the chip in your hand
   on a small table tile, and one instruction.
 - Lessons: (1) five on top wins, (2) bury their chip, (3) stacks hold three and you can't peek,
-  (4) you can't touch their last move.
+  (4) you can't touch their last move. The last lesson ends with **Play the computer**.
 
 ## 3. Your move: pick up
 

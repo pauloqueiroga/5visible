@@ -125,6 +125,16 @@ test('random games keep every chip and every rule', () => {
   assert.ok(finished > 400, 'most random games end with a winner (' + finished + ' of 500)');
 });
 
+test('who buried whom', () => {
+  let g = gameWith({ 4: ['0'], 5: ['1'], 6: ['1'] });
+  g = R.play(g, 5, 4);           // player 0 moves the 1 from spot 5 onto their own 0
+  assert.deepEqual(R.buriedBy(g), { 0: 0, 1: 0 }, 'covering your own chip does not count');
+  g = R.play(g, 1, 6);           // player 1 drops a stash 1 on their own 1
+  assert.deepEqual(R.buriedBy(g), { 0: 0, 1: 0 });
+  g = R.play(g, 0, 6);           // player 0 buries player 1's chip
+  assert.deepEqual(R.buriedBy(g), { 0: 1, 1: 0 });
+});
+
 test('isGame rejects broken saves', () => {
   assert.ok(!R.isGame(null));
   assert.ok(!R.isGame({ v: 1, stacks: [], turn: 0 }));
