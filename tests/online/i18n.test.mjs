@@ -161,7 +161,7 @@ test('t(): placeholders, plurals and the English fallback', async () => {
   assert.equal(I.t('panel.otherStash', { n: 0 }), 'Nenhuma peça na reserva');
   assert.equal(I.t('panel.otherStash', { n: 1 }), '1 peça na reserva');
   assert.equal(I.t('over.tag', { n: 23 }), 'FIM DE JOGO · 23 JOGADAS');
-  assert.equal(I.t('share.youWon', { a: 5, b: 3, level: I.t('level.clever.name') }), 'Ganhei de 5 a 3 do computador Esperto no TIKITALA. Cinco por cima ganha!');
+  assert.equal(I.t('share.youWon', { a: 5, b: 3, level: I.t('level.clever.name') }), 'Ganhei de 5 a 3 do computador Esperto no TIKITALA. Cinco no topo ganha!');
 
   await I.setLanguage('xx');
   assert.equal(I.language(), 'en', 'an unknown language falls back to English');

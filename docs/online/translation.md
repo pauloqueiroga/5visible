@@ -148,7 +148,7 @@ Follows the terminology in [copy.md](copy.md#terminology).
 | stack | pilha | |
 | spot | casa | As on a board game: *casa vazia* |
 | stash | reserva | |
-| on top | por cima | *Ficar por cima* also means to come out on top. The game-over line says *no topo* |
+| on top | no topo | Chosen in review over *por cima*, everywhere |
 | top chip | peça de cima | |
 | ON TOP (the score) | PONTOS | `4 / 5 PONTOS`, and the lessons' score line |
 | pick up | pegar | |
@@ -173,7 +173,7 @@ Follows the terminology in [copy.md](copy.md#terminology).
 
 | Where | English | Português | Why |
 | --- | --- | --- | --- |
-| Lesson 1 | Five on top wins | Cinco por cima ganha | *Por cima* is how players say a chip is on top, and *ficar por cima* is to come out on top, so it keeps a double sense. *Ganha* rather than *vence*: table talk |
+| Lesson 1 | Five on top wins | Cinco no topo ganha | *Ganha* rather than *vence*: table talk |
 | Home | Play the computer | Contra o computador | The usual Brazilian name for the mode. *Jogar contra o computador* only fit at a smaller size than the button below it. The last lesson's button keeps the verb, since it has the full width and invites the player in |
 | Home | Continue your Clever game · 3–2 | Continuar contra o Esperto · 3–2 | The level becomes the opponent's name |
 | Home | New pass & play game | Nova partida neste aparelho | *Passe e jogue* does not take a noun well; "a new game on this device" says the same |
@@ -185,7 +185,7 @@ Follows the terminology in [copy.md](copy.md#terminology).
 | Turn | Place it | Reposicione | Chosen in review |
 | Score | 4 / 5 ON TOP | 4 / 5 PONTOS | Chosen in review |
 | Game over | The computer got 5 on top. You had 2. | 5 no topo. Você tinha 2. | Chosen in review; the other two game-over lines follow the same pattern (*5 no topo. O computador tinha 1.*) |
-| Share | I beat the Clever computer at TIKITALA, 5 to 3. Five on top wins. | Ganhei de 5 a 3 do computador Esperto no TIKITALA. Cinco por cima ganha! | *Ganhar de 5 a 3* is how Brazilians report a score; the exclamation turns the catchphrase into the boast |
+| Share | I beat the Clever computer at TIKITALA, 5 to 3. Five on top wins. | Ganhei de 5 a 3 do computador Esperto no TIKITALA. Cinco no topo ganha! | *Ganhar de 5 a 3* is how Brazilians report a score; the exclamation turns the catchphrase into the boast |
 | Share | The Clever computer beat me at TIKITALA, 5 to 3. | Perdi de 5 a 3 para o computador Esperto no TIKITALA. | Said from the player's side, winner's score first, as in *perdemos de 3 a 1* |
 | Ko-fi | Buy me a coffee | Me pague um café | The common Brazilian phrase |
 
@@ -193,9 +193,6 @@ Follows the terminology in [copy.md](copy.md#terminology).
 
 Each was a judgement call with a reasonable alternative:
 
-- *Por cima* still says "on top" in the lessons, the end-of-game headline (*Cinco por cima!*), the
-  share text and what screen readers hear, while the game-over line now says *no topo* and the score
-  *PONTOS*. Alternative: *no topo* everywhere.
 - *Amigável* for Friendly. Alternative: *Tranquilo*, more Brazilian and closer to "plays casually".
 - *Passe e jogue* for Pass & play. Alternative: *Jogar a dois*, very natural, but could suggest playing
   online.
