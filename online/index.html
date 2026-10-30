@@ -13,8 +13,12 @@
   <title>TIKITALA Online</title>
   <meta name="description" content="Play TIKITALA online free, a 2-player strategy and memory game. No download or signup required, just click and play in your browser.">
   <link rel="canonical" href="https://www.tikitala.com/online/">
-  <link rel="icon" href="../images/tikitala-logo-001.png" type="image/png">
-  <link rel="apple-touch-icon" href="../images/tikitala-logo-001.png">
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-title" content="TIKITALA">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#161513">
   <meta property="og:type" content="website">
@@ -56,46 +60,54 @@
     <symbol id="tk-i-replay" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></g></symbol>
     <symbol id="tk-i-computer" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 3v4M9 16h6"/><circle cx="9" cy="12.5" r="1.2"/><circle cx="15" cy="12.5" r="1.2"/></g></symbol>
     <symbol id="tk-i-back" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="tk-i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.4 2.5 3.6 5.5 3.6 9s-1.2 6.5-3.6 9c-2.4-2.5-3.6-5.5-3.6-9s1.2-6.5 3.6-9z"/></g></symbol>
     <symbol id="tk-i-cup" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3.5c-.6.8-.6 1.7 0 2.5M12 3.5c-.6.8-.6 1.7 0 2.5"/></g></symbol>
   </svg>
 
+  <!-- Every word on the page comes from the string tables in js/strings: data-i18n is an element's
+       text, data-i18n-label its aria-label, data-i18n-alt its alt text. data-fit marks one-line
+       display text that shrinks to fit, down to the size given in px. -->
   <main id="app">
 
     <!-- Home -->
     <section id="screen-home" class="screen screen-lime" aria-labelledby="home-title" hidden>
       <div class="home">
         <div class="home-hero">
-          <img class="home-logo" src="tikitala-dot-com.svg" alt="TIKITALA" width="216" height="167">
-          <h1 id="home-title" class="home-tagline" tabindex="-1">Five on top wins</h1>
-          <p class="home-sub">A 2-player game of strategy and sharp memory.</p>
+          <h1 id="home-title" class="home-title" tabindex="-1"><img class="home-logo" src="tikitala-dot-com.svg" alt="TIKITALA" width="216" height="167"></h1>
+          <p class="home-sub" data-i18n="home.sub"></p>
           <div class="home-chips" aria-hidden="true"></div>
         </div>
         <div class="home-actions">
           <button type="button" class="btn-big btn-primary" id="btn-computer">
             <svg class="btn-icon" aria-hidden="true"><use href="#tk-i-computer"/></svg>
             <span class="btn-text">
-              <span class="btn-label">Play the computer</span>
-              <span class="btn-sub" id="computer-sub">Offline. No connection needed.</span>
+              <span class="btn-label" data-i18n="home.computer" data-fit="20"></span>
+              <span class="btn-sub" id="computer-sub"></span>
             </span>
             <svg class="btn-chevron" aria-hidden="true"><use href="#tk-i-chevron"/></svg>
           </button>
-          <button type="button" class="btn-plain" id="btn-computer-new" hidden>New game against the computer</button>
+          <button type="button" class="btn-plain" id="btn-computer-new" data-i18n="home.computer.new" hidden></button>
           <button type="button" class="btn-big btn-secondary-big" id="btn-play">
             <svg class="btn-icon" aria-hidden="true"><use href="#tk-i-phone"/></svg>
             <span class="btn-text">
-              <span class="btn-label">Pass &amp; play</span>
-              <span class="btn-sub" id="play-sub">Two players on this device</span>
+              <span class="btn-label" data-i18n="home.pass" data-fit="20"></span>
+              <span class="btn-sub" id="play-sub"></span>
             </span>
             <svg class="btn-chevron" aria-hidden="true"><use href="#tk-i-chevron"/></svg>
           </button>
-          <button type="button" class="btn-plain" id="btn-new" hidden>New pass &amp; play game</button>
+          <button type="button" class="btn-plain" id="btn-new" data-i18n="home.pass.new" hidden></button>
           <a class="text-link" href="#learn">
             <svg aria-hidden="true"><use href="#tk-i-play"/></svg>
-            New here? Learn in four moves
+            <span data-i18n="home.learn"></span>
           </a>
           <footer class="home-footer">
-            <span>Better on a real table.</span>
-            <a href="https://tikitala.com">Get the chips at tikitala.com</a>
+            <span data-i18n="home.better"></span>
+            <a href="https://tikitala.com" data-i18n="home.getGame"></a>
+            <span class="lang-pick">
+              <svg aria-hidden="true"><use href="#tk-i-globe"/></svg>
+              <span class="lang-name" id="lang-name" aria-hidden="true"></span>
+              <select id="lang" data-i18n-label="language"></select>
+            </span>
           </footer>
         </div>
       </div>
@@ -105,31 +117,31 @@
     <section id="screen-levels" class="screen screen-lime" aria-labelledby="levels-title" hidden>
       <div class="levels">
         <header class="levels-head">
-          <a class="icon-btn" href="#" aria-label="Back to home">
+          <a class="icon-btn" href="#" data-i18n-label="nav.back">
             <svg aria-hidden="true"><use href="#tk-i-back"/></svg>
           </a>
-          <h1 id="levels-title" tabindex="-1">Play the computer</h1>
+          <h1 id="levels-title" tabindex="-1" data-i18n="levels.title" data-fit="24"></h1>
         </header>
-        <p class="levels-sub">You play 0 and go first. The computer sees what you see, and remembers buried chips the way people do: some better than others.</p>
+        <p class="levels-sub" data-i18n="levels.sub"></p>
         <div class="level-list">
           <button type="button" class="level" data-level="friendly">
             <span class="level-text">
-              <span class="level-name">Friendly <span class="level-last" hidden>LAST PLAYED</span></span>
-              <span class="level-about">Forgets buried chips often and plays casually. Good for a first game.</span>
+              <span class="level-name"><span data-i18n="level.friendly.name"></span> <span class="level-last" data-i18n="levels.last" hidden></span></span>
+              <span class="level-about" data-i18n="level.friendly.about"></span>
             </span>
             <svg class="btn-chevron" aria-hidden="true"><use href="#tk-i-chevron"/></svg>
           </button>
           <button type="button" class="level" data-level="clever">
             <span class="level-text">
-              <span class="level-name">Clever <span class="level-last" hidden>LAST PLAYED</span></span>
-              <span class="level-about">Plays well, but loses track of buried chips now and then, like most people.</span>
+              <span class="level-name"><span data-i18n="level.clever.name"></span> <span class="level-last" data-i18n="levels.last" hidden></span></span>
+              <span class="level-about" data-i18n="level.clever.about"></span>
             </span>
             <svg class="btn-chevron" aria-hidden="true"><use href="#tk-i-chevron"/></svg>
           </button>
           <button type="button" class="level" data-level="ruthless">
             <span class="level-text">
-              <span class="level-name">Ruthless <span class="level-last" hidden>LAST PLAYED</span></span>
-              <span class="level-about">Remembers almost every chip and thinks a move ahead.</span>
+              <span class="level-name"><span data-i18n="level.ruthless.name"></span> <span class="level-last" data-i18n="levels.last" hidden></span></span>
+              <span class="level-about" data-i18n="level.ruthless.about"></span>
             </span>
             <svg class="btn-chevron" aria-hidden="true"><use href="#tk-i-chevron"/></svg>
           </button>
@@ -138,49 +150,49 @@
     </section>
 
     <!-- The game, and the lessons (which use the same table) -->
-    <section id="screen-game" class="screen screen-ink" aria-label="Game" hidden>
+    <section id="screen-game" class="screen screen-ink" data-i18n-label="game" hidden>
       <div class="game">
         <header class="game-head">
           <div class="head-play">
-            <a class="icon-btn" href="#" aria-label="Menu: back to home. Your game is saved">
+            <a class="icon-btn" href="#" data-i18n-label="nav.menu">
               <svg aria-hidden="true"><use href="#tk-i-menu"/></svg>
             </a>
             <div class="wordmark">
               <span class="wordmark-name">TIKITALA</span>
-              <span class="wordmark-mode" id="mode-label">Pass &amp; play</span>
+              <span class="wordmark-mode" id="mode-label"></span>
             </div>
-            <a class="icon-btn" href="#learn" aria-label="How to play">
+            <a class="icon-btn" href="#learn" data-i18n-label="nav.help">
               <svg aria-hidden="true"><use href="#tk-i-help"/></svg>
             </a>
           </div>
           <div class="head-lesson">
             <div class="lesson-progress">
-              <span class="lesson-count" id="lesson-count">LESSON 1 OF 4</span>
+              <span class="lesson-count" id="lesson-count"></span>
               <span class="lesson-bars" id="lesson-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
             </div>
-            <a class="skip-link" href="#" id="lesson-skip">Skip</a>
+            <a class="skip-link" href="#" id="lesson-skip" data-i18n="lesson.skip"></a>
           </div>
         </header>
 
-        <section class="panel-other" aria-label="Other player">
+        <section class="panel-other" data-i18n-label="panel.other">
           <div class="tile tile-mini" id="other-tile"></div>
           <div class="panel-name">
-            <span class="name" id="other-name">Player 1</span>
-            <span class="sub" id="other-stash">6 chips left in stash</span>
+            <span class="name" id="other-name" data-fit="18"></span>
+            <span class="sub" id="other-stash"></span>
           </div>
           <div class="score">
             <span class="pips" id="other-pips"></span>
-            <span class="score-text" id="other-score">2 / 5 ON TOP</span>
+            <span class="score-text" id="other-score"></span>
           </div>
         </section>
 
         <section class="lesson-card" aria-labelledby="lesson-title">
-          <h1 id="lesson-title" tabindex="-1">Lesson</h1>
+          <h1 id="lesson-title" tabindex="-1" data-fit="22"></h1>
           <p id="lesson-body"></p>
           <div class="lesson-score">
-            <span>ON TOP</span>
-            <span>You <span class="pips" id="lesson-pips-0"></span></span>
-            <span>Them <span class="pips" id="lesson-pips-1"></span></span>
+            <span data-i18n="lesson.onTop"></span>
+            <span><span data-i18n="lesson.you"></span> <span class="pips" id="lesson-pips-0"></span></span>
+            <span><span data-i18n="lesson.them"></span> <span class="pips" id="lesson-pips-1"></span></span>
           </div>
         </section>
 
@@ -190,42 +202,42 @@
           </div>
         </div>
 
-        <section class="panel-me" aria-label="Your turn">
+        <section class="panel-me" data-i18n-label="panel.me">
           <div class="turn-text">
-            <h2 class="headline" id="headline">Your move</h2>
+            <h2 class="headline" id="headline" data-fit="26"></h2>
             <p class="instruction" id="instruction"></p>
           </div>
           <div class="row row-pick" id="row-pick">
             <button type="button" class="tray" id="btn-stash">
               <span class="tile tile-hand" id="stash-tile"></span>
               <span class="tray-text">
-                <span class="name">Stash</span>
-                <span class="sub" id="stash-sub">6 left</span>
+                <span class="name" data-i18n="stash" data-fit="18"></span>
+                <span class="sub" id="stash-sub"></span>
               </span>
             </button>
             <div class="score score-me">
-              <span class="name" id="me-name">Player 0</span>
+              <span class="name" id="me-name" data-fit="18"></span>
               <span class="pips" id="me-pips"></span>
-              <span class="score-text" id="me-score">2 / 5 ON TOP</span>
+              <span class="score-text" id="me-score"></span>
             </div>
           </div>
           <div class="row row-place" id="row-place" hidden>
             <button type="button" class="tray tray-hand" id="btn-tray">
               <span class="tile tile-hand" id="hand-tile"></span>
               <span class="tray-text">
-                <span class="name">In your hand</span>
+                <span class="name" data-i18n="hand" data-fit="18"></span>
                 <span class="sub" id="hand-sub"></span>
               </span>
             </button>
-            <button type="button" class="btn-putback" id="btn-putback">Put it back</button>
+            <button type="button" class="btn-putback" id="btn-putback" data-i18n="hand.putBack"></button>
             <div class="no-takebacks" id="no-takebacks" role="note">
               <svg aria-hidden="true"><use href="#tk-i-lock"/></svg>
-              <span>No take-backs</span>
+              <span data-i18n="hand.noTakebacks"></span>
             </div>
           </div>
           <div class="row row-next" id="row-next" hidden>
             <button type="button" class="btn-big btn-lime" id="btn-next">
-              <span class="btn-text"><span class="btn-label" id="next-label">Next lesson</span></span>
+              <span class="btn-text"><span class="btn-label" id="next-label" data-fit="20"></span></span>
               <svg class="btn-chevron" aria-hidden="true"><use href="#tk-i-chevron"/></svg>
             </button>
           </div>
@@ -237,47 +249,43 @@
     <section id="screen-over" class="screen screen-lime" aria-labelledby="over-title" hidden>
       <div class="over">
         <header class="over-head">
-          <a class="icon-btn" href="#" aria-label="Back to home">
+          <a class="icon-btn" href="#" data-i18n-label="nav.back">
             <svg aria-hidden="true"><use href="#tk-i-close"/></svg>
           </a>
-          <span class="over-tag" id="over-tag">GAME OVER</span>
+          <span class="over-tag" id="over-tag"></span>
           <span class="icon-spacer"></span>
         </header>
         <div class="over-hero">
           <div>
-            <h1 id="over-title" tabindex="-1">Player 0 wins</h1>
+            <h1 id="over-title" tabindex="-1" data-fit="28"></h1>
             <p id="over-sub"></p>
           </div>
           <div class="over-chip" id="over-chip" aria-hidden="true"></div>
         </div>
         <section class="reveal" aria-labelledby="reveal-title">
-          <div class="reveal-head">
-            <h2 id="reveal-title">The big reveal</h2>
-            <span>Top chip in front</span>
-          </div>
+          <h2 id="reveal-title" class="reveal-title" data-i18n="reveal.title" data-fit="22"></h2>
           <div class="reveal-grid" id="reveal-grid"></div>
-          <p class="reveal-text" id="reveal-text"></p>
         </section>
         <div class="over-actions">
           <button type="button" class="btn-wide btn-primary" id="btn-rematch">
             <svg aria-hidden="true"><use href="#tk-i-replay"/></svg>
-            Rematch
+            <span data-i18n="over.rematch"></span>
           </button>
           <button type="button" class="btn-wide btn-secondary" id="btn-share">
             <svg aria-hidden="true"><use href="#tk-i-share"/></svg>
-            Share
+            <span data-i18n="over.share"></span>
           </button>
         </div>
         <a class="promo" href="https://tikitala.com">
-          <img src="images/chips-on-table.jpg" alt="TIKITALA chips on a wooden table" width="64" height="64">
+          <img src="images/chips-on-table.jpg" data-i18n-alt="promo.alt" alt="" width="64" height="64">
           <span class="promo-text">
-            <span class="promo-title">Play it on a real table</span>
-            <span class="promo-link">Get TIKITALA →</span>
+            <span class="promo-title" data-i18n="promo.title"></span>
+            <span class="promo-link" data-i18n="promo.link"></span>
           </span>
         </a>
         <a class="kofi" href="https://ko-fi.com/H4R229AAN0" target="_blank" rel="noopener">
           <svg aria-hidden="true"><use href="#tk-i-cup"/></svg>
-          Buy me a coffee
+          <span data-i18n="kofi"></span>
         </a>
       </div>
     </section>

@@ -37,6 +37,8 @@ button, a { touch-action: manipulation; }
 .tk-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); border: 0; white-space: nowrap; }
 [hidden] { display: none !important; }
+/* one-line display text: app.js shrinks it to fit (see fitText) */
+[data-fit] { white-space: nowrap; min-width: 0; max-width: 100%; }
 
 /* ---------- screens ---------- */
 
@@ -88,9 +90,9 @@ button, a { touch-action: manipulation; }
   display: flex; flex-direction: column;
 }
 .home-hero { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.home-title { margin: 0; outline: none; }
 .home-logo { display: block; width: 216px; height: auto; }
-.home-tagline { margin: 18px 0 0; font-family: var(--display); font-weight: 400; font-size: 42px; line-height: 1; letter-spacing: 0.02em; outline: none; }
-.home-sub { margin: 8px 0 0; font-size: 16px; line-height: 1.35; font-weight: 500; }
+.home-sub { margin: 16px 0 0; font-size: 16px; line-height: 1.35; font-weight: 500; text-wrap: balance; }
 .home-chips { position: relative; width: 300px; height: 124px; margin: 14px 0 6px; }
 .home-chips > .tk-stack { position: absolute; }
 .home-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; flex: 1; }
@@ -106,6 +108,16 @@ button, a { touch-action: manipulation; }
   font-size: 14px; font-weight: 500;
 }
 .home-footer a { display: flex; align-items: center; min-height: 44px; font-weight: 700; }
+/* the language picker: the visible name and chevron, with the native select laid over them, invisible */
+.lang-pick { position: relative; display: flex; align-items: center; gap: 6px; min-height: 44px; padding-right: 18px; font-weight: 700; }
+.lang-pick svg { width: 20px; height: 20px; flex: none; }
+.lang-name { text-decoration: underline; text-underline-offset: 3px; }
+.lang-pick::after {
+  content: ''; position: absolute; right: 3px; top: 50%; width: 7px; height: 7px; margin-top: -6px;
+  border: solid currentColor; border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
+.lang-pick select { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; font-size: 16px; cursor: pointer; }
+.lang-pick:has(select:focus-visible) { outline: 3px solid currentColor; outline-offset: 2px; border-radius: 8px; }
 .btn-secondary-big { background: var(--lime-pale); color: var(--ink); border: 2px solid var(--ink); }
 .btn-secondary-big .btn-sub { color: var(--muted-on-lime); }
 .home-actions .btn-plain { margin-top: -6px; }
@@ -159,8 +171,8 @@ button, a { touch-action: manipulation; }
 .lesson-card { grid-area: other; display: none; margin: 4px 8px 0; padding: 14px 18px 16px; border-radius: 22px; background: var(--chalk); color: var(--ink); }
 .lesson-card h1 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 34px; line-height: 1; letter-spacing: 0.02em; outline: none; }
 .lesson-card p { margin: 6px 0 0; font-size: 16px; line-height: 1.4; text-wrap: pretty; }
-.lesson-score { margin-top: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--muted-on-chalk); }
-.lesson-score > span { display: inline-flex; align-items: center; gap: 6px; }
+.lesson-score { margin-top: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--muted-on-chalk); }
+.lesson-score > span { display: inline-flex; align-items: center; gap: 5px; }
 .lesson-score .pip { width: 12px; height: 12px; }
 .lesson-score .pip.is-1 { background: var(--p1); border-color: var(--p1); }
 
@@ -198,6 +210,7 @@ button, a { touch-action: manipulation; }
 }
 .tray.is-active { border: 2px dashed var(--lime); cursor: pointer; }
 .tray-hand { border-color: var(--line-on-ink); cursor: pointer; }
+.tray, .tray-text { min-width: 0; }     /* lets a long name shrink to fit (data-fit) instead of pushing the row */
 .tray-text { display: flex; flex-direction: column; gap: 2px; }
 .btn-putback {
   margin-left: auto; min-height: 52px; padding: 4px 14px; border-radius: 14px;
@@ -290,24 +303,20 @@ button, a { touch-action: manipulation; }
 .over-hero { grid-area: hero; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .over-hero > div:first-child { min-width: 0; }
 .over-hero h1 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 76px; line-height: 0.9; letter-spacing: 0.01em; outline: none; }
-.over-hero h1.is-long { font-size: min(52px, 12.5vw); }
 .over-hero p { margin: 8px 0 0; font-size: 17px; line-height: 1.3; font-weight: 600; text-wrap: pretty; }
 .reveal { grid-area: reveal; padding: 14px 14px 16px; border-radius: 24px; background: var(--table); box-shadow: 0 0 0 2px var(--ink); }
-.reveal-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
-.reveal-head h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 30px; line-height: 1; letter-spacing: 0.02em; }
-.reveal-head span { font-size: 13px; font-weight: 600; }
+.reveal-title { margin: 0; font-family: var(--display); font-weight: 400; font-size: 30px; line-height: 1; letter-spacing: 0.02em; }
 .reveal-grid { margin-top: 10px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .reveal-cell { display: flex; justify-content: center; padding: 6px 4px; border-radius: 12px; background: rgba(22, 21, 19, 0.08); }
 .reveal-stair { position: relative; width: 84px; height: 74px; }
 .reveal-stair > .tk-stack { position: absolute; }
-.reveal-text { margin: 12px 2px 0; font-size: 15px; font-weight: 600; line-height: 1.35; text-wrap: pretty; }
-.over-actions { grid-area: actions; display: flex; gap: 10px; }
+.over-actions { grid-area: actions; display: grid; gap: 10px; }   /* one button per row */
 .btn-wide {
   display: flex; align-items: center; justify-content: center; gap: 10px; height: 60px; padding: 0 18px;
   border-radius: 18px; cursor: pointer; font-family: var(--display); font-size: 26px; letter-spacing: 0.03em;
 }
 .btn-wide svg { width: 22px; height: 22px; flex: none; }
-#btn-rematch { flex: 1; border: 0; }
+#btn-rematch { border: 0; }
 .btn-secondary { border: 2px solid var(--ink); background: var(--lime-pale); color: var(--ink); }
 .promo { grid-area: promo; display: flex; align-items: center; gap: 14px; padding: 9px 14px 9px 9px; border-radius: 20px; background: var(--ink); text-decoration: none; }
 .screen-lime .promo { color: var(--chalk); }
@@ -334,8 +343,13 @@ button, a { touch-action: manipulation; }
   .lesson-score { margin-top: 6px; gap: 4px 10px; }
   .lesson-score .pips { gap: 4px; }
   .home-logo { width: 180px; }
-  .home-tagline { margin-top: 12px; font-size: 38px; }
   .home-chips { height: 120px; margin: 8px 0 4px; }
+}
+
+/* very narrow phones: tighter rows, so longer words in other languages still fit beside the score */
+@media (max-width: 359px) {
+  .row { gap: 10px; }
+  .tray { gap: 8px; padding-right: 10px; }
 }
 
 @media (max-height: 640px) and (max-aspect-ratio: 5/4) {
@@ -384,8 +398,6 @@ button, a { touch-action: manipulation; }
   .lesson-card p { font-size: 13px; line-height: 1.3; margin-top: 4px; }
   .is-lesson .instruction { min-height: 0; }
   .home-logo { width: 140px; }
-  .home-tagline { font-size: 32px; margin-top: 8px; }
   .home-chips { display: none; }
   .over-hero h1 { font-size: 56px; }
-  .over-hero h1.is-long { font-size: 42px; }
 }
