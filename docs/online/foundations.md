@@ -72,6 +72,8 @@ The screen is built from a few surfaces, and each has one job:
 ## Typography
 
 Three families, all from Google Fonts. For offline play as a PWA, serve them as local `woff2` files.
+All three have every accented letter Portuguese, Spanish and French need (see
+[translation.md](translation.md#fonts-and-accents)).
 
 | Family | Role | Sizes |
 | --- | --- | --- |
@@ -94,6 +96,23 @@ The numerals on chips are drawn shapes, not type (see [chip.md](chip.md#numerals
 - The set: menu, help, back, close, chevron, play, computer, friends, phone, share, copy, QR code,
   globe, replay, lock, hand, plus, up arrow and coffee cup.
 - No emoji anywhere in the interface.
+
+## App icon
+
+The app icon is a `0` chip, drawn to the chip spec ([chip.md](chip.md)) and turned -14°, like the share
+image. It comes in two grounds, because phones treat see-through icons badly: iPhones fill them with
+black, and Android's adaptive icons crop to a shape that needs a solid ground.
+
+| Where | File (in `online/icons`) | Ground | Chip |
+| --- | --- | --- | --- |
+| Browser tab | `favicon.svg`, `favicon-32.png` | None | Fills the icon. No groove and no rim text, which only blur at 16 to 32px |
+| Installed app, desktop | `icon-192.png`, `icon-512.png` | None | 94% of the icon |
+| Android home screen | `maskable-192.png`, `maskable-512.png` | Lime | 74%, inside the 80% safe zone, with the stack shadow |
+| iPhone and iPad home screen | `apple-touch-icon.png` (180px) | Lime | 78%, with the stack shadow |
+
+The 512px icons carry "tikitala.com" on the rim, since they are shown large (splash screens, docks);
+the smaller ones do not, as chips under 60px have none. `tools/online/make-icons.mjs` on `main` draws
+them all from the chip geometry; run it again after any change to the chip.
 
 ## Imagery
 
@@ -127,8 +146,10 @@ With `prefers-reduced-motion`, the pulse becomes a still ring and the trail beco
   taller than the screen, so nothing is ever cut off. The game screen is designed not to scroll, but
   as a safeguard it scrolls rather than clipping when the screen is too short for even the smallest
   board (for example the lessons on a 320×568 phone).
-- **Long words.** Headlines that can get long (such as "Computer wins") use a smaller size so they
-  stay on one line; body text always wraps.
+- **Long words.** Headlines, button labels and names in Bebas Neue stay on one line: when the words
+  are too wide (such as "Computer wins", and more often in other languages), they shrink to fit, down
+  to a minimum size, and only wrap if even that is too wide. They are marked `data-fit` in the page
+  (see [translation.md](translation.md#fitting-longer-words)). Body text always wraps.
 - **Safe areas:** pad the header and the bottom panel with `env(safe-area-inset-*)`. Never draw a fake
   status bar.
 - **Two columns on wide screens.** When the screen is at least 560px wide and wider than 5:4, the game

@@ -19,7 +19,9 @@ The phone flow, in the order a new player meets it. Sizes are for the 390×844 r
     game in progress: "Continue: Player 1's move · 3–2", and a "New pass & play game" link under it.
   - Later: **Play a friend online** (secondary): "Send a link. No sign-up."
 - Text link: "New here? Learn in four moves", which opens the lessons.
-- Footer: "Better on a real table." and a link to the chips at tikitala.com.
+- Footer: "Better on a real table." and a link to the chips at tikitala.com, then the language
+  picker: a globe icon and the current language's name, underlined, with a chevron. It opens the
+  phone's own list of languages, each in its own name (see [translation.md](translation.md#choosing-the-language)).
 
 ## 1b. Play the computer: choose a level
 

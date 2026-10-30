@@ -53,7 +53,7 @@
 | Shop card | Play it on a real table · Get TIKITALA → |
 | Ko-fi | Buy me a coffee |
 | Home choices | Play the computer · Offline. No connection needed. / Play a friend online · Send a link. No sign-up. / Pass & play · Two players on this device |
-| Home footer | Better on a real table. · Get the chips at tikitala.com |
+| Home footer | Better on a real table. · Get the chips at tikitala.com · (globe) English |
 | Invite | Play a friend · You go first · Waiting · Send invite link · Copy link · Show QR · Got a code from a friend? · Join · Play someone new · No accounts, no downloads. The link opens the game in any browser. |
 
 ## Playing the computer
@@ -80,9 +80,16 @@
 
 ## Lessons
 
-The lesson copy lives in `js/lessons.js` in the online folder, next to each lesson's table setup:
+The lesson copy lives in the string tables (`js/strings/en.js` in the online folder, under
+`lesson.<id>.*`); each lesson's table setup stays in `js/lessons.js`:
 
 1. **Five on top wins.** Add a chip from your stash to make five on top.
 2. **Bury their chip.** Drop your 0 on their 1.
 3. **Three high, no peeking.** Lift their 1 off your buried 0; a lifted chip can't go back.
 4. **Hands off their last move.** Their last move is locked; make any other move.
+
+## Other languages
+
+Every string above is in the English string table, `js/strings/en.js`, with the other languages beside
+it. How to translate, the Portuguese glossary and the strings adapted rather than translated (the
+tagline, lesson titles and share text) are in [translation.md](translation.md).

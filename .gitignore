@@ -38,3 +38,5 @@ typings/
 lib/*.js
 test/*.js
 *.map
+# screenshots from tests/online/layout.check.mjs --shots
+shots/

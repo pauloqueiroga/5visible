@@ -25,7 +25,11 @@ The engine documents call the pieces *bricks*. The product, the physical game an
 
 8. "Put it back" returns the player to "Your move" to pick again; dropping a chip back on its own stack (skipping the turn) is not allowed.
 
+9. Every word comes from a string table, in the player's language. The game follows the browser's language, and a picker on the home screen overrides it. English and Brazilian Portuguese come first; see [translation.md](translation.md).
+
 ## Open decisions
 
 Things the design leaves open, to be settled by the project owner:
 
+- A few Brazilian Portuguese word choices, each with its alternative, under
+  [Open choices for review](translation.md#open-choices-for-review).
