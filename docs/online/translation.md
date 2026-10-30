@@ -56,7 +56,7 @@ so translations should still aim to be short. In `en.js`:
   on the table are clipped at its edge, so keep them as short as the English.
 - Instructions under the turn headline should stay within two lines on a 390px phone, about 100
   characters. A third line pushes the table smaller.
-- A no-break space (` `) keeps a pair like "Jogador 1" from breaking across lines.
+- A no-break space (`\u00a0`) keeps a pair like "Peças 1" from breaking across lines.
 
 ## Fonts and accents
 
@@ -135,7 +135,12 @@ since only the chosen language is downloaded.
 - *Você*, usually left implicit by the verb.
 - Instructions in the imperative: *Toque*, *Pegue*, *Solte*. Buttons and menu items in the infinitive,
   as Brazilian apps do: *Continuar*, *Devolver*, *Compartilhar*, *Pular*.
-- Headlines drop the article where a newspaper would: *Computador venceu*, *Jogador 1 venceu*.
+- Headlines drop the article where a newspaper would: *Computador venceu*.
+- Gender neutral. Nothing about a player is masculine or feminine: the other side is *oponente*, with
+  no article or pronoun (which would give it a gender), or is left out where the numeral already says
+  whose piece it is (*solte em cima do 1*). In pass & play each side is named by its number: *Peças 0*
+  on the panels, *o 0* and *o 1* in sentences (*Vez do 1*, *O 1 venceu*), where the article goes with
+  the numeral, not a person. *Ele* and *ela* only ever stand for a piece or a numeral.
 - Digits for counts, as in English.
 
 ### Glossary
@@ -162,8 +167,8 @@ Follows the terminology in [copy.md](copy.md#terminology).
 | full | cheia | |
 | your move | sua vez | A *jogada* is one move |
 | game (one match) | partida | |
-| Player 0 | Jogador 0 | |
-| they, their | eles, deles | The other side, as in the English |
+| Player 0, Player 1 | Peças 0, Peças 1 on the panels; o 0, o 1 in sentences | Named by the number, so no gender (see Voice) |
+| they, their, Them | Oponente, with no article; or left out | *Enterre a peça oponente*, *Oponente · 1*, *solte em cima do 1* |
 | lesson | lição | |
 | rematch | revanche | |
 | share | compartilhar | |
@@ -180,6 +185,7 @@ Follows the terminology in [copy.md](copy.md#terminology).
 | Home | New here? Learn in four moves | Primeira vez? Aprenda em 4 jogadas | Shortened to one line |
 | Lesson 3 | Three high, no peeking | Até três, sem espiar | "Three high" has no short Portuguese equivalent; *até três* is "up to three" |
 | Lesson 4 | Hands off their last move | Não mexa na última jogada | The idiom *tira a mão* sounds like a telling-off |
+| Lesson 4 | They just moved a 1 onto your 0. The chip they moved last is locked: … | Um 1 acabou de ser posto no seu 0. A última peça movida fica travada: … | The passive names no one, so nobody is given a gender |
 | Lesson 4 | That is the game | O jogo é isso | |
 | Levels | LAST PLAYED | DA ÚLTIMA VEZ | "From last time" |
 | Turn | Place it | Reposicione | Chosen in review |
@@ -197,4 +203,3 @@ Each was a judgement call with a reasonable alternative:
 - *Passe e jogue* for Pass & play. Alternative: *Jogar a dois*, very natural, but could suggest playing
   online.
 - *Casa* for a spot on the table. Alternative: *lugar*.
-- *Eles* in the lessons' score line (`PONTOS · Você · Eles`), mirroring "Them".

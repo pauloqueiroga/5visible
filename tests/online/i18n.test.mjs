@@ -155,7 +155,7 @@ test('t(): placeholders, plurals and the English fallback', async () => {
 
   await I.setLanguage('pt-BR');
   assert.equal(I.language(), 'pt-BR');
-  assert.equal(I.t('turn.player', { p: 1 }), 'Vez do Jogador 1');
+  assert.equal(I.t('turn.player', { p: 1 }), 'Vez do 1');
   assert.equal(I.t('stash.left', { n: 1 }), 'Resta 1');
   assert.equal(I.t('stash.left', { n: 5 }), 'Restam 5');
   assert.equal(I.t('panel.otherStash', { n: 0 }), 'Nenhuma peça na reserva');
