@@ -158,8 +158,8 @@ test('t(): placeholders, plurals and the English fallback', async () => {
   assert.equal(I.t('turn.player', { p: 1 }), 'Vez do Jogador 1');
   assert.equal(I.t('stash.left', { n: 1 }), 'Resta 1');
   assert.equal(I.t('stash.left', { n: 5 }), 'Restam 5');
-  assert.equal(I.t('reveal.youBuried', { n: 0 }), 'Você não enterrou nenhuma ficha deles.');
-  assert.equal(I.t('reveal.youBuried', { n: 1 }), 'Você enterrou 1 ficha deles.');
+  assert.equal(I.t('panel.otherStash', { n: 0 }), 'Nenhuma peça na reserva');
+  assert.equal(I.t('panel.otherStash', { n: 1 }), '1 peça na reserva');
   assert.equal(I.t('over.tag', { n: 23 }), 'FIM DE JOGO · 23 JOGADAS');
   assert.equal(I.t('share.youWon', { a: 5, b: 3, level: I.t('level.clever.name') }), 'Ganhei de 5 a 3 do computador Esperto no TIKITALA. Cinco por cima ganha!');
 

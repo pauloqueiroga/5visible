@@ -16,7 +16,7 @@ In the online folder (`gh-pages`):
 | `js/i18n.js` | The list of languages, choosing one, and `t()`, which looks up a string and fills it in |
 | `index.html` | No words of its own: `data-i18n="key"` sets an element's text, `data-i18n-label` its `aria-label`, `data-i18n-alt` its `alt` |
 
-- **Keys** are grouped by screen: `home.tagline`, `turn.place`, `lesson.bury.title`, `over.youWin`.
+- **Keys** are grouped by screen: `home.sub`, `turn.place`, `lesson.bury.title`, `over.youWin`.
 - **Placeholders** in braces are filled in by the game: `{p}` is a player (0 or 1), `{n}`, `{a}` and `{b}`
   are counts, `{level}` is a level's name. A translation can move them, but must keep all of them.
 - **Plurals.** A string that depends on a number can be `{ zero, one, other }` (or any of the forms
@@ -105,7 +105,7 @@ node tests/online/layout.check.mjs --lang pt-BR --shots shots
 1. Copy `js/strings/en.js` to `js/strings/<code>.js`, using a language tag: `es`, `fr`, `pt-PT`. Use a
    plain language (`es`) for one version everywhere, or a region (`es-ES`, `es-419`) when regions differ.
 2. Translate the values. Keep the keys, the placeholders, and the `[display]` and `[label]` budgets.
-   Adapt rather than translate the tagline, the lesson titles and the share text (see below).
+   Adapt rather than translate the lesson titles and the share text (see below).
 3. Add `{ code, name }` to `LANGUAGES` in `js/i18n.js`, with the name in the language itself.
 4. Run both checks above, fix what they report, and read every screenshot.
 5. Add a glossary and the adapted strings to this page.
@@ -144,19 +144,20 @@ Follows the terminology in [copy.md](copy.md#terminology).
 
 | English | Português | Notes |
 | --- | --- | --- |
-| chip | ficha | |
+| chip | peça | Chosen in review over *ficha* |
 | stack | pilha | |
 | spot | casa | As on a board game: *casa vazia* |
 | stash | reserva | |
-| on top | por cima | *Ficar por cima* also means to come out on top |
-| top chip | ficha de cima | |
+| on top | por cima | *Ficar por cima* also means to come out on top. The game-over line says *no topo* |
+| top chip | peça de cima | |
+| ON TOP (the score) | PONTOS | `4 / 5 PONTOS`, and the lessons' score line |
 | pick up | pegar | |
-| place, drop | colocar, soltar | |
+| place, drop | colocar, soltar | The turn headline is *Reposicione* |
 | in your hand | na sua mão | |
 | put it back | devolver | |
 | no take-backs | não tem volta | |
 | bury, buried | enterrar, enterrada | |
-| uncover, uncovered | descobrir, descoberta | Feminine: it is the *ficha* |
+| uncover, uncovered | descobrir, descoberta | Feminine: it is the *peça* |
 | locked | travada | |
 | full | cheia | |
 | your move | sua vez | A *jogada* is one move |
@@ -172,7 +173,7 @@ Follows the terminology in [copy.md](copy.md#terminology).
 
 | Where | English | Português | Why |
 | --- | --- | --- | --- |
-| Tagline, lesson 1 | Five on top wins | Cinco por cima ganha | *Por cima* is how players say a chip is on top, and *ficar por cima* is to come out on top, so it keeps a double sense. *Ganha* rather than *vence*: table talk |
+| Lesson 1 | Five on top wins | Cinco por cima ganha | *Por cima* is how players say a chip is on top, and *ficar por cima* is to come out on top, so it keeps a double sense. *Ganha* rather than *vence*: table talk |
 | Home | Play the computer | Contra o computador | The usual Brazilian name for the mode. *Jogar contra o computador* only fit at a smaller size than the button below it. The last lesson's button keeps the verb, since it has the full width and invites the player in |
 | Home | Continue your Clever game · 3–2 | Continuar contra o Esperto · 3–2 | The level becomes the opponent's name |
 | Home | New pass & play game | Nova partida neste aparelho | *Passe e jogue* does not take a noun well; "a new game on this device" says the same |
@@ -181,9 +182,10 @@ Follows the terminology in [copy.md](copy.md#terminology).
 | Lesson 4 | Hands off their last move | Não mexa na última jogada | The idiom *tira a mão* sounds like a telling-off |
 | Lesson 4 | That is the game | O jogo é isso | |
 | Levels | LAST PLAYED | DA ÚLTIMA VEZ | "From last time" |
-| Game over | They buried 3 of yours. | O computador enterrou 3 das suas. | *Eles* is only plural, and the opponent is one computer |
-| Game over | Top chip in front | A de cima na frente | Shortened so the reveal title keeps its line |
-| Share | I beat the Clever computer at TIKITALA, 5 to 3. Five on top wins. | Ganhei de 5 a 3 do computador Esperto no TIKITALA. Cinco por cima ganha! | *Ganhar de 5 a 3* is how Brazilians report a score; the exclamation turns the tagline into the boast |
+| Turn | Place it | Reposicione | Chosen in review |
+| Score | 4 / 5 ON TOP | 4 / 5 PONTOS | Chosen in review |
+| Game over | The computer got 5 on top. You had 2. | 5 no topo. Você tinha 2. | Chosen in review; the other two game-over lines follow the same pattern (*5 no topo. O computador tinha 1.*) |
+| Share | I beat the Clever computer at TIKITALA, 5 to 3. Five on top wins. | Ganhei de 5 a 3 do computador Esperto no TIKITALA. Cinco por cima ganha! | *Ganhar de 5 a 3* is how Brazilians report a score; the exclamation turns the catchphrase into the boast |
 | Share | The Clever computer beat me at TIKITALA, 5 to 3. | Perdi de 5 a 3 para o computador Esperto no TIKITALA. | Said from the player's side, winner's score first, as in *perdemos de 3 a 1* |
 | Ko-fi | Buy me a coffee | Me pague um café | The common Brazilian phrase |
 
@@ -191,10 +193,11 @@ Follows the terminology in [copy.md](copy.md#terminology).
 
 Each was a judgement call with a reasonable alternative:
 
-- *Por cima* for "on top" (score: `4 / 5 POR CIMA`). Alternative: *no topo*, more literal and a little
-  stiffer.
+- *Por cima* still says "on top" in the lessons, the end-of-game headline (*Cinco por cima!*), the
+  share text and what screen readers hear, while the game-over line now says *no topo* and the score
+  *PONTOS*. Alternative: *no topo* everywhere.
 - *Amigável* for Friendly. Alternative: *Tranquilo*, more Brazilian and closer to "plays casually".
 - *Passe e jogue* for Pass & play. Alternative: *Jogar a dois*, very natural, but could suggest playing
   online.
 - *Casa* for a spot on the table. Alternative: *lugar*.
-- *Eles* in the lessons' score line (`POR CIMA · Você · Eles`), mirroring "Them".
+- *Eles* in the lessons' score line (`PONTOS · Você · Eles`), mirroring "Them".

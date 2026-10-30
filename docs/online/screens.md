@@ -8,9 +8,9 @@ The phone flow, in the order a new player meets it. Sizes are for the 390×844 r
 
 **Purpose:** say what TIKITALA is in one look, then get the player into a game.
 
-- Lime ground. The TIKI TALA logo, centered, 216px wide.
-- Tagline "Five on top wins" in Bebas Neue 42px, then the line "A 2-player game of strategy and
-  sharp memory."
+- Lime ground. The TIKI TALA logo, centered, 216px wide. It is the screen's heading; there is no
+  tagline.
+- The line "A 2-player game of strategy and sharp memory."
 - Three decorative chips, as if dropped on the table.
 - Release 2 has two choices, 64px tall:
   - **Play the computer** (primary, ink with lime text): "Offline. No connection needed." With a game
@@ -79,10 +79,10 @@ where it came from. The tray has a neutral border, never lime. "Put it back" ret
 
 - Lime ground. "GAME OVER · n MOVES" at the top, a close button back to home.
 - "You win" (Bebas Neue 84px), "5 on top. The computer had 3.", a decorative stack.
-- **The big reveal:** a table-colored card, ink outline, "Top chip in front". A 3×3 grid of every
-  stack opened as a staircase (see [interaction.md](interaction.md#end-of-the-game)), then the
-  burying summary and "Did you remember them all?"
-- **Rematch** (primary) and **Share** (secondary).
+- **The big reveal:** a table-colored card, ink outline, with its title and a 3×3 grid of every
+  stack opened as a staircase (see [interaction.md](interaction.md#end-of-the-game)). Nothing else:
+  the open stacks speak for themselves.
+- **Rematch** (primary) and **Share** (secondary), each on its own full-width row.
 - An ink card with a photo of the real chips: "Play it on a real table" and "Get TIKITALA →".
 - A Ko-fi link on a chalk button: "Buy me a coffee".
 

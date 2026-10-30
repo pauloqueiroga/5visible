@@ -92,8 +92,8 @@ seen what was under it, so the move must go ahead.
 - The win screen flips every stack open. Each stack's chips are shown as a staircase: the top chip at
   the top left and in front, each chip below it stepped right by 55% and down by 30% of the chip size,
   so the bottom chip ends at the bottom right and the numerals of buried chips stay visible.
-- A sentence sums up the burying ("You buried 5 of their chips. They buried 3 of yours."). That
-  reveal is the memory payoff, the moment players find out what they forgot.
+- That reveal is the memory payoff, the moment players find out what they forgot. It needs no
+  words: there is no summary of who buried what.
 
 ## The computer opponent
 

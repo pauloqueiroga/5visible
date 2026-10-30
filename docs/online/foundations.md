@@ -77,7 +77,7 @@ All three have every accented letter Portuguese, Spanish and French need (see
 
 | Family | Role | Sizes |
 | --- | --- | --- |
-| **Bebas Neue** (fallback Impact) | Display: screen titles, turn headlines, names, button labels | 84px win headline; 38 to 42px turn headline and home tagline; 30 to 36px titles; 24 to 28px buttons and names; 22px in-game wordmark |
+| **Bebas Neue** (fallback Impact) | Display: screen titles, turn headlines, names, button labels | 84px win headline; 38 to 42px turn headline; 30 to 36px titles; 24 to 28px buttons and names; 22px in-game wordmark |
 | **Barlow** 400/500/600/700 (fallback system-ui) | Body and UI text | 13 to 18px, line height 1.35 to 1.4 |
 | **Roboto Mono** 500/700 (fallback ui-monospace) | Labels, counters, tags, codes | 11 to 12px uppercase with 0.06 to 0.08em letter spacing; 50px for game codes |
 
