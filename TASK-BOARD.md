@@ -14,16 +14,16 @@ A lightweight Kanban-style board, version-controlled alongside the code.
 ## Wish List
 
 - Online: play someone new (matchmaking)
-- Online: offline play as a PWA (local fonts, service worker)
+- Online: offline play as a PWA (local fonts, service worker; cache `js/strings/*.js` too, since only the chosen language is downloaded)
+- Online: translated social previews and app name (needs a URL per language), see [`docs/online/translation.md`](docs/online/translation.md#not-translated)
 - Online: drag and drop, alongside tap to pick and tap to place
 
 ## To Do
 
-- Online: Localize to Portuguese
+- Online: Localize to European Portuguese (`pt-PT`), see [`docs/online/translation.md`](docs/online/translation.md#adding-a-language)
 - Online: Localize to Spanish
 - Online: Localize to French
 - Online: play a friend online (invite link and game code), see [`docs/online/screens.md`](docs/online/screens.md)
-- Online: PWA icon should be a TIKITALA chip, no background
 
 ## In Progress
 

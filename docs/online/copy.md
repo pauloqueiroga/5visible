@@ -49,11 +49,11 @@
 | Score | n / 5 ON TOP |
 | After their move | Your move · Whoever reaches five first wins. |
 | Win | You win · 5 on top. The computer had 3. |
-| Reveal | The big reveal · Top chip in front · You buried n of their chips. They buried n of yours. Did you remember them all? |
+| Reveal | The big reveal |
 | Shop card | Play it on a real table · Get TIKITALA → |
 | Ko-fi | Buy me a coffee |
 | Home choices | Play the computer · Offline. No connection needed. / Play a friend online · Send a link. No sign-up. / Pass & play · Two players on this device |
-| Home footer | Better on a real table. · Get the chips at tikitala.com |
+| Home footer | Better on a real table. · Get the game at tikitala.com · (globe) English |
 | Invite | Play a friend · You go first · Waiting · Send invite link · Copy link · Show QR · Got a code from a friend? · Join · Play someone new · No accounts, no downloads. The link opens the game in any browser. |
 
 ## Playing the computer
@@ -66,7 +66,6 @@
 | Level picker | Play the computer · You play 0 and go first. The computer sees what you see, and remembers buried chips the way people do: some better than others. |
 | Levels | Friendly · Forgets buried chips often and plays casually. Good for a first game. / Clever · Plays well, but loses track of buried chips now and then, like most people. / Ruthless · Remembers almost every chip and thinks a move ahead. |
 | Game over | You win · 5 on top. The computer had 3. / Computer wins · The computer got 5 on top. You had 3. |
-| Reveal | You buried n of their chips. They buried n of yours. Did you remember them all? (a chip counts as buried by whoever dropped the chip right on top of it) |
 | Share | I beat the Clever computer at TIKITALA, 5 to 3. Five on top wins. |
 
 ## Pass & play strings
@@ -75,14 +74,21 @@
 | --- | --- |
 | Panels | Player 0 · Player 1 |
 | Pick-up headline | Player 0's move |
-| Game over | Player 0 wins · 5 on top. Player 1 had 3. · n of Player 0's chips and n of Player 1's ended up buried. Did you remember them all? |
+| Game over | Player 0 wins · 5 on top. Player 1 had 3. |
 | Home, game in progress | Continue your game · Player 1's move · 3–2 · Start a new game |
 
 ## Lessons
 
-The lesson copy lives in `js/lessons.js` in the online folder, next to each lesson's table setup:
+The lesson copy lives in the string tables (`js/strings/en.js` in the online folder, under
+`lesson.<id>.*`); each lesson's table setup stays in `js/lessons.js`:
 
 1. **Five on top wins.** Add a chip from your stash to make five on top.
 2. **Bury their chip.** Drop your 0 on their 1.
 3. **Three high, no peeking.** Lift their 1 off your buried 0; a lifted chip can't go back.
 4. **Hands off their last move.** Their last move is locked; make any other move.
+
+## Other languages
+
+Every string above is in the English string table, `js/strings/en.js`, with the other languages beside
+it. How to translate, the Portuguese glossary and the strings adapted rather than translated (the
+lesson titles and share text) are in [translation.md](translation.md).
