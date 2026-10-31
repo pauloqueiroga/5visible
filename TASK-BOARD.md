@@ -3,8 +3,10 @@
 A lightweight Kanban-style board, version-controlled alongside the code.
 
 This board covers the **website and the online game** (the `gh-pages` line): `index.html`,
-`online/index.html` and `online/js/tikitala-stage.js`. Engine and design work lives on `main`'s own
-`TASK-BOARD.md`. The two boards are independent and are not synced.
+`privacy.html`, `terms.html` and `online/`, where `online/index.html` loads the ES modules under
+`online/js/` (`app.js`, `rules.js`, `computer.js`, `board.js`, `chip.js`, `lessons.js`, `i18n.js` and
+the string tables in `strings/`). Engine and design work lives on `main`'s own `TASK-BOARD.md`, and the
+game's design guide is `docs/online/` on `main`. The two boards are independent and are not synced.
 
 ## Stages
 
@@ -19,39 +21,29 @@ This board covers the **website and the online game** (the `gh-pages` line): `in
 
 ## Wish List
 
-### Installable / PWA
+### Installable / offline
 
-- `manifest.webmanifest` with name, `display: standalone`, theme/background color, and 192/512 + maskable icons derived from `images/tikitala-logo-001.png`
-- Service worker caching the static asset set (`online/index.html`, `js/stage.web.min.js`, `js/tikitala-stage.js`, both sprite sheets) for offline play. The game is already 100% client-side, so offline needs no logic changes
-- `apple-touch-icon` and iOS standalone meta tags
+- Service worker caching the static asset set (`online/index.html`, `css/tikitala.css`, the modules
+  in `js/` and `js/strings/`, `tikitala-dot-com.svg`, `icons/`, `images/`) for offline play. The game
+  is already 100% client-side, and the home screen already says playing the computer needs no
+  connection, which is only true once the page is loaded
 - Custom install prompt (`beforeinstallprompt`) shown after a completed game, not on load
-
-### CPU opponent (sketch, design before building)
-
-- Extract the `Game` function out of `js/tikitala-stage.js` into its own file so it can be driven headlessly. It's already renderer-agnostic via the `ui` callbacks, so this is a file split, not a rewrite
-- Add `legalMoves()` to enumerate `(from, to)` pairs using the existing `canGive`/`canTake`
-- Model hidden information honestly: an engine reading `stack.chips[]` directly sees under the top chip, which a human can't. The CPU needs its own memory of what it has seen, so difficulty becomes *how much it remembers*, not how much it cheats. This is the core design decision
-- Three levels: Easy (random legal move), Medium (greedy: maximize own chips showing, respect the blocked stack), Hard (shallow search plus decaying memory of buried chips)
-- UI: mode picker on the game page (2-player hotseat / vs CPU), pick your color, CPU move delay and animation so moves are readable
-- Reuse the state ideas already documented on `main`: `docs/hashcodes.md` (whole board in one 8-byte int, good for transposition tables) and `docs/mechanics.md`
 
 ### Online 2-player (sketch, design before building)
 
 - Decide the hosting question first, explicitly: GitHub Pages is static, so there is no server on the current host. Any real-time option means a new dependency and a new deploy target
-- Phase 1 (no backend): async "play by link". Encode board state in the URL fragment using the `docs/hashcodes.md` scheme, each player sends a link back. Works today, costs nothing, and forces the state serialization every later option needs anyway
+- Phase 1 (no backend): async "play by link". Encode the game in the URL fragment and each player sends a link back. The game in `online/js/rules.js` is already plain JSON (it is what gets saved to `localStorage`), and `main`'s `docs/hashcodes.md` packs a whole board into one 8-byte int
 - Phase 2 (no backend): WebRTC peer-to-peer with a manual offer/answer code exchange, for two people already in contact
 - Phase 3 (backend): implement `api-doc/5visible-api.yml`. The spec already defines `GET /games` and `PATCH /games` over a `board-view` that hides what a player shouldn't see, and `main`'s `golang/board.go` is a working engine. Needs a host, matchmaking/lobby and reconnect handling
-- Cross-cutting: nickname entry, share/invite flow, spectator-proof state (never send buried chips to the client), rematch
+- Cross-cutting: nickname entry, an invite flow (the end-of-game Share button shares a result and a link to the game, not a game), spectator-proof state (never send buried chips to the client), rematch across devices
 
 ### Polish
 
 - Sound effects with a mute toggle (pick, place, win), off by default
-- Undo for hotseat play (single level, before the next pick)
-- Keyboard and screen-reader access. The board is canvas-only today, so a parallel DOM representation with ARIA is the only real path
-- Save an in-progress game to `localStorage` and offer to resume (the tutorial already uses `localStorage` for `tikitala-tutorial-seen`, so the pattern exists)
+- Undo after a chip is placed, for pass & play. Today a chip can be put back only before it is placed, and only when lifting it revealed nothing (`canPutBack` in `rules.js`); the game says "No take-backs" otherwise, so decide whether undo fits that rule first
 - Move history / replay
 - Dark mode via `prefers-color-scheme`
-- Clean up implicit globals in `js/tikitala-stage.js`: `count0`/`count1` in `checkState()` and the `stackX`/`stackY` arrays all leak onto `window`
+- Portuguese versions of `privacy.html` and `terms.html`. The game links to the English pages from its home screen, marked `hreflang="en"`
 
 ---
 
@@ -59,32 +51,26 @@ This board covers the **website and the online game** (the `gh-pages` line): `in
 
 ### Page fundamentals
 
-- Remove `user-scalable=no, maximum-scale=1.0` from `online/index.html`'s viewport. It blocks pinch-zoom and fails WCAG 1.4.4
 - Fix heading hierarchy on `index.html`. It uses `<h1>` five times as a style, not as structure
 
 ### SEO
 
-- Write real indexable rules text. The rules on `index.html` are image cards whose alt text is mostly the placeholder `"initial setup"`, and there is no crawlable prose version of the rules
-- Give `online/index.html` its own `<h1>` and a short intro paragraph above the canvas. The page currently offers a crawler zero text
+- Write real indexable rules text. The rules on `index.html` are image cards, six of them with the placeholder alt text `"initial setup"`, and there is no crawlable prose version of the rules
+- Give `online/index.html` real text in its HTML. Every word on screen is filled in by `js/i18n.js` from the string tables, so the served page has empty headings and buttons and only the `<noscript>` note as text. Putting the English home-screen text in the markup as a fallback would let crawlers and link previews that don't run JavaScript read it
+
+### Accessibility
+
+- Check the game end to end with VoiceOver, TalkBack and a keyboard only. The pieces are in place (board spots are buttons with labels, locked and full spots say why, every move is announced in a live region), but they haven't been confirmed together on real assistive tech
 
 ### AdSense readiness
 
 All of these gate approval.
 
 - Add an About/contact page or section. AdSense reviews reject thin, contactless sites
-- Add a consent solution for EEA/UK traffic (Google's CMP requirement) before any ad code goes live
+- Add a consent solution for EEA/UK traffic (Google's CMP requirement) before any ad code goes live, and describe the ad cookies in `privacy.html` first, as it promises
 - Add `/ads.txt` once the publisher ID exists
-- Decide and document ad slot placement: banner zones on `index.html`, and *outside* the canvas on `online/index.html`. No interstitials over an in-progress game, nothing that reflows the board
+- Decide and document ad slot placement: banner zones on `index.html`, and on `online/index.html` only where the design guide already allows links out (the home and end-of-game screens). Nothing during a turn, no interstitials over a game in progress, nothing that reflows the board
 - Add the AdSense verification snippet and submit the site
-
-### Player experience
-
-- Add a visible **New Game / Restart** button. Today the only way to restart is to click any stack after a win (`game.ready()` returns false once `turn = -1`), which is undiscoverable
-- Replace "Player 0" / "Player 1" with human labels and a color legend
-- Show a live score ("chips showing: 3 – 2") so players can see progress toward 5 without counting
-- Add a proper win screen naming the winner, with a Play Again action, instead of only the tween-based highlight in the `win` UI callback
-- Explain *why* a stack is grayed out when tapped (3-chip limit vs. opponent's last move). The rule lives in `canTake`/`canGive` but is invisible to a new player
-- Add a link back to `tikitala.com` from the game page, outside the tutorial's last step
 
 ---
 
@@ -96,7 +82,7 @@ All of these gate approval.
 
 ## Won't Do
 
-- Adding a build step, bundler or framework to the online game; conflicts with the constraints in `online/CLAUDE.md`
+- Adding a build step, bundler or framework to the online game; conflicts with the design guide's "plain HTML, CSS and JavaScript" principle (`docs/online/README.md` on `main`)
 - Accounts, logins or player profiles; out of proportion for a free browser game
 - Moving website work onto `main`; the README is explicit that website changes branch off `gh-pages`
 
