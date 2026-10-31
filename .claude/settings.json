@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect_branches.py\"",
+            "statusMessage": "Checking the branch rules"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__github__(create_or_update_file|push_files|delete_file|merge_pull_request|enable_pr_auto_merge)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect_branches.py\"",
+            "statusMessage": "Checking the branch rules"
+          }
+        ]
+      }
+    ]
+  }
+}
