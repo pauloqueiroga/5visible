@@ -20,6 +20,9 @@ export default {
   'home.better': 'Melhor ainda numa mesa de verdade.',
   'home.getGame': 'Compre o jogo em tikitala.com',
   'language': 'Idioma',
+  'legal': 'Privacidade e termos',
+  'legal.privacy': 'Privacidade',
+  'legal.terms': 'Termos de uso',
 
   // moving around
   'nav.back': 'Voltar ao início',

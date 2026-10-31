@@ -26,6 +26,9 @@ export default {
   'home.better': 'Better on a real table.',
   'home.getGame': 'Get the game at tikitala.com',
   'language': 'Language',
+  'legal': 'Privacy and terms',
+  'legal.privacy': 'Privacy',
+  'legal.terms': 'Terms of use',
 
   // moving around
   'nav.back': 'Back to home',

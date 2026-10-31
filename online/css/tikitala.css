@@ -116,6 +116,9 @@ button, a { touch-action: manipulation; }
   content: ''; position: absolute; right: 3px; top: 50%; width: 7px; height: 7px; margin-top: -6px;
   border: solid currentColor; border-width: 0 2px 2px 0; transform: rotate(45deg);
 }
+/* privacy and terms: a quiet second row under the footer */
+.home-legal { flex-basis: 100%; display: flex; justify-content: center; gap: 20px; }
+.home-footer .home-legal a { min-height: 32px; font-size: 13px; font-weight: 500; color: var(--muted-on-lime); text-decoration: underline; text-underline-offset: 3px; }
 .lang-pick select { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; font-size: 16px; cursor: pointer; }
 .lang-pick:has(select:focus-visible) { outline: 3px solid currentColor; outline-offset: 2px; border-radius: 8px; }
 .btn-secondary-big { background: var(--lime-pale); color: var(--ink); border: 2px solid var(--ink); }
